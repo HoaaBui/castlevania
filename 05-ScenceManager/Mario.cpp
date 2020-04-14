@@ -12,6 +12,7 @@ CMario::CMario() : CGameObject()
 {
 	level = MARIO_LEVEL_BIG;
 	untouchable = 0;
+	// SetPosition(0, -1000);
 	SetState(MARIO_STATE_IDLE);
 }
 
@@ -147,7 +148,8 @@ void CMario::Render()
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
-
+	// DebugOut(L"Position X: %d\n", x);
+	// DebugOut(L"Position Y: %d\n", y);
 	animation_set->at(ani)->Render(x, y, alpha);
 
 	RenderBoundingBox();

@@ -168,7 +168,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	}
 
 	// General object setup
-	obj->SetPosition(x, y);
+	// DebugOut(L"Type of object: %d\n", obj);
+	// // DebugOut(L"Init position of Object X : %d\n", x);
+	// DebugOut(L"Init position of Object Y : %d\n", y);
+	if(dynamic_cast<CMario *>(obj)){
+		obj->SetPosition(x, y-600);
+	}else{
+		obj->SetPosition(x, y );
+	}
 
 	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 
@@ -221,7 +228,8 @@ void CPlayScene::Load()
 
 	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 
-	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
+	// DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
+	// DebugOut(L"[INFO] This is your current scene %s\n", this->current_scene);
 }
 
 void CPlayScene::Update(DWORD dt)
@@ -247,6 +255,11 @@ void CPlayScene::Update(DWORD dt)
 
 
 	CGame *game = CGame::GetInstance();
+	// cx -= 0;
+	// cy -= (game->GetScreenHeight() / 2 +125);
+
+	// CGame::GetInstance()->SetCamPos(cx, cy /*cy*/);
+
 	cx -= game->GetScreenWidth() / 2;
 	cy -= game->GetScreenHeight() / 2;
 
@@ -264,9 +277,7 @@ void CPlayScene::Render()
 */
 void CPlayScene::Unload()
 {
-	for (int i = 0; i < objects.size(); i++)
-		delete objects[i];
-
+	for (int i = 0; i < objects.size(); i++) delete objects[i];
 	objects.clear();
 	player = NULL;
 }
