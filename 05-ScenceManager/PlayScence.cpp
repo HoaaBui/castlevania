@@ -244,7 +244,8 @@ void CPlayScene::Update(DWORD dt)
 		objects[i]->Update(dt, &coObjects);
 	}
 
-
+	
+	// Update camera to follow mario
 	// Update camera to follow mario
 	float cx, cy;
 	player->GetPosition(cx, cy);
