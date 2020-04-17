@@ -6,6 +6,7 @@
 #include "Textures.h"
 #include "Sprites.h"
 #include "Portal.h"
+#include "TileMap.h"
 
 using namespace std;
 
@@ -178,6 +179,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 void CPlayScene::Load()
 {
+	map1 = new CTileMap(L"textures\\map1_tiled.PNG", 64, 64, 14, 8);
+	map1->InitMap("map1.txt", MAP1_LENGTH);
+
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
 
 	ifstream f;
@@ -244,17 +248,19 @@ void CPlayScene::Update(DWORD dt)
 	// Update camera to follow mario
 	float cx, cy;
 	player->GetPosition(cx, cy);
-
+	DebugOut(L"[INFO] Position of Simon X: %f\n", cx);
+	DebugOut(L"[INFO] Position of Simon Y: %f\n", cy);
 
 	CGame *game = CGame::GetInstance();
 	cx -= game->GetScreenWidth() / 2;
 	cy -= game->GetScreenHeight() / 2;
 
-	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	CGame::GetInstance()->SetCamPos(cx,40);
 }
 
 void CPlayScene::Render()
 {
+	map1->MapLvlRender();
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 }

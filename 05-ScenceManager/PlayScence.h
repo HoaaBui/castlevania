@@ -7,13 +7,15 @@
 #include "Mario.h"
 #include "Goomba.h"
 #include "Koopas.h"
+#include "TileMap.h"
 
+#define MAP1_LENGTH			1472
 
 class CPlayScene: public CScene
 {
-protected: 
+public: 
 	CMario *player;					// A play scene has to have player, right? 
-
+	CTileMap *map1;
 	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_TEXTURES(string line);
