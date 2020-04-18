@@ -60,8 +60,8 @@ void CTileMap::MapLvlRender() // dua duong dan vao day
 	int numOfCol = mapLength / tileWidth;
 	int startRow = int(game->GetInstance()->cam_y / tileHeight);
 	int endRow = startRow + (map.size() / numOfCol);			//vi Map khong co do sau Y
-	float offsetX = -game->GetInstance()->cam_x + startCol * tileHeight;
-	float offsetY = -game->GetInstance()->cam_y + startRow * tileHeight;
+	float offsetX = ceil(-(game->GetInstance()->cam_x)) + startCol * tileHeight;
+	float offsetY = ceil(-game->GetInstance()->cam_y) + startRow * tileHeight;
 
 	
 

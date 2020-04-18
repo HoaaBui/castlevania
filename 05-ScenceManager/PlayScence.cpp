@@ -246,9 +246,16 @@ void CPlayScene::Update(DWORD dt)
 
 	
 	// Update camera to follow mario
-	// Update camera to follow mario
 	float cx, cy;
 	player->GetPosition(cx, cy);
+	if(cx<=0){
+		player->SetPosition(0,cy);
+	}
+	if( cx<0 || (cx>=0 && cx<=255) ){
+		cx=255;
+	}else if(cx>=1093){
+		cx=1093;
+	}
 	DebugOut(L"[INFO] Position of Simon X: %f\n", cx);
 	DebugOut(L"[INFO] Position of Simon Y: %f\n", cy);
 
@@ -256,7 +263,7 @@ void CPlayScene::Update(DWORD dt)
 	cx -= game->GetScreenWidth() / 2;
 	cy -= game->GetScreenHeight() / 2;
 
-	CGame::GetInstance()->SetCamPos(cx,40);
+	CGame::GetInstance()->SetCamPos(cx,0);
 }
 
 void CPlayScene::Render()
