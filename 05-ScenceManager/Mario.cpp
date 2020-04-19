@@ -147,7 +147,7 @@ void CMario::Render()
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
-
+	DebugOut(L"[INFO] The number of Mario animation is %d \n", ani);
 	animation_set->at(ani)->Render(x, y, alpha);
 
 	RenderBoundingBox();
