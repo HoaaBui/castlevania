@@ -296,10 +296,15 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 		mario->SetState(MARIO_STATE_JUMP);
 		break;
 	case DIK_A: // reset
-		mario->SetState(MARIO_STATE_IDLE);
-		mario->SetLevel(MARIO_LEVEL_BIG);
-		mario->SetPosition(50.0f, 0.0f);
-		mario->SetSpeed(0, 0);
+		// mario->SetState(MARIO_STATE_IDLE);
+		// mario->SetLevel(MARIO_LEVEL_BIG);
+		// mario->SetPosition(50.0f, 0.0f);
+		// mario->SetSpeed(0, 0);
+		if (mario->nx > 0){
+			mario->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);
+		}else{
+			mario->SetState(MARIO_STATE_ATTACK_STAND_LEFT);
+		}
 		break;
 	}
 }

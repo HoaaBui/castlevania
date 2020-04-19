@@ -13,16 +13,21 @@
 #define MARIO_STATE_WALKING_LEFT	200
 #define MARIO_STATE_JUMP			300
 #define MARIO_STATE_DIE				400
+#define MARIO_STATE_ATTACK_STAND_RIGHT	500
+#define MARIO_STATE_ATTACK_STAND_LEFT	600
 
 #define MARIO_ANI_BIG_IDLE_RIGHT		0
 #define MARIO_ANI_BIG_IDLE_LEFT			1
 #define MARIO_ANI_SMALL_IDLE_RIGHT		2
-#define MARIO_ANI_SMALL_IDLE_LEFT			3
+#define MARIO_ANI_SMALL_IDLE_LEFT		3
 
 #define MARIO_ANI_BIG_WALKING_RIGHT			4
 #define MARIO_ANI_BIG_WALKING_LEFT			5
 #define MARIO_ANI_SMALL_WALKING_RIGHT		6
 #define MARIO_ANI_SMALL_WALKING_LEFT		7
+
+#define MARIO_ANI_BIG_ATTACK_STAND_RIGHT	9
+#define MARIO_ANI_BIG_ATTACK_STAND_LEFT		10
 
 #define MARIO_ANI_DIE				8
 
@@ -40,9 +45,12 @@
 
 class CMario : public CGameObject
 {
+public:
 	int level;
 	int untouchable;
 	DWORD untouchable_start;
+
+	int isAttack;
 public: 
 	CMario();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);

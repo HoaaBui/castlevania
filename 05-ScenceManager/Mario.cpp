@@ -13,6 +13,7 @@ CMario::CMario() : CGameObject()
 	level = MARIO_LEVEL_BIG;
 	untouchable = 0;
 	SetState(MARIO_STATE_IDLE);
+	isAttack = false;
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -116,34 +117,38 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-void CMario::Render()
-{
+void CMario::Render(){
 	int ani = -1;
-	if (state == MARIO_STATE_DIE)
+
+	if(state == MARIO_STATE_DIE){
 		ani = MARIO_ANI_DIE;
-	else
-	if (level == MARIO_LEVEL_BIG)
-	{
-		if (vx == 0)
-		{
-			if (nx>0) ani = MARIO_ANI_BIG_IDLE_RIGHT;
-			else ani = MARIO_ANI_BIG_IDLE_LEFT;
-		}
-		else if (vx > 0) 
+	}else if(level == MARIO_LEVEL_BIG){
+		if (vx == 0){
+			if(state == MARIO_STATE_ATTACK_STAND_RIGHT){
+				ani = MARIO_ANI_BIG_ATTACK_STAND_RIGHT;
+			}else if(state == MARIO_STATE_ATTACK_STAND_LEFT){
+				ani = MARIO_ANI_BIG_ATTACK_STAND_LEFT;
+			}else{
+				if (nx>0) ani = MARIO_ANI_BIG_IDLE_RIGHT;
+				else ani = MARIO_ANI_BIG_IDLE_LEFT;
+			}
+		}else if(vx > 0){
 			ani = MARIO_ANI_BIG_WALKING_RIGHT; 
-		else ani = MARIO_ANI_BIG_WALKING_LEFT;
-	}
-	else if (level == MARIO_LEVEL_SMALL)
-	{
-		if (vx == 0)
-		{
-			if (nx>0) ani = MARIO_ANI_SMALL_IDLE_RIGHT;
-			else ani = MARIO_ANI_SMALL_IDLE_LEFT;
+		}else{
+			ani = MARIO_ANI_BIG_WALKING_LEFT;
 		}
-		else if (vx > 0)
-			ani = MARIO_ANI_SMALL_WALKING_RIGHT;
-		else ani = MARIO_ANI_SMALL_WALKING_LEFT;
 	}
+	// else if (level == MARIO_LEVEL_SMALL)
+	// {
+	// 	if (vx == 0)
+	// 	{
+	// 		if (nx>0) ani = MARIO_ANI_SMALL_IDLE_RIGHT;
+	// 		else ani = MARIO_ANI_SMALL_IDLE_LEFT;
+	// 	}
+	// 	else if (vx > 0)
+	// 		ani = MARIO_ANI_SMALL_WALKING_RIGHT;
+	// 	else ani = MARIO_ANI_SMALL_WALKING_LEFT;
+	// }
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
@@ -165,6 +170,14 @@ void CMario::SetState(int state)
 		break;
 	case MARIO_STATE_WALKING_LEFT: 
 		vx = -MARIO_WALKING_SPEED;
+		nx = -1;
+		break;
+	case MARIO_STATE_ATTACK_STAND_RIGHT: 
+		vx = 0;
+		nx = 1;
+		break;
+	case MARIO_STATE_ATTACK_STAND_LEFT: 
+		vx = 0;
 		nx = -1;
 		break;
 	case MARIO_STATE_JUMP: 
