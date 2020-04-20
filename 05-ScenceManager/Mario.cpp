@@ -14,6 +14,7 @@ CMario::CMario() : CGameObject()
 	untouchable = 0;
 	SetState(MARIO_STATE_IDLE);
 	isAttack = false;
+	attackTime = 0;
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -119,25 +120,48 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CMario::Render(){
 	int ani = -1;
+	int value = -1;
+	if(this->isAttack){
+		value = 1;
+	}else if(this->isAttack == false){
+		value = 0;
+	}
+	DebugOut(L"[INFO] The value of isAttack: %d", value);
 
-    if(state == MARIO_STATE_DIE){
-		ani = MARIO_ANI_DIE;
-	}else if(level == MARIO_LEVEL_BIG){
-		if (vx == 0){
-			if(state == MARIO_STATE_ATTACK_STAND_RIGHT){
-				ani = MARIO_ANI_BIG_ATTACK_STAND_RIGHT;
-			}else if(state == MARIO_STATE_ATTACK_STAND_LEFT){
-				ani = MARIO_ANI_BIG_ATTACK_STAND_LEFT;
-			}else{
-				if (nx>0) ani = MARIO_ANI_BIG_IDLE_RIGHT;
-				else ani = MARIO_ANI_BIG_IDLE_LEFT;
-			}
-		}else if(vx > 0){
-			ani = MARIO_ANI_BIG_WALKING_RIGHT; 
+	if(this->isAttack){
+		attackTime += dt;
+		if(nx>0){
+			ani = MARIO_ANI_BIG_ATTACK_STAND_RIGHT;
 		}else{
-			ani = MARIO_ANI_BIG_WALKING_LEFT;
+			ani = MARIO_ANI_BIG_ATTACK_STAND_LEFT;
+		}
+	}else{
+		if(state == MARIO_STATE_DIE){
+			ani = MARIO_ANI_DIE;
+		}else if(level == MARIO_LEVEL_BIG){
+			if (vx == 0){
+				// if(state == MARIO_STATE_ATTACK_STAND_RIGHT){
+				// 	ani = MARIO_ANI_BIG_ATTACK_STAND_RIGHT;
+				// }else if(state == MARIO_STATE_ATTACK_STAND_LEFT){
+				// 	ani = MARIO_ANI_BIG_ATTACK_STAND_LEFT;
+				// }else{
+					if (nx>0) ani = MARIO_ANI_BIG_IDLE_RIGHT;
+					else ani = MARIO_ANI_BIG_IDLE_LEFT;
+				// }
+			}else if(vx > 0){
+				ani = MARIO_ANI_BIG_WALKING_RIGHT; 
+			}else{
+				ani = MARIO_ANI_BIG_WALKING_LEFT;
+			}
 		}
 	}
+
+	if(attackTime >= 200){
+		SetState(MARIO_STATE_IDLE);
+		attackTime = 0;
+		this->isAttack = false;
+	}
+
 	// else if (level == MARIO_LEVEL_SMALL)
 	// {
 	// 	if (vx == 0)

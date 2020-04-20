@@ -51,6 +51,7 @@ public:
 	DWORD untouchable_start;
 
     bool isAttack;
+	DWORD attackTime;
 public: 
 	CMario();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
