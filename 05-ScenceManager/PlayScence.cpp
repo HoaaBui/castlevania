@@ -309,8 +309,26 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	}
 }
 
-void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
-{}
+void CPlayScenceKeyHandler::OnKeyUp(int KeyCode){
+	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
+	CMario *mario = ((CPlayScene*)scence)->player;
+	
+	switch (KeyCode){
+		case DIK_DOWN:
+			// if (mario->isAttacking != false)
+			// {
+			// 	mario->animations[MARIO_ANI_ATK_LEFT]->SetCurrentFrame(-1);
+			// 	mario->animations[MARIO_ANI_ATK_RIGHT]->SetCurrentFrame(-1);
+			// 	mario->animations[MARIO_ANI_SIT_ATK_LEFT]->SetCurrentFrame(-1);
+			// 	mario->animations[MARIO_ANI_SIT_ATK_RIGHT]->SetCurrentFrame(-1);
+			// 	mario->GetWhip()->animations[WHIP_ANI_ATK_LEFT]->SetCurrentFrame(-1);
+			// 	mario->GetWhip()->animations[WHIP_ANI_ATK_RIGHT]->SetCurrentFrame(-1);
+			// 	mario->SetAttackTime(0.0f);
+			// }
+			mario->isSit = false;
+			break;
+	}
+}
 
 void CPlayScenceKeyHandler::KeyState(BYTE *states){
 	CGame *game = CGame::GetInstance();
@@ -324,6 +342,9 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states){
 		mario->SetState(MARIO_STATE_WALKING_RIGHT);
 	}else if (game->IsKeyDown(DIK_LEFT)){
 		mario->SetState(MARIO_STATE_WALKING_LEFT);
+	}else if(game->IsKeyDown(DIK_DOWN) && !mario->isAttack){
+		mario->SetState(MARIO_STATE_SIT_RIGHT);
+		// mario->SetState(MARIO_STATE_SIT_LEFT);
 	}else{
 		mario->SetState(MARIO_STATE_IDLE);
 	}

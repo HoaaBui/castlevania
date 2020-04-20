@@ -14,6 +14,7 @@ CMario::CMario() : CGameObject()
 	untouchable = 0;
 	SetState(MARIO_STATE_IDLE);
 	isAttack = false;
+	isSit = false;
 	attackTime = 0;
 }
 
@@ -135,6 +136,12 @@ void CMario::Render(){
 		}else{
 			ani = MARIO_ANI_BIG_ATTACK_STAND_LEFT;
 		}
+	}else if(this->isSit){
+		if(nx>0){
+			ani = MARIO_ANI_BIG_SIT_RIGHT;
+		}else{
+			ani = MARIO_ANI_BIG_SIT_LEFT;
+		}
 	}else{
 		if(state == MARIO_STATE_DIE){
 			ani = MARIO_ANI_DIE;
@@ -199,12 +206,22 @@ void CMario::SetState(int state)
 	case MARIO_STATE_ATTACK_STAND_RIGHT: 
 		vx = 0;
 		nx = 1;
-		isAttack = true;
+		this->isAttack = true;
 		break;
 	case MARIO_STATE_ATTACK_STAND_LEFT: 
 		vx = 0;
 		nx = -1;
-		isAttack = true;
+		this->isAttack = true;
+		break;
+	case MARIO_STATE_SIT_RIGHT:
+		vy = 0;
+		vx = 0;
+		this->isSit = true;
+		break;
+	case MARIO_STATE_SIT_LEFT:
+		vy = 0;
+		vx = 0;
+		this->isSit = true;
 		break;
 	case MARIO_STATE_JUMP: 
 		vy = -MARIO_JUMP_SPEED_Y;
