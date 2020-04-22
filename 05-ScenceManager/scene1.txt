@@ -2,6 +2,8 @@
 [TEXTURES]
 0	textures\mario.png	255	255	255
 1	textures\SIMON.png	255	0	255
+2	textures\whip_right.bmp	255	0	255
+3	textures\whip_left.bmp	255	0	255
 20	textures\misc.png	176	224	248
 10	textures\enemies.png	3	26	110
 
@@ -30,25 +32,31 @@
 10051	300	198	360	264	1
 10052	360	198	420	264	1
 10053	420	198	480	264	1
-
 # sit right
 10061	180	0	240	66	1
 # sit left
 10071	240	198	300	264	1
-
 # attack sit right
 10081	0	66	60	132	1
 10082	420	132	480	198	1
 10083	360	132	420	198	1
-
 # attack sit left
 10091	420	264	480	330	1
 10092	0	330	60	396	1
-1009    60	330	120	396	1
-
-
+10093   60	330	120	396	1
 # die 
 10099	215	120	231	135	0
+
+# WHIP
+# whip attack right level ZERO
+50001	70	12	105	70	2
+50002	325	5	375	60	2
+50003	580	10	720	35	2
+# whip attack left level ZERO
+50004	540	10	700	65	3
+50005	290	5	435	60	3
+50006	30	10	105	35	3
+
 # SMALL MARIO
 # idle small right
 10021	247	0	259	15	0
@@ -62,6 +70,7 @@
 10033	125	0	139	15	0
 #BRICK
 20001	408	225	424	241	20
+
 #GOOMBA
 30001	5	14	21	29	10
 30002	25	14	41	29	10
@@ -113,6 +122,10 @@
 #die
 599	10099	100
 
+#whip right level ZERO
+801	50001	100	50002	100	50003	100
+#whip left level ZERO
+802	50004	100	50005	100	50006	100
 
 # ==== BRICK =========
 601	20001	100
@@ -135,6 +148,8 @@
 [ANIMATION_SETS]
 # MARIO
 1	400	401	402	403	500	501	502	503	599	504	505	506	507	508	509
+# WHIP 
+4	801	802
 # BRICK 
 2	601
 # QUESTION MARK BRICK 
@@ -147,6 +162,9 @@
 # type: 0 = Mario , 1 = Brick, 2 = Goomba
 # MARIO
 0	50.0	250	1
+
+# WHIP
+4	10000	10000	4
 
 # GOOMBA
 # 2	200	135	3
