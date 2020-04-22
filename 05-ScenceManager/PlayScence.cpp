@@ -248,9 +248,13 @@ void CPlayScene::Update(DWORD dt)
 	// Update camera to follow mario
 	float cx, cy;
 	player->GetPosition(cx, cy);
+	//Update Simon position
 	if(cx<=0){
 		player->SetPosition(0,cy);
+	}else if(cx>=1300){
+		player->SetPosition(1300,cy);
 	}
+	//Update camera position
 	if( cx<0 || (cx>=0 && cx<=255) ){
 		cx=255;
 	}else if(cx>=1093){
