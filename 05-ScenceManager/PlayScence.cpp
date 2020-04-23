@@ -7,6 +7,7 @@
 #include "Sprites.h"
 #include "Portal.h"
 #include "TileMap.h"
+#include "Whip.h"
 
 using namespace std;
 
@@ -158,7 +159,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_WHIP:
 		// DebugOut(L"[INFO] This is your WHIP id hooray: %d\n", object_type);
 		// return;
-		obj = new CBrick(); break;
+		obj = new CWhip(); break;
 	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(); break;
 	case OBJECT_TYPE_PORTAL:
 		{	

@@ -3,7 +3,7 @@
 0	textures\mario.png	255	255	255
 1	textures\SIMON.png	255	0	255
 2	textures\whip_right.bmp	255	0	255
-3	textures\whip_left.bmp	255	0	255
+3	textures\whip_left.png	255	0	255
 20	textures\misc.png	176	224	248
 10	textures\enemies.png	3	26	110
 
