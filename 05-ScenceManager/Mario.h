@@ -73,8 +73,8 @@ public:
 	void SetLevel(int l) { level = l; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 
-	void SetWhip(CWhip whip) { mainWeap = whip; };
-	void GetWhip(CWhip &whip) { whip = mainWeap; };
+	// void SetWhip(CWhip whip) { mainWeap = whip; };
+	// void GetWhip(CWhip &whip) { whip = mainWeap; };
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 };
