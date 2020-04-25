@@ -47,9 +47,12 @@ void CWhip::Render()
 	int state = whip->GetState();
     DebugOut(L"[INFO] This is your current whip STATE : %d\n", state);
 	if(state == WHIP_STATE_RIGHT){
-       animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->Render(x, y);
-	}else{
        animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->Render(x, y);
+	}else if(state == WHIP_STATE_LEFT){
+       animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->Render(x, y);
+	}else if(state == WHIP_STATE_DISAPPEAR){
+		animation_set->at(0)->SetCurrentFrame(-1);
+		animation_set->at(1)->SetCurrentFrame(-1);
 	}
 
 }

@@ -178,10 +178,18 @@ void CMario::Render(){
 		SetState(MARIO_STATE_IDLE);
 		attackTime = 0;
 		this->isAttack = false;
+		
+		if(this->isAttack == false){
+			CWhip::GetInstance()->SetState(WHIP_STATE_DISAPPEAR);
+		}
 	}
 
 	if(this->isAttack){
-		CWhip::GetInstance()->SetState(WHIP_STATE_RIGHT);
+		if(nx>0){
+           CWhip::GetInstance()->SetState(WHIP_STATE_RIGHT);
+		}else{
+           CWhip::GetInstance()->SetState(WHIP_STATE_LEFT);
+		}
 
 		// CWhip * whip = CWhip::GetInstance();
 		// int state = whip->GetState();
