@@ -7,6 +7,7 @@
 
 #include "Goomba.h"
 #include "Portal.h"
+#include "Whip.h"
 
 CMario::CMario() : CGameObject()
 {
@@ -16,6 +17,7 @@ CMario::CMario() : CGameObject()
 	isAttack = false;
 	isSit = false;
 	attackTime = 0;
+	mainWeap = new CWhip();
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)

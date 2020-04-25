@@ -1,8 +1,12 @@
 #pragma once
 #include "GameObject.h"
+#include "Utils.h"
 
 #define WHIP_BBOX_WIDTH  16
 #define WHIP_BBOX_HEIGHT 16
+
+#define ANIMATION_ATTACK_WHIP_RIGHT_ZERO 0
+#define ANIMATION_ATTACK_WHIP_LEFT_ZERO 1
 
 class CWhip : public CGameObject
 {

@@ -32,7 +32,7 @@ public:
 	void Add(int spriteId, DWORD time = 0);
 
 	void SetCurrentFrame(int frame) { this->currentFrame = frame; };
-	void GetCurrentFrame(int &frame) { frame = this->currentFrame };
+	void GetCurrentFrame(int &frame) { frame = this->currentFrame; };
 
 	void Render(float x, float y, int alpha = 255);
 };

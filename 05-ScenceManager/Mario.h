@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Whip.h"
 
 #define MARIO_WALKING_SPEED		0.1f 
 //0.1f
@@ -63,6 +64,7 @@ public:
     bool isAttack;
 	bool isSit;
 	DWORD attackTime;
+	CWhip *mainWeap;
 public: 
 	CMario();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
@@ -70,6 +72,9 @@ public:
 	void SetState(int state);
 	void SetLevel(int l) { level = l; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
+
+	void SetWhip(CWhip whip) { mainWeap = whip; };
+	void GetWhip(CWhip &whip) { whip = mainWeap; };
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 };
