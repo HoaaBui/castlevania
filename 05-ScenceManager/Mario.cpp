@@ -139,11 +139,11 @@ void CMario::Render(){
 		if(nx>0){
 			ani = MARIO_ANI_BIG_ATTACK_STAND_RIGHT;
 			// DebugOut(L"[INFO] Simon X position: %f", simonPosX);
-			mainWeap->SetPosition(simonPosX +10, simonPosY + 12);
-            mainWeap->GetPosition(xxx,yyy);
-			DebugOut(L"[INFO] Whip X position: %f", xxx);
-			DebugOut(L"[INFO] Whip Y position: %f", yyy);
-			mainWeap->Render();
+			// mainWeap->SetPosition(simonPosX +10, simonPosY + 12);
+            // mainWeap->GetPosition(xxx,yyy);
+			// DebugOut(L"[INFO] Whip X position: %f", xxx);
+			// DebugOut(L"[INFO] Whip Y position: %f", yyy);
+			// mainWeap->Render();
 		}else{
 			ani = MARIO_ANI_BIG_ATTACK_STAND_LEFT;
 		}
@@ -178,6 +178,14 @@ void CMario::Render(){
 		SetState(MARIO_STATE_IDLE);
 		attackTime = 0;
 		this->isAttack = false;
+	}
+
+	if(this->isAttack){
+		CWhip::GetInstance()->SetState(WHIP_STATE_RIGHT);
+
+		// CWhip * whip = CWhip::GetInstance();
+		// int state = whip->GetState();
+		// DebugOut(L"[INFO] This is your current whip STATE : %d\n", state);
 	}
 
 	// else if (level == MARIO_LEVEL_SMALL)

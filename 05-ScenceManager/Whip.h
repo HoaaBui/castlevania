@@ -14,6 +14,9 @@
 class CWhip : public CGameObject
 {
 public:
+    static CWhip* instance;
+	static CWhip* GetInstance();
+public:
     CWhip();
 	~CWhip();
 	virtual void Render();

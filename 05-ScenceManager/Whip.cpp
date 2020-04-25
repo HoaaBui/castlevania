@@ -9,6 +9,16 @@ CWhip::~CWhip(){
 
 }
 
+CWhip * CWhip::instance = NULL;
+CWhip * CWhip::GetInstance()
+{
+	if (instance == NULL)
+	{
+		instance = new CWhip();
+	}
+	return instance;
+}
+
 void CWhip::SetState(int state){
 	
 	CGameObject::SetState(state);
@@ -27,11 +37,21 @@ void CWhip::SetState(int state){
 
 void CWhip::Render()
 {
-	int currentFrame = -1;
-	animation_set->at(0)->GetCurrentFrame(currentFrame);
-	DebugOut(L"[INFO] This is your current whip frame : %d\n", currentFrame);
-	animation_set->at(0)->Render(x, y);
-	//RenderBoundingBox();
+	// int currentFrame = -1;
+	// animation_set->at(0)->GetCurrentFrame(currentFrame);
+	// DebugOut(L"[INFO] This is your current whip frame : %d\n", currentFrame);
+	// animation_set->at(1)->Render(x, y);
+	// //RenderBoundingBox();
+
+    CWhip * whip = CWhip::GetInstance();
+	int state = whip->GetState();
+    DebugOut(L"[INFO] This is your current whip STATE : %d\n", state);
+	if(state == WHIP_STATE_RIGHT){
+       animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->Render(x, y);
+	}else{
+       animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->Render(x, y);
+	}
+
 }
 
 void CWhip::GetBoundingBox(float &l, float &t, float &r, float &b)
