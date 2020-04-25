@@ -2,23 +2,23 @@
 #include "Utils.h"
 
 CWhip::CWhip(){
-
+    
 }
 
 CWhip::~CWhip(){
 
 }
 
-void CWhip::SetState(int state)
-{
+void CWhip::SetState(int state){
+	
 	CGameObject::SetState(state);
-	switch (state)
-	{
-	case WHIP_STATE_LEFT:
-		nx = -1;
-		break;
+	
+	switch (state){
 	case WHIP_STATE_RIGHT:
 		nx = 1;
+		break;
+	case WHIP_STATE_LEFT:
+		nx = -1;
 		break;
 	default:
 		break;

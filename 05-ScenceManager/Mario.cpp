@@ -129,12 +129,21 @@ void CMario::Render(){
 	}else if(this->isAttack == false){
 		value = 0;
 	}
-	DebugOut(L"[INFO] The value of isAttack: %d", value);
+	// DebugOut(L"[INFO] The value of isAttack: %d", value);
+ 
+    float simonPosX = 0.0f, simonPosY = 0.0f, xxx = 0.0f, yyy = 0.0f;
+	GetPosition(simonPosX, simonPosY);
 
 	if(this->isAttack){
 		attackTime += dt;
 		if(nx>0){
 			ani = MARIO_ANI_BIG_ATTACK_STAND_RIGHT;
+			// DebugOut(L"[INFO] Simon X position: %f", simonPosX);
+			mainWeap->SetPosition(simonPosX +10, simonPosY + 12);
+            mainWeap->GetPosition(xxx,yyy);
+			DebugOut(L"[INFO] Whip X position: %f", xxx);
+			DebugOut(L"[INFO] Whip Y position: %f", yyy);
+			mainWeap->Render();
 		}else{
 			ani = MARIO_ANI_BIG_ATTACK_STAND_LEFT;
 		}
@@ -241,13 +250,10 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 	left = x;
 	top = y; 
 
-	if (level==MARIO_LEVEL_BIG)
-	{
+	if (level==MARIO_LEVEL_BIG) {
 		right = x + MARIO_BIG_BBOX_WIDTH;
 		bottom = y + MARIO_BIG_BBOX_HEIGHT;
-	}
-	else
-	{
+	} else {
 		right = x + MARIO_SMALL_BBOX_WIDTH;
 		bottom = y + MARIO_SMALL_BBOX_HEIGHT;
 	}
