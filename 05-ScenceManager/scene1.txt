@@ -5,6 +5,8 @@
 2	textures\whip_right.bmp	255	0	255
 3	textures\whip_left.png	255	0	255
 4	textures\ground1.png	0	0	0
+5	textures\light.png	255	0	255
+6	textures\light_die.bmp	255	0	255
 20	textures\misc.png	176	224	248
 10	textures\enemies.png	3	26	110
 
@@ -57,6 +59,14 @@
 50004	665	10	700	65	3
 50005	395	5	435	60	3
 50006	30	10	105	35	3
+
+# LIGHT
+# light state alive
+60001	0	0	32	64	5
+60002	32	0	64	64	5
+# light state destroy
+60003	0	0	25	25	6
+60004	0	25	25	40	6
 
 # SMALL MARIO
 # idle small right
@@ -128,6 +138,11 @@
 #whip left level ZERO
 802	50004	100	50005	100	50006	100
 
+#light state alive
+901	60001	100	60002	100
+#light state dead
+902	60003	100	60004	100
+
 # ==== BRICK =========
 601	20001	100
 
@@ -151,6 +166,8 @@
 1	400	401	402	403	500	501	502	503	599	504	505	506	507	508	509
 # WHIP 
 4	801	802
+# LIGHT 
+5	901	902
 # BRICK 
 2	601
 # QUESTION MARK BRICK 
@@ -160,13 +177,16 @@
 
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
-# type: 0 = Mario , 1 = Brick, 2 = Goomba
+# type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopa, 4 = Whip, 5 = Light
 # MARIO
 0	50.0	250	1
 
 # WHIP
 #4	270	316	4
 4	10000	10000	4
+
+# LIGHT
+5	128	316	5
 
 # GOOMBA
 # 2	200	135	3

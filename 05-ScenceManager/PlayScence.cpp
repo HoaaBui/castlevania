@@ -158,7 +158,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
-	// case OBJECT_TYPE_LIGHT: obj = new CLight(); break;
+	case OBJECT_TYPE_LIGHT: obj = new CLight(); break;
 	case OBJECT_TYPE_WHIP:
 		// DebugOut(L"[INFO] This is your WHIP id hooray: %d\n", object_type);
 		// return;
