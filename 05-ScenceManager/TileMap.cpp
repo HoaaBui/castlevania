@@ -4,12 +4,13 @@
 #include <fstream>
 #include "Utils.h"
 #include <math.h>
+using namespace std;
 
-void splitString(const std::string& str, vector<int> &cont, char delim = ' ')
+void splitString(const string& str, vector<int> &cont, char delim = ' ')
 {
-	std::stringstream ss(str);
-	std::string token;
-	while (std::getline(ss, token, delim)) {
+	stringstream ss(str);
+	string token;
+	while (getline(ss, token, delim)) {
 		cont.push_back(stoi(token));
 	}
 };
@@ -56,11 +57,11 @@ void CTileMap::InitMap(string filePath, int mapLength)
 void CTileMap::MapLvlRender() // dua duong dan vao day
 {
 	int startCol = (int(game->GetInstance()->cam_x / tileWidth));					// IMPROVE FOR SCROLLING LVL MAP
-	int endCol = startCol + int(game->GetInstance()->screen_width / tileWidth) + 1;
+	int endCol = startCol + int(game->GetInstance()->screen_width / tileWidth) + 1; // +1 de load tilemap muot hon
 	int numOfCol = mapLength / tileWidth;
 	int startRow = int(game->GetInstance()->cam_y / tileHeight);
 	int endRow = startRow + (map.size() / numOfCol);			//vi Map khong co do sau Y
-	float offsetX = ceil(-(game->GetInstance()->cam_x)) + startCol * tileHeight;
+	float offsetX = ceil(-(game->GetInstance()->cam_x)) + startCol * tileHeight; // dung ham ceil de tranh hien tuong man hinh bi soc
 	float offsetY = ceil(-game->GetInstance()->cam_y) + startRow * tileHeight;
 
 	

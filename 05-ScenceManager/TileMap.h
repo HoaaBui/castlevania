@@ -2,6 +2,7 @@
 #include "Sprites.h"
 #include "Textures.h"
 #include "Game.h"
+using namespace std;
 class CTileMap
 {
 	CTextures *textures;

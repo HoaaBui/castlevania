@@ -1,5 +1,7 @@
 #include "Whip.h"
 #include "Utils.h"
+#include "light.h"
+#include "Mario.h"
 
 CWhip::CWhip(){
     this->simonCurrentFrame = -1;
@@ -110,4 +112,42 @@ void CWhip::GetBoundingBox(float &l, float &t, float &r, float &b)
 	t = y;
 	r = x + WHIP_BBOX_WIDTH;
 	b = y + WHIP_BBOX_HEIGHT;
+}
+
+void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
+{
+	CMario *mario = CMario::GetInstance();
+	if (colliable_objects->size() != 0)
+	{
+		vector<LPCOLLISIONEVENT> coEvents;
+		vector<LPCOLLISIONEVENT> coEventsResult;
+		coEvents.clear();
+		CalcPotentialCollisions(colliable_objects, coEvents);
+		if (coEvents.size() != 0)
+		{
+			float min_tx, min_ty, nx = 0, ny;
+			float rdx = 0; 
+			float rdy = 0;
+			FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+			for (UINT i = 0; i < coEventsResult.size(); i++)
+			{
+				LPCOLLISIONEVENT e = coEventsResult[i];
+				if (dynamic_cast<CLight *>(e->obj))
+				{
+					//				if (timeToBound >= 0.0075)
+					//{
+						CLight *light = dynamic_cast<CLight *>(e->obj);
+						if (e->nx == 0)
+						{
+							// if (light->GetState() != LIGHT_STATE_DESTROY)
+							// {
+							// 	light->SetState(LIGHT_STATE_DESTROY);
+							// }
+						}
+					//}
+				}
+			}
+			for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+		}
+	}
 }

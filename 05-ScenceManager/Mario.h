@@ -64,7 +64,10 @@ public:
     bool isAttack;
 	bool isSit;
 	DWORD attackTime;
-	CWhip *mainWeap;
+	// CWhip *mainWeap;
+
+	static CMario* instance;
+	static CMario* GetInstance();
 public: 
 	CMario();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
@@ -73,8 +76,8 @@ public:
 	void SetLevel(int l) { level = l; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 
-	void SetWhip(CWhip *whip) { mainWeap = whip; };
-	CWhip *GetWhip() { return this->mainWeap; };
+	// void SetWhip(CWhip *whip) { mainWeap = whip; };
+	// CWhip *GetWhip() { return this->mainWeap; };
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 };
