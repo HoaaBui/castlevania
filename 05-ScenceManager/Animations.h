@@ -35,6 +35,7 @@ public:
 	void GetCurrentFrame(int &frame) { frame = this->currentFrame; };
 
 	void Render(float x, float y, int alpha = 255);
+	void renderOnlyCurrentFrame(float x, float y, int alpha = 255);
 };
 
 typedef CAnimation *LPANIMATION;

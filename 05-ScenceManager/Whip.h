@@ -5,6 +5,7 @@
 #define WHIP_BBOX_WIDTH  60
 #define WHIP_BBOX_HEIGHT 20
 
+
 #define WHIP_STATE_RIGHT		100
 #define WHIP_STATE_LEFT			200
 #define WHIP_STATE_DISAPPEAR	300
@@ -17,6 +18,9 @@ class CWhip : public CGameObject
 public:
     static CWhip* instance;
 	static CWhip* GetInstance();
+	float simonPosX;
+	float simonPosY;
+	int simonCurrentFrame;
 public:
     CWhip();
 	~CWhip();

@@ -325,16 +325,11 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode){
 	
 	switch (KeyCode){
 		case DIK_DOWN:
-			// if (mario->isAttacking != false)
-			// {
-			// 	mario->animations[MARIO_ANI_ATK_LEFT]->SetCurrentFrame(-1);
-			// 	mario->animations[MARIO_ANI_ATK_RIGHT]->SetCurrentFrame(-1);
-			// 	mario->animations[MARIO_ANI_SIT_ATK_LEFT]->SetCurrentFrame(-1);
-			// 	mario->animations[MARIO_ANI_SIT_ATK_RIGHT]->SetCurrentFrame(-1);
-			// 	mario->GetWhip()->animations[WHIP_ANI_ATK_LEFT]->SetCurrentFrame(-1);
-			// 	mario->GetWhip()->animations[WHIP_ANI_ATK_RIGHT]->SetCurrentFrame(-1);
-			// 	mario->SetAttackTime(0.0f);
-			// }
+			if (mario->isAttack){
+				CWhip * whip = CWhip::GetInstance();
+				whip->animation_set->at(0)->SetCurrentFrame(-1);
+		        whip->animation_set->at(1)->SetCurrentFrame(-1);
+			}
 			mario->isSit = false;
 			break;
 	}

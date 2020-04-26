@@ -181,10 +181,21 @@ void CMario::Render(){
 		
 		if(this->isAttack == false){
 			CWhip::GetInstance()->SetState(WHIP_STATE_DISAPPEAR);
+		    CWhip::GetInstance()->simonCurrentFrame = -1;
 		}
 	}
+    
+	int currentFrame = -1;
+	animation_set->at(ani)->GetCurrentFrame(currentFrame);
+    CWhip::GetInstance()->simonPosX = this->x;
+	CWhip::GetInstance()->simonPosY = this->y;
 
 	if(this->isAttack){
+
+        CWhip::GetInstance()->simonCurrentFrame = currentFrame;
+
+		// DebugOut(L"[INFO] This is your current whip STATE : %d\n", CWhip::GetInstance()->simonCurrentFrame);
+		
 		if(nx>0){
            CWhip::GetInstance()->SetState(WHIP_STATE_RIGHT);
 		}else{
