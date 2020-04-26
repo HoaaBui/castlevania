@@ -9,6 +9,7 @@
 #include "Koopas.h"
 #include "TileMap.h"
 #include "Whip.h"
+#include "Light.h"
 
 #define MAP1_LENGTH			1472
 

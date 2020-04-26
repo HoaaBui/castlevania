@@ -8,6 +8,7 @@
 #include "Portal.h"
 #include "TileMap.h"
 #include "Whip.h"
+#include "Light.h"
 
 using namespace std;
 
@@ -31,6 +32,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 
 #define OBJECT_TYPE_MARIO	0
 #define OBJECT_TYPE_WHIP	4
+#define OBJECT_TYPE_LIGHT	5
 #define OBJECT_TYPE_BRICK	1
 #define OBJECT_TYPE_GOOMBA	2
 #define OBJECT_TYPE_KOOPAS	3
@@ -156,6 +158,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
+	// case OBJECT_TYPE_LIGHT: obj = new CLight(); break;
 	case OBJECT_TYPE_WHIP:
 		// DebugOut(L"[INFO] This is your WHIP id hooray: %d\n", object_type);
 		// return;
