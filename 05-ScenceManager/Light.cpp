@@ -1,5 +1,13 @@
 #include "Light.h"
 
+CLight::CLight(){
+	this->tag = 1;
+}
+
+CLight::~CLight(){
+
+}
+
 void CLight::Render(){
 	animation_set->at(0)->Render(x, y);
 	//RenderBoundingBox();

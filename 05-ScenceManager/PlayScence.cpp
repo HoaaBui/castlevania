@@ -253,6 +253,7 @@ void CPlayScene::Update(DWORD dt)
 		objects[i]->Update(dt, &coObjects);
 	}
 
+	// player->Update(dt,&coObjects);
 	
 	// Update camera to follow mario
 	float cx, cy;
@@ -281,9 +282,18 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
+	// vector<LPGAMEOBJECT> objectSimon;
+	int indexSimon = -1;
 	map1->MapLvlRender();
-	for (int i = 0; i < objects.size(); i++)
-		objects[i]->Render();
+	for (int i = 0; i < objects.size(); i++){
+		if(objects[i]->tag != 2){
+			objects[i]->Render();
+		}else{
+			indexSimon = i;
+		}
+	}
+	objects[indexSimon]->Render();
+	// player->Render();
 }
 
 /*

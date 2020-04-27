@@ -17,7 +17,8 @@ CMario::CMario() : CGameObject()
 	isAttack = false;
 	isSit = false;
 	attackTime = 0;
-	mainWeap = new CWhip();
+	tag = 2;
+	// mainWeap = new CWhip();
 }
 
 CMario* CMario::instance = NULL;
@@ -40,13 +41,24 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	vy += MARIO_GRAVITY*dt;
 
 	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPGAMEOBJECT> filterCoObjs;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
 	coEvents.clear();
 
+	// if (coObjects->size() != 0){
+	// 	for (int i = 0; i < coObjects->size(); i++){
+	// 		if (coObjects->at(i)->tag != 1){
+	// 			filterCoObjs.push_back(coObjects->at(i));
+	// 		}
+	// 	}
+	// }
+
 	// turn off collision when die 
-	if (state!=MARIO_STATE_DIE)
+	if (state!=MARIO_STATE_DIE){
 		CalcPotentialCollisions(coObjects, coEvents);
+		// CalcPotentialCollisions(&filterCoObjs, coEvents);
+	}
 
 	// reset untouchable timer if untouchable time has passed
 	if ( GetTickCount() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 

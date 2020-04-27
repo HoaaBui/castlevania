@@ -53,7 +53,7 @@ void CTileMap::InitMap(string filePath, int mapLength)
 }
 
 
-//NOTE : chuyen cac hang so ve define
+//NOTE : Su dung ki thuat Scrolling Tilemap
 void CTileMap::MapLvlRender() // dua duong dan vao day
 {
 	int startCol = (int(game->GetInstance()->cam_x / tileWidth));					// IMPROVE FOR SCROLLING LVL MAP

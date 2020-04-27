@@ -83,18 +83,25 @@ void CWhip::Render()
 		  }else{
 			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(-1);
 		  }
-
 	}else if(state == WHIP_STATE_LEFT){
           if(whip->simonCurrentFrame == 0){
 			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(0);
+			whip->x = simonX+45;
+			whip->y = simonY+11;
 			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonX+45, simonY+11);
 		  }else if(whip->simonCurrentFrame == 1){
 			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(1);
+			whip->x = simonX+45;
+			whip->y = simonY+9;
             animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonX+45, simonY+9);
 		  }else if(whip->simonCurrentFrame == 2){
 			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(2);
+			whip->x = simonX-70;
+			whip->y = simonY+13;
             animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonX-70, simonY+13);
 		  }else{
+			whip->x = 10000;
+			whip->y = 10000;
 			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(-1);
 		  }
 	}else if(state == WHIP_STATE_DISAPPEAR){
@@ -117,8 +124,8 @@ void CWhip::GetBoundingBox(float &l, float &t, float &r, float &b)
 void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 {
 	CMario *mario = CMario::GetInstance();
-	if (colliable_objects->size() != 0)
-	{
+	// if (colliable_objects->size() != 0)
+	// {
 		vector<LPCOLLISIONEVENT> coEvents;
 		vector<LPCOLLISIONEVENT> coEventsResult;
 		coEvents.clear();
@@ -149,5 +156,5 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 			}
 			for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 		}
-	}
+	// }
 }
