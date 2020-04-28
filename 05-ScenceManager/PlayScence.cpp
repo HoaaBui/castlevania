@@ -144,6 +144,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	CAnimationSets * animation_sets = CAnimationSets::GetInstance();
 
 	CGameObject *obj = NULL;
+	CGameObject *objWhip = NULL;
+	CWhip *whip = new CWhip();
 
 	switch (object_type)
 	{
@@ -160,9 +162,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
 	case OBJECT_TYPE_LIGHT: obj = new CLight(); break;
 	case OBJECT_TYPE_WHIP:
-		// DebugOut(L"[INFO] This is your WHIP id hooray: %d\n", object_type);
-		// return;
-		obj = new CWhip(); break;
+		// obj = new CWhip(); break;
+		{
+			objWhip = new CWhip();
+		}
+		break;
 	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(); break;
 	case OBJECT_TYPE_PORTAL:
 		{	
@@ -182,8 +186,13 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 
-	obj->SetAnimationSet(ani_set);
+	if(ani_set_id != 4) obj->SetAnimationSet(ani_set);
+	// objWhip->SetAnimationSet(ani_set);
+	whip->SetAnimationSet(ani_set);
 	objects.push_back(obj);
+	if(object_type == OBJECT_TYPE_WHIP){
+		player->AddWeapon(whip);
+	} 
 }
 
 void CPlayScene::Load()
@@ -278,6 +287,7 @@ void CPlayScene::Update(DWORD dt)
 	cy -= game->GetScreenHeight() / 2;
 
 	CGame::GetInstance()->SetCamPos(cx,0);
+	
 }
 
 void CPlayScene::Render()

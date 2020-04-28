@@ -46,18 +46,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	coEvents.clear();
 
-	// if (coObjects->size() != 0){
-	// 	for (int i = 0; i < coObjects->size(); i++){
-	// 		if (coObjects->at(i)->tag != 1){
-	// 			filterCoObjs.push_back(coObjects->at(i));
-	// 		}
-	// 	}
-	// }
-
 	// turn off collision when die 
 	if (state!=MARIO_STATE_DIE){
 		CalcPotentialCollisions(coObjects, coEvents);
-		// CalcPotentialCollisions(&filterCoObjs, coEvents);
 	}
 
 	// reset untouchable timer if untouchable time has passed
@@ -139,20 +130,25 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 		}
 	}
-
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
+	//Xet va cham giua roi va cay nen
+	if(this->isAttack){
+		int currentFrame = -1;
+		animation_set->at(MARIO_ANI_BIG_ATTACK_STAND_RIGHT)->GetCurrentFrame(currentFrame);
+		if(currentFrame == 2){
+			// coEvents.clear();//clear
+			// coEventsResult.clear();
+			if(nx>0){
+				CWhip::GetInstance()->SetPosition(this->x+50, this->y+13);	
+			}
+		}
+	}
 }
 
 void CMario::Render(){
 	int ani = -1;
-	int value = -1;
-	if(this->isAttack){
-		value = 1;
-	}else if(this->isAttack == false){
-		value = 0;
-	}
-	// DebugOut(L"[INFO] The value of isAttack: %d", value);
  
     float simonPosX = 0.0f, simonPosY = 0.0f, xxx = 0.0f, yyy = 0.0f;
 	GetPosition(simonPosX, simonPosY);
@@ -161,12 +157,6 @@ void CMario::Render(){
 		attackTime += dt;
 		if(nx>0){
 			ani = MARIO_ANI_BIG_ATTACK_STAND_RIGHT;
-			// DebugOut(L"[INFO] Simon X position: %f", simonPosX);
-			// mainWeap->SetPosition(simonPosX +10, simonPosY + 12);
-            // mainWeap->GetPosition(xxx,yyy);
-			// DebugOut(L"[INFO] Whip X position: %f", xxx);
-			// DebugOut(L"[INFO] Whip Y position: %f", yyy);
-			// mainWeap->Render();
 		}else{
 			ani = MARIO_ANI_BIG_ATTACK_STAND_LEFT;
 		}
@@ -214,20 +204,12 @@ void CMario::Render(){
 	CWhip::GetInstance()->simonPosY = this->y;
 
 	if(this->isAttack){
-
         CWhip::GetInstance()->simonCurrentFrame = currentFrame;
-
-		// DebugOut(L"[INFO] This is your current whip STATE : %d\n", CWhip::GetInstance()->simonCurrentFrame);
-		
 		if(nx>0){
            CWhip::GetInstance()->SetState(WHIP_STATE_RIGHT);
 		}else{
            CWhip::GetInstance()->SetState(WHIP_STATE_LEFT);
 		}
-
-		// CWhip * whip = CWhip::GetInstance();
-		// int state = whip->GetState();
-		// DebugOut(L"[INFO] This is your current whip STATE : %d\n", state);
 	}
 
 	// else if (level == MARIO_LEVEL_SMALL)

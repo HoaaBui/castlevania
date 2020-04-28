@@ -64,7 +64,7 @@ public:
     bool isAttack;
 	bool isSit;
 	DWORD attackTime;
-	// CWhip *mainWeap;
+	CWhip* mainWeap;
 
 	static CMario* instance;
 	static CMario* GetInstance();
@@ -75,7 +75,7 @@ public:
 	void SetState(int state);
 	void SetLevel(int l) { level = l; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
-
+	void AddWeapon(CWhip* weapon);
 	// void SetWhip(CWhip *whip) { mainWeap = whip; };
 	// CWhip *GetWhip() { return this->mainWeap; };
 

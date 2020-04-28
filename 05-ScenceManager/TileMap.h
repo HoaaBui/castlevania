@@ -16,7 +16,7 @@ public:
 	CTileMap(LPWSTR texPath, int tileWith, int tileHeight,int numOfTileCol,int numOfTileRow);
 	CSprite *GetTile(int spriteID) { return sprites->Get(spriteID);};
 	void InitMap(string filePath, int mapLength);
-	void SetCam(CGame *game) { this->game = CGame::GetInstance(); this->game = game; };
+	// void SetCam(CGame *game) { this->game = CGame::GetInstance(); this->game = game; };
 	void MapLvlRender();
 	~CTileMap();
 };

@@ -121,40 +121,78 @@ void CWhip::GetBoundingBox(float &l, float &t, float &r, float &b)
 	b = y + WHIP_BBOX_HEIGHT;
 }
 
-void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
+void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CMario *mario = CMario::GetInstance();
-	// if (colliable_objects->size() != 0)
-	// {
-		vector<LPCOLLISIONEVENT> coEvents;
-		vector<LPCOLLISIONEVENT> coEventsResult;
-		coEvents.clear();
-		CalcPotentialCollisions(colliable_objects, coEvents);
-		if (coEvents.size() != 0)
-		{
-			float min_tx, min_ty, nx = 0, ny;
-			float rdx = 0; 
-			float rdy = 0;
-			FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-			for (UINT i = 0; i < coEventsResult.size(); i++)
-			{
-				LPCOLLISIONEVENT e = coEventsResult[i];
-				if (dynamic_cast<CLight *>(e->obj))
-				{
-					//				if (timeToBound >= 0.0075)
-					//{
-						CLight *light = dynamic_cast<CLight *>(e->obj);
-						if (e->nx == 0)
-						{
-							// if (light->GetState() != LIGHT_STATE_DESTROY)
-							// {
-							// 	light->SetState(LIGHT_STATE_DESTROY);
-							// }
-						}
-					//}
+	CGameObject::Update(dt);
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPGAMEOBJECT> filterCoObjs;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+	CalcPotentialCollisions(coObjects, coEvents);
+
+	// No collision occured, proceed normally
+	if (coEvents.size()!=0){
+		float min_tx, min_ty, nx = 0, ny;
+		float rdx = 0; 
+		float rdy = 0;
+
+		// TODO: This is a very ugly designed function!!!!
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+		
+		// block every object first!
+		x += min_tx*dx + nx*0.4f;
+		y += min_ty*dy + ny*0.4f;
+
+		if (nx!=0) vx = 0;
+		if (ny!=0) vy = 0;
+		
+		for (UINT i = 0; i < coEventsResult.size(); i++){
+			LPCOLLISIONEVENT e = coEventsResult[i];
+
+			if (dynamic_cast<CLight *>(e->obj)){
+				CLight *light = dynamic_cast<CLight *>(e->obj);
+				if (e->nx == 0){
+
 				}
 			}
-			for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 		}
+	}
+
+	// clean up collision events
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
+	// if (colliable_objects->size() != 0){
+	// 	vector<LPCOLLISIONEVENT> coEvents;
+	// 	vector<LPCOLLISIONEVENT> coEventsResult;
+	// 	coEvents.clear();
+	// 	CalcPotentialCollisions(colliable_objects, coEvents);
+	// 	if (coEvents.size() != 0)
+	// 	{
+	// 		float min_tx, min_ty, nx = 0, ny;
+	// 		float rdx = 0; 
+	// 		float rdy = 0;
+	// 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+	// 		for (UINT i = 0; i < coEventsResult.size(); i++)
+	// 		{
+	// 			LPCOLLISIONEVENT e = coEventsResult[i];
+	// 			if (dynamic_cast<CLight *>(e->obj))
+	// 			{
+	// 				//				if (timeToBound >= 0.0075)
+	// 				//{
+	// 					CLight *light = dynamic_cast<CLight *>(e->obj);
+	// 					if (e->nx == 0)
+	// 					{
+	// 						// if (light->GetState() != LIGHT_STATE_DESTROY)
+	// 						// {
+	// 						// 	light->SetState(LIGHT_STATE_DESTROY);
+	// 						// }
+	// 					}
+	// 				//}
+	// 			}
+	// 		}
+	// 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	// 	}
 	// }
 }
