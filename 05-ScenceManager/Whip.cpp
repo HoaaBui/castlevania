@@ -7,6 +7,7 @@ CWhip::CWhip(){
     this->simonCurrentFrame = -1;
 	this->simonPosX = 0.0f;
 	this->simonPosY = 0.0f;
+	this->tag = 3;
 }
 
 CWhip::~CWhip(){
@@ -113,22 +114,28 @@ void CWhip::Render()
 
 }
 
-void CWhip::GetBoundingBox(float &l, float &t, float &r, float &b)
-{
+void CWhip::GetBoundingBox(float &l, float &t, float &r, float &b){
 	l = x;
 	t = y;
 	r = x + WHIP_BBOX_WIDTH;
 	b = y + WHIP_BBOX_HEIGHT;
 }
 
-void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
-{
-	CMario *mario = CMario::GetInstance();
+void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
+	CWhip * whip = CWhip::GetInstance();
+	if(whip->simonCurrentFrame == 2){
+		this->x = whip->simonPosX + 50;
+		this->y = whip->simonPosY + 13;
+	}else{
+		this->x = 10000;
+		this->y = 10000;
+		// Khong xet va cham cho cai roi nua
+	}
+
 	CGameObject::Update(dt);
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPGAMEOBJECT> filterCoObjs;
 	vector<LPCOLLISIONEVENT> coEventsResult;
-
 	coEvents.clear();
 	CalcPotentialCollisions(coObjects, coEvents);
 

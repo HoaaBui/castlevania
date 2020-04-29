@@ -67,15 +67,20 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 void CGameObject::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT> *coObjects, 
 	vector<LPCOLLISIONEVENT> &coEvents)
-{
+{	
+	float l, t, r, b,l1,t1,r1,b1;
+	this->GetBoundingBox(l, t, r, b);
+
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
-
-		if (e->t > 0 && e->t <= 1.0f)
+		coObjects->at(i)->GetBoundingBox(l1, t1, r1, b1);
+		if(e->t > 0 && e->t <= 1.0f){
 			coEvents.push_back(e);
-		else
-			delete e;
+		}else if(this->tag == 3 && (abs(l - l1) < abs(l - r) && abs(t-b1) < (abs(t1-b1) + abs(t-b)))){
+			e->t = 0.1;
+			coEvents.push_back(e);
+		}else delete e;
 	}
 
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);

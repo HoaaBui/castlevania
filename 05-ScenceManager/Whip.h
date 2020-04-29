@@ -20,6 +20,8 @@ class CWhip : public CGameObject
 public:
     static CWhip* instance;
 	static CWhip* GetInstance();
+
+	// nhung bien nay co gia tri chi khi ma simon attack
 	float simonPosX;
 	float simonPosY;
 	int simonCurrentFrame;
