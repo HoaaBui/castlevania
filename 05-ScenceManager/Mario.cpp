@@ -46,9 +46,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	coEvents.clear();
 
+	filterUnwantedColliableObject(coObjects,filterCoObjs);
+
 	// turn off collision when die 
 	if (state!=MARIO_STATE_DIE){
-		CalcPotentialCollisions(coObjects, coEvents);
+		CalcPotentialCollisions(&filterCoObjs, coEvents);
 	}
 
 	// reset untouchable timer if untouchable time has passed

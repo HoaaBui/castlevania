@@ -58,6 +58,19 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 	return e;
 }
 
+void CGameObject::filterUnwantedColliableObject(
+	vector<LPGAMEOBJECT> *coObjects, vector<LPGAMEOBJECT> &result){
+	vector<LPGAMEOBJECT> filter;
+	for (UINT i = 0; i < coObjects->size(); i++){
+		if(coObjects->at(i)->tag != 1){
+			filter.push_back(coObjects->at(i));
+		}
+	}
+
+	// can xem lai cach lam cho nay do bao loi tren error list.
+	result = filter;
+}
+
 /*
 	Calculate potential collisions with the list of colliable objects 
 	

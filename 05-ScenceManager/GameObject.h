@@ -95,6 +95,7 @@ public:
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
 
+	void filterUnwantedColliableObject(vector<LPGAMEOBJECT> *coObjects, vector<LPGAMEOBJECT> &result);
 
 	~CGameObject();
 };
