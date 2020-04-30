@@ -29,14 +29,14 @@ void CWhip::SetState(int state){
 	CGameObject::SetState(state);
 	
 	switch (state){
-	case WHIP_STATE_RIGHT:
-		nx = 1;
-		break;
-	case WHIP_STATE_LEFT:
-		nx = -1;
-		break;
-	default:
-		break;
+		case WHIP_STATE_RIGHT:
+			nx = 1;
+			break;
+		case WHIP_STATE_LEFT:
+			nx = -1;
+			break;
+		default:
+			break;
 	}
 }
 
@@ -77,7 +77,7 @@ void CWhip::Render()
 			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->renderOnlyCurrentFrame(simonX-25, simonY+14);
 		  }else if(whip->simonCurrentFrame == 1){
 			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(1);
-            animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->renderOnlyCurrentFrame(simonX-25, simonY+17);
+            animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->renderOnlyCurrentFrame(simonX-25, simonY+14);
 		  }else if(whip->simonCurrentFrame == 2){
 			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(2);
             animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->renderOnlyCurrentFrame(simonX+50, simonY+13);
@@ -87,22 +87,22 @@ void CWhip::Render()
 	}else if(state == WHIP_STATE_LEFT){
           if(whip->simonCurrentFrame == 0){
 			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(0);
-			whip->x = simonX+45;
-			whip->y = simonY+11;
+			// whip->x = simonX+45;
+			// whip->y = simonY+11;
 			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonX+45, simonY+11);
 		  }else if(whip->simonCurrentFrame == 1){
 			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(1);
-			whip->x = simonX+45;
-			whip->y = simonY+9;
-            animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonX+45, simonY+9);
+			// whip->x = simonX+45;
+			// whip->y = simonY+9;
+            animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonX+45, simonY+6);
 		  }else if(whip->simonCurrentFrame == 2){
 			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(2);
-			whip->x = simonX-70;
-			whip->y = simonY+13;
+			// whip->x = simonX-70;
+			// whip->y = simonY+13;
             animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonX-70, simonY+13);
 		  }else{
-			whip->x = 10000;
-			whip->y = 10000;
+			// whip->x = 10000;
+			// whip->y = 10000;
 			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(-1);
 		  }
 	}else if(state == WHIP_STATE_DISAPPEAR){
@@ -124,8 +124,13 @@ void CWhip::GetBoundingBox(float &l, float &t, float &r, float &b){
 void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 	CWhip * whip = CWhip::GetInstance();
 	if(whip->simonCurrentFrame == 2){
-		this->x = whip->simonPosX + 50;
-		this->y = whip->simonPosY + 13;
+		if(whip->nx>0){
+			this->x = whip->simonPosX + 50;
+			this->y = whip->simonPosY + 13;
+		}else{
+			this->x = whip->simonPosX - 70;
+			this->y = whip->simonPosY + 13;
+		}
 	}else{
 		this->x = 10000;
 		this->y = 10000;
@@ -161,7 +166,7 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 			if (dynamic_cast<CLight *>(e->obj)){
 				CLight *light = dynamic_cast<CLight *>(e->obj);
 				if (e->nx == 0){
-
+					light->SetState(LIGHT_STATE_DEAD);
 				}
 			}
 		}

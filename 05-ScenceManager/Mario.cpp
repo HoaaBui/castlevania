@@ -207,6 +207,7 @@ void CMario::Render(){
 
 	if(this->isAttack){
         CWhip::GetInstance()->simonCurrentFrame = currentFrame;
+		CWhip::GetInstance()->nx = nx;
 		if(nx>0){
            CWhip::GetInstance()->SetState(WHIP_STATE_RIGHT);
 		}else{
@@ -228,7 +229,7 @@ void CMario::Render(){
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
-	DebugOut(L"[INFO] The number of Mario animation is %d \n", ani);
+	// DebugOut(L"[INFO] The number of Mario animation is %d \n", ani);
 	animation_set->at(ani)->Render(x, y, alpha);
 
 	RenderBoundingBox();

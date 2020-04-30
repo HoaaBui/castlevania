@@ -279,8 +279,8 @@ void CPlayScene::Update(DWORD dt)
 	}else if(cx>=1093){
 		cx=1093;
 	}
-	DebugOut(L"[INFO] Position of Simon X: %f\n", cx);
-	DebugOut(L"[INFO] Position of Simon Y: %f\n", cy);
+	// DebugOut(L"[INFO] Position of Simon X: %f\n", cx);
+	// DebugOut(L"[INFO] Position of Simon Y: %f\n", cy);
 
 	CGame *game = CGame::GetInstance();
 	cx -= game->GetScreenWidth() / 2;

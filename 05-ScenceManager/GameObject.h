@@ -62,7 +62,8 @@ public:
 
 	LPANIMATION_SET animation_set;
 
-	int tag;
+	int tag; // dan nhan cho object de biet thang nao di qua dk hay ko?
+	bool isDead; // xet them dieu kien cho obj co va cham nua ko?
 
 public: 
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
