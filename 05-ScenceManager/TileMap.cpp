@@ -4,6 +4,7 @@
 #include <fstream>
 #include "Utils.h"
 #include <math.h>
+#include <iostream> 
 using namespace std;
 
 CTileMap::~CTileMap(){}
@@ -36,16 +37,65 @@ void splitString(const string& str, vector<int> &cont, char delim = ' '){
 void ReadArrayFromTxt(string fileName, vector<int> &map, char delim = ' '){
 	ifstream inputFile;
 	string strs;
+	string line;
+	char a;
 	inputFile.open(fileName);
 
 	if (!inputFile)
 		DebugOut(L"file open fail");
 	
-	while (!inputFile.eof()){
-		inputFile >> strs;
-		splitString(strs, map, delim);
+	// stringstream ss;
+	// int number = -1;
+	// char test1 = '1';
+	// char test2 = '2';
+	// char test3 = '3';
+
+	// string str = "";
+	// str.push_back(test1);
+	// str.push_back(test2);
+	// str.push_back(test3);
+	// str.push_back(test1);
+	// str.push_back(test2);
+	// str.push_back(test3);
+	// // strncat(str, &test3, 1); 
+
+
+	// stringstream geek(str);
+	// geek >> number; 
+
+	// DebugOut(L"[INFO] This is your happy number %d \n", number);
+	/*str = "";*/
+
+	int number = -1;
+	string str = "";
+
+	if(inputFile.is_open()){
+		// inputFile >> strs;
+		// splitString(strs, map, delim);
+
+		getline(inputFile, line);
+		
+		for(int i=0; line[i] != '\0'; i++){
+			a = line[i];
+			if(a==','){
+				// map.push_back(number);
+				stringstream geek(str); // convert string to number
+				geek >> number; 
+				
+				map.push_back(number);
+				DebugOut(L"[INFO] This is your happy number %d \n", number);
+				
+				// i += 1;
+				number = -1;
+				str = "";
+			}else{
+				str.push_back(a);
+				// DebugOut(L"[INFO] This is your happy number %d \n", number);
+			}
+		}
+
+		inputFile.close();
 	}
-	inputFile.close();
 }
 
 void CTileMap::InitMap(string filePath, int mapLength){

@@ -131,7 +131,7 @@ void CGameObject::FilterCollision(
 		}
 		if (c->t < min_tx && c->nx == 0){
 			min_ix = i;
-			DebugOut(L"[INFO] Ham co chay dieu kien cay roi vao");
+			// DebugOut(L"[INFO] Ham co chay dieu kien cay roi vao");
 		}// xet va cham tu ben trong
 	}
 
