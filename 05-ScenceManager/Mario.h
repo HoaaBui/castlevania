@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Whip.h"
+#include "knife.h"
 
 #define MARIO_WALKING_SPEED		0.1f 
 //0.1f

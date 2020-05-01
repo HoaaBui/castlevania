@@ -45,7 +45,6 @@ void CWhip::Render(){
 	int state = whip->GetState();
 	float simonX = whip->simonPosX;
 	float simonY = whip->simonPosY;
-	float whipX = 0.0f;
 
 	if(state == WHIP_STATE_RIGHT){
 	      if(whip->simonCurrentFrame == 0){

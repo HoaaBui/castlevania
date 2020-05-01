@@ -8,6 +8,7 @@
 #include "Goomba.h"
 #include "Portal.h"
 #include "Whip.h"
+#include "knife.h"
 
 CMario::CMario() : CGameObject()
 {
@@ -137,17 +138,17 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
 	//Xet va cham giua roi va cay nen
-	if(this->isAttack && !this->isUsedSubWeapon){
-		int currentFrame = -1;
-		animation_set->at(MARIO_ANI_BIG_ATTACK_STAND_RIGHT)->GetCurrentFrame(currentFrame);
-		if(currentFrame == 2){
-			// coEvents.clear();//clear
-			// coEventsResult.clear();
-			if(nx>0){
-				CWhip::GetInstance()->SetPosition(this->x+50, this->y+13);	
-			}
-		}
-	}
+	// if(this->isAttack && !this->isUsedSubWeapon){
+	// 	int currentFrame = -1;
+	// 	animation_set->at(MARIO_ANI_BIG_ATTACK_STAND_RIGHT)->GetCurrentFrame(currentFrame);
+	// 	if(currentFrame == 2){
+	// 		// coEvents.clear();//clear
+	// 		// coEventsResult.clear();
+	// 		if(nx>0){
+	// 			CWhip::GetInstance()->SetPosition(this->x+50, this->y+13);	
+	// 		}
+	// 	}
+	// }
 }
 
 void CMario::Render(){
@@ -199,6 +200,9 @@ void CMario::Render(){
 		if(this->isAttack == false){
 			CWhip::GetInstance()->SetState(WHIP_STATE_DISAPPEAR);
 		    CWhip::GetInstance()->simonCurrentFrame = -1;
+
+			CKnife::GetInstance()->SetState(KNIFE_STATE_DISAPPEAR);
+		    CKnife::GetInstance()->simonCurrentFrame = -1;
 		}
 	}
     
@@ -206,14 +210,28 @@ void CMario::Render(){
 	animation_set->at(ani)->GetCurrentFrame(currentFrame);
     CWhip::GetInstance()->simonPosX = this->x;
 	CWhip::GetInstance()->simonPosY = this->y;
+	CKnife::GetInstance()->simonPosX = this->x;
+	CKnife::GetInstance()->simonPosY = this->y;
 
-	if(this->isAttack && !this->isUsedSubWeapon){
+	if(this->isAttack){
         CWhip::GetInstance()->simonCurrentFrame = currentFrame;
 		CWhip::GetInstance()->nx = nx;
-		if(nx>0){
-           CWhip::GetInstance()->SetState(WHIP_STATE_RIGHT);
+
+		CKnife::GetInstance()->simonCurrentFrame = currentFrame;
+		CKnife::GetInstance()->nx = nx;
+
+		if(this->isUsedSubWeapon){
+			if(nx>0){
+           		CKnife::GetInstance()->SetState(KNIFE_STATE_RIGHT);
+			}else{
+           		CKnife::GetInstance()->SetState(KNIFE_STATE_LEFT);
+			}	
 		}else{
-           CWhip::GetInstance()->SetState(WHIP_STATE_LEFT);
+			if(nx>0){
+           		CWhip::GetInstance()->SetState(WHIP_STATE_RIGHT);
+			}else{
+           		CWhip::GetInstance()->SetState(WHIP_STATE_LEFT);
+			}	
 		}
 	}
 
