@@ -10,7 +10,7 @@
 #include "TileMap.h"
 #include "Whip.h"
 #include "Light.h"
-
+#include "Knife.h"
 #define MAP1_LENGTH			1472
 
 class CPlayScene: public CScene

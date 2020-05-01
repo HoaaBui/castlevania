@@ -1,14 +1,16 @@
 # id	file_path	transparent_color_r	g	b
 [TEXTURES]
-0	textures\mario.png	255	255	255
-1	textures\simon.png	255	0	255
-2	textures\whip_right.bmp	255	0	255
-3	textures\whip_left.png	255	0	255
-4	textures\ground1.png	0	0	0
-5	textures\light.png	255	0	255
-6	textures\light_die.bmp	255	0	255
-20	textures\misc.png	176	224	248
-10	textures\enemies.png	3	26	110
+0	textures\mario.png	        255	255	255
+1	textures\simon.png	        255	0	255
+2	textures\whip_right.bmp	    255	0	255
+3	textures\whip_left.png	    255	0	255
+4	textures\ground1.png	    0	0	0
+5	textures\light.png	        255	0	255
+6	textures\light_die.bmp	    255	0	255
+7	textures\knife_right.png	255	0	255
+8	textures\knife_left.png	    255	0	255
+20	textures\misc.png	        176	224	248
+10	textures\enemies.png	    3	26	110
 
 # id	left	top	right	bottom	texture_id
 [SPRITES]
@@ -67,6 +69,12 @@
 # light state dead
 60003	0	0	25	25	6
 60004	0	25	25	40	6
+
+# KNIFE
+# knife right
+70001	0	0	32	18	7
+# knife left
+70002	0	0	32	18	8
 
 # SMALL MARIO
 # idle small right
@@ -143,6 +151,11 @@
 #light state dead
 902	60003	100	60004	100
 
+#knife right
+1001	70001	100
+#knife left
+1002	70002	100
+
 # ==== BRICK =========
 601	20001	100
 
@@ -168,6 +181,8 @@
 4	801	802
 # LIGHT 
 5	901	902
+# KNIFE
+6	1001	1002
 # BRICK 
 2	601
 # QUESTION MARK BRICK 
@@ -184,6 +199,9 @@
 # WHIP
 #4	270	316	4
 4	10000	10000	4
+
+# KNIFE
+6	270	316	6
 
 # LIGHT
 5	255	316	5
