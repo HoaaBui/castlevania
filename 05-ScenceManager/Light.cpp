@@ -19,7 +19,6 @@ void CLight::SetState(int state){
 		case LIGHT_STATE_ALIVE:
 			break;
 		case LIGHT_STATE_DEAD:
-			// this->isGoingThrough = true;
 			break;
 		default:
 			break;
