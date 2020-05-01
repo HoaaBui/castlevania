@@ -8,13 +8,13 @@ class CTileMap{
 public:
 	CTextures *textures;
 	CSprites *sprites;
+	CGame *game;
+	vector<int> map;
 	int tileWidth;
 	int tileHeight;
 	int mapLength;
-	CGame *game;
-	vector<int> map;
 public:
-	CTileMap(LPWSTR texPath, int tileWith, int tileHeight, int numOfTileCol, int numOfTileRow);
+	CTileMap(LPWSTR texPath, int tileWidth, int tileHeight, int numOfTileCol, int numOfTileRow);
 	~CTileMap();
 	void initMap(string filePath, int mapLength);
 	void renderMap();

@@ -9,13 +9,14 @@ using namespace std;
 
 CTileMap::~CTileMap(){}
 
-CTileMap::CTileMap(LPWSTR texPath, int tWith, int tHeight, int numOfTileCol, int numOfTileRow){
-	this->tileWidth = tWith;
+CTileMap::CTileMap(LPWSTR texPath, int tWidth, int tHeight, int numOfTileCol, int numOfTileRow){
+	this->tileWidth = tWidth;
 	this->tileHeight = tHeight;
 	sprites = new CSprites();
 	textures = new CTextures();
-	int spriteID = 0;
 	textures->Add(1,texPath, D3DCOLOR_XRGB(255, 0, 255));
+
+	int spriteID = 0;
 
 	for (int i = 0; i < numOfTileCol; i++){
 		for (int k = 0; k < numOfTileRow; k++){
@@ -26,8 +27,6 @@ CTileMap::CTileMap(LPWSTR texPath, int tWith, int tHeight, int numOfTileCol, int
 }
 
 void CTileMap::initMap(string filePath, int mapLength){
-	// ReadArrayFromTxt(filePath, this->map, ',');
-
 	ifstream inputFile;
 	string line;
 	char a;
