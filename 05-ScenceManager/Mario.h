@@ -63,6 +63,7 @@ public:
 
     bool isAttack;
 	bool isSit;
+	bool isUsedSubWeapon;
 	DWORD attackTime;
 	// CWhip* mainWeap;
 

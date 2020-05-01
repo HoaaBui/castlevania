@@ -16,6 +16,7 @@ CMario::CMario() : CGameObject()
 	SetState(MARIO_STATE_IDLE);
 	isAttack = false;
 	isSit = false;
+	isUsedSubWeapon = false;
 	attackTime = 0;
 	tag = 2;
 	// mainWeap = new CWhip();
@@ -136,7 +137,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
 	//Xet va cham giua roi va cay nen
-	if(this->isAttack){
+	if(this->isAttack && !this->isUsedSubWeapon){
 		int currentFrame = -1;
 		animation_set->at(MARIO_ANI_BIG_ATTACK_STAND_RIGHT)->GetCurrentFrame(currentFrame);
 		if(currentFrame == 2){
@@ -155,7 +156,7 @@ void CMario::Render(){
     float simonPosX = 0.0f, simonPosY = 0.0f, xxx = 0.0f, yyy = 0.0f;
 	GetPosition(simonPosX, simonPosY);
 
-	if(this->isAttack){
+	if(this->isAttack || this->isUsedSubWeapon){
 		attackTime += dt;
 		if(nx>0){
 			ani = MARIO_ANI_BIG_ATTACK_STAND_RIGHT;
@@ -193,6 +194,7 @@ void CMario::Render(){
 		SetState(MARIO_STATE_IDLE);
 		attackTime = 0;
 		this->isAttack = false;
+		this->isUsedSubWeapon = false;
 		
 		if(this->isAttack == false){
 			CWhip::GetInstance()->SetState(WHIP_STATE_DISAPPEAR);
@@ -205,7 +207,7 @@ void CMario::Render(){
     CWhip::GetInstance()->simonPosX = this->x;
 	CWhip::GetInstance()->simonPosY = this->y;
 
-	if(this->isAttack){
+	if(this->isAttack && !this->isUsedSubWeapon){
         CWhip::GetInstance()->simonCurrentFrame = currentFrame;
 		CWhip::GetInstance()->nx = nx;
 		if(nx>0){

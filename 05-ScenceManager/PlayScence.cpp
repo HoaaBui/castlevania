@@ -337,6 +337,14 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 			mario->SetState(MARIO_STATE_ATTACK_STAND_LEFT);
 		}
 		break;
+	case DIK_S:
+		mario->isUsedSubWeapon = true;
+		if (mario->nx > 0){
+			mario->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);
+		}else{
+			mario->SetState(MARIO_STATE_ATTACK_STAND_LEFT);
+		}
+		break;
 	}
 }
 
