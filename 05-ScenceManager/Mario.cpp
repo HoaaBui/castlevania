@@ -201,8 +201,8 @@ void CMario::Render(){
 			CWhip::GetInstance()->SetState(WHIP_STATE_DISAPPEAR);
 		    CWhip::GetInstance()->simonCurrentFrame = -1;
 
-			CKnife::GetInstance()->SetState(KNIFE_STATE_DISAPPEAR);
-		    CKnife::GetInstance()->simonCurrentFrame = -1;
+			// CKnife::GetInstance()->SetState(KNIFE_STATE_DISAPPEAR);
+		    // CKnife::GetInstance()->simonCurrentFrame = -1;
 		}
 	}
     

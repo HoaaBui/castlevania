@@ -29,9 +29,11 @@ void CKnife::Render(){
 	float simonY = knife->simonPosY;
 
 	if(state == KNIFE_STATE_RIGHT){
-		animation_set->at(KNIFE_ANI_ATK_RIGHT)->Render(simonX+50, simonY+13);
+		//animation_set->at(KNIFE_ANI_ATK_RIGHT)->Render(simonX+50, simonY+13);
+		animation_set->at(KNIFE_ANI_ATK_RIGHT)->Render(x, y);
 	}else if(state == KNIFE_STATE_LEFT){
-		animation_set->at(KNIFE_ANI_ATK_LEFT)->Render(simonX-40, simonY+13);
+		//animation_set->at(KNIFE_ANI_ATK_LEFT)->Render(simonX-40, simonY+13);
+		animation_set->at(KNIFE_ANI_ATK_LEFT)->Render(x, y);
 	}else if(state == KNIFE_STATE_DISAPPEAR){
 		animation_set->at(KNIFE_ANI_ATK_RIGHT)->Render(10000, 10000);
 		animation_set->at(KNIFE_ANI_ATK_LEFT)->Render(10000, 10000);
@@ -53,6 +55,7 @@ void CKnife::SetState(int state){
 	switch (state){
 		case KNIFE_STATE_RIGHT:
 			nx = 1;
+			vx = 0.5f;
 			break;
 		case KNIFE_STATE_LEFT:
 			nx = -1;
@@ -72,9 +75,10 @@ void CKnife::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 			this->x = knife->simonPosX - 40;
 			this->y = knife->simonPosY + 13;
 		}
-		x += dx;
-		y += dy;
 	}
+
+	// x += dx;
+	// y += dy;
 	// else{
 	// 	this->x = 10000;
 	// 	this->y = 10000;
@@ -82,40 +86,42 @@ void CKnife::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 	// }
 
 	CGameObject::Update(dt);
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPGAMEOBJECT> filterCoObjs;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-	coEvents.clear();
-	CalcPotentialCollisions(coObjects, coEvents);
+	x += dx;
+	y += dy;
+	// vector<LPCOLLISIONEVENT> coEvents;
+	// vector<LPGAMEOBJECT> filterCoObjs;
+	// vector<LPCOLLISIONEVENT> coEventsResult;
+	// coEvents.clear();
+	// CalcPotentialCollisions(coObjects, coEvents);
 
-	// No collision occured, proceed normally
-	if (coEvents.size()!=0){
-		float min_tx, min_ty, nx = 0, ny;
-		float rdx = 0; 
-		float rdy = 0;
+	// // No collision occured, proceed normally
+	// if (coEvents.size()!=0){
+	// 	float min_tx, min_ty, nx = 0, ny;
+	// 	float rdx = 0; 
+	// 	float rdy = 0;
 
-		// TODO: This is a very ugly designed function!!!!
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+	// 	// TODO: This is a very ugly designed function!!!!
+	// 	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 		
-		// block every object first!
-		x += min_tx*dx + nx*0.4f;
-		y += min_ty*dy + ny*0.4f;
+	// 	// block every object first!
+	// 	x += min_tx*dx + nx*0.4f;
+	// 	y += min_ty*dy + ny*0.4f;
 
-		if (nx!=0) vx = 0;
-		if (ny!=0) vy = 0;
+	// 	if (nx!=0) vx = 0;
+	// 	if (ny!=0) vy = 0;
 		
-		for (UINT i = 0; i < coEventsResult.size(); i++){
-			LPCOLLISIONEVENT e = coEventsResult[i];
+	// 	for (UINT i = 0; i < coEventsResult.size(); i++){
+	// 		LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (dynamic_cast<CLight *>(e->obj)){
-				CLight *light = dynamic_cast<CLight *>(e->obj);
-				if (e->nx == 0){
-					light->SetState(LIGHT_STATE_DEAD);
-				}
-			}
-		}
-	}
+	// 		if (dynamic_cast<CLight *>(e->obj)){
+	// 			CLight *light = dynamic_cast<CLight *>(e->obj);
+	// 			if (e->nx == 0){
+	// 				light->SetState(LIGHT_STATE_DEAD);
+	// 			}
+	// 		}
+	// 	}
+	// }
 
-	// clean up collision events
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	// // clean up collision events
+	// for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
