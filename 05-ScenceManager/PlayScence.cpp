@@ -198,7 +198,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 void CPlayScene::Load()
 {
 	map1 = new CTileMap(L"textures\\map1_tiled.PNG", 64, 64, 14, 8);
-	map1->InitMap("map1.txt", MAP1_LENGTH);
+	map1->initMap("map1.txt", MAP1_LENGTH);
 
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
 
@@ -294,7 +294,7 @@ void CPlayScene::Render()
 {
 	// vector<LPGAMEOBJECT> objectSimon;
 	int indexSimon = -1;
-	map1->MapLvlRender();
+	map1->renderMap();
 	for (int i = 0; i < objects.size(); i++){
 		if(objects[i]->tag != 2){
 			objects[i]->Render();
