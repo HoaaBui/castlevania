@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Light.h"
+#include "Mario.h"
 
 #define KNIFE_BBOX_WIDTH  32
 #define KNIFE_BBOX_HEIGHT 16
@@ -12,9 +13,10 @@
 #define KNIFE_ANI_ATK_RIGHT 0
 #define KNIFE_ANI_ATK_LEFT  1
 
+#define KNIFE_ATTACK_RANGE 50
+
 class CKnife : public CGameObject{
 public:
-    float attackRange;
 	static CKnife* instance;
 	static CKnife* GetInstance();
 
@@ -22,6 +24,7 @@ public:
 	float simonPosX;
 	float simonPosY;
 	int simonCurrentFrame;
+
 public:
     CKnife();
 	~CKnife();

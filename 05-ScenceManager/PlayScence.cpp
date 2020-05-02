@@ -179,18 +179,25 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		return;
 	}
 
-	// General object setup
-	obj->SetPosition(x, y);
+	if(object_type == OBJECT_TYPE_KNIFE){
+		obj->SetPosition(x, y);
+		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+		obj->SetAnimationSet(ani_set);
+		player->knife = (CKnife*)obj;  
+	}else{
+		// General object setup
+		obj->SetPosition(x, y);
 
-	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 
-	obj->SetAnimationSet(ani_set);
-	// objWhip->SetAnimationSet(ani_set);
-	// whip->SetAnimationSet(ani_set);
-	objects.push_back(obj);
-	// if(object_type == OBJECT_TYPE_WHIP){
-	// 	player->AddWeapon(whip);
-	// } 
+		obj->SetAnimationSet(ani_set);
+		// objWhip->SetAnimationSet(ani_set);
+		// whip->SetAnimationSet(ani_set);
+		objects.push_back(obj);
+		// if(object_type == OBJECT_TYPE_WHIP){
+		// 	player->AddWeapon(whip);
+		// } 
+	}
 }
 
 void CPlayScene::Load()

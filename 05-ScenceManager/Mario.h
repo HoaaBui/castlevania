@@ -67,6 +67,7 @@ public:
 	bool isUsedSubWeapon;
 	DWORD attackTime;
 	// CWhip* mainWeap;
+	CKnife *knife;
 
 	// static CMario* instance;
 	// static CMario* GetInstance();

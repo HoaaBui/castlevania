@@ -10,8 +10,7 @@
 #include "Whip.h"
 #include "knife.h"
 
-CMario::CMario() : CGameObject()
-{
+CMario::CMario() : CGameObject(){
 	level = MARIO_LEVEL_BIG;
 	untouchable = 0;
 	SetState(MARIO_STATE_IDLE);
@@ -25,17 +24,14 @@ CMario::CMario() : CGameObject()
 
 // CMario* CMario::instance = NULL;
 
-// CMario * CMario::GetInstance()
-// {
-// 	if (instance == NULL)
-// 	{
+// CMario * CMario::GetInstance(){
+// 	if (instance == NULL){
 // 		instance = new CMario();
 // 	}
 // 	return instance;
 // }
 
-void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
-{
+void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
@@ -149,6 +145,22 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// 		}
 	// 	}
 	// }
+
+	if(this->isUsedSubWeapon){
+		// int currentFrame = -1;
+		// animation_set->at(ani)->GetCurrentFrame(currentFrame);
+		// if(currentFrame==2){
+		// 	if(nx>0){
+		// 		knife->x = x+50;
+		// 		knife->y = y;
+		// 	}else{
+		// 		knife->x = x-5;
+		// 		knife->y = y;
+		// 	}
+		// }
+		knife->Update(dt,coObjects);
+	}
+	
 }
 
 void CMario::Render(){
@@ -157,7 +169,7 @@ void CMario::Render(){
     float simonPosX = 0.0f, simonPosY = 0.0f, xxx = 0.0f, yyy = 0.0f;
 	GetPosition(simonPosX, simonPosY);
 
-	if(this->isAttack || this->isUsedSubWeapon){
+	if(this->isAttack){
 		attackTime += dt;
 		if(nx>0){
 			ani = MARIO_ANI_BIG_ATTACK_STAND_RIGHT;
@@ -195,7 +207,7 @@ void CMario::Render(){
 		SetState(MARIO_STATE_IDLE);
 		attackTime = 0;
 		this->isAttack = false;
-		this->isUsedSubWeapon = false;
+		// this->isUsedSubWeapon = false;
 		
 		if(this->isAttack == false){
 			CWhip::GetInstance()->SetState(WHIP_STATE_DISAPPEAR);
@@ -210,29 +222,49 @@ void CMario::Render(){
 	animation_set->at(ani)->GetCurrentFrame(currentFrame);
     CWhip::GetInstance()->simonPosX = this->x;
 	CWhip::GetInstance()->simonPosY = this->y;
-	CKnife::GetInstance()->simonPosX = this->x;
-	CKnife::GetInstance()->simonPosY = this->y;
+	knife->simonPosX = this->x;
+	knife->simonPosY = this->y;
 
-	if(this->isAttack){
+	if(this->isUsedSubWeapon){
+		if(currentFrame==2){
+			if(nx>0){
+				knife->x = x+50;
+				knife->y = y;
+			}else{
+				knife->x = x-5;
+				knife->y = y;
+			}
+		}
+			
+		if(nx>0){
+           	knife->SetState(KNIFE_STATE_RIGHT);
+		}else{
+           	knife->SetState(KNIFE_STATE_LEFT);
+		}
+		knife->Render();
+	}
+
+	if(this->isAttack && !isUsedSubWeapon){
         CWhip::GetInstance()->simonCurrentFrame = currentFrame;
 		CWhip::GetInstance()->nx = nx;
 
-		CKnife::GetInstance()->simonCurrentFrame = currentFrame;
-		CKnife::GetInstance()->nx = nx;
+		knife->simonCurrentFrame = currentFrame;
+		knife->nx = nx;
 
-		if(this->isUsedSubWeapon){
-			if(nx>0){
-           		CKnife::GetInstance()->SetState(KNIFE_STATE_RIGHT);
-			}else{
-           		CKnife::GetInstance()->SetState(KNIFE_STATE_LEFT);
-			}	
-		}else{
+		// if(this->isUsedSubWeapon){
+		// 	if(nx>0){
+        //    		knife->SetState(KNIFE_STATE_RIGHT);
+		// 	}else{
+        //    		knife->SetState(KNIFE_STATE_LEFT);
+		// 	}
+		// 	knife->Render();
+		// }else if(!this->isUsedSubWeapon && currentFrame == 2){
 			if(nx>0){
            		CWhip::GetInstance()->SetState(WHIP_STATE_RIGHT);
 			}else{
            		CWhip::GetInstance()->SetState(WHIP_STATE_LEFT);
 			}	
-		}
+		// }
 	}
 
 	// else if (level == MARIO_LEVEL_SMALL)

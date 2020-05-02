@@ -1,14 +1,16 @@
 #include "Knife.h"
 #include "Light.h"
+#include "Mario.h"
 
-CKnife::~CKnife(){
+CKnife::CKnife(){
 	this->simonCurrentFrame = -1;
 	this->simonPosX = 0.0f;
 	this->simonPosY = 0.0f;
 	this->tag = 4;
+	// this->attackRange = 300;
 }
 
-CKnife::CKnife(){
+CKnife::~CKnife(){
 
 }
 
@@ -23,11 +25,11 @@ CKnife * CKnife::GetInstance()
 }
 
 void CKnife::Render(){
-	CKnife * knife = CKnife::GetInstance();
-	int state = knife->GetState();
-	float simonX = knife->simonPosX;
-	float simonY = knife->simonPosY;
-
+	// CKnife * knife = CKnife::GetInstance();
+	// int state = knife->GetState();
+	// float simonX = knife->simonPosX;
+	// float simonY = knife->simonPosY;
+	// if (simonCurrentFrame != 2) return;
 	if(state == KNIFE_STATE_RIGHT){
 		//animation_set->at(KNIFE_ANI_ATK_RIGHT)->Render(simonX+50, simonY+13);
 		animation_set->at(KNIFE_ANI_ATK_RIGHT)->Render(x, y);
@@ -55,7 +57,7 @@ void CKnife::SetState(int state){
 	switch (state){
 		case KNIFE_STATE_RIGHT:
 			nx = 1;
-			vx = 0.5f;
+			vx = 0.3f;
 			break;
 		case KNIFE_STATE_LEFT:
 			nx = -1;
@@ -66,19 +68,17 @@ void CKnife::SetState(int state){
 }
 
 void CKnife::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
-	CKnife * knife = CKnife::GetInstance();
-	if(knife->simonCurrentFrame == 2){
-		if(knife->nx>0){
-			this->x = knife->simonPosX + 50;
-			this->y = knife->simonPosY + 13;
+	//CKnife * knife = CKnife::GetInstance();
+	/*if(simonCurrentFrame == 2){
+		if(nx>0){
+			this->x = simonPosX+5;
+			this->y = simonPosY;
 		}else{
-			this->x = knife->simonPosX - 40;
-			this->y = knife->simonPosY + 13;
+			this->x = simonPosX-5;
+			this->y = simonPosY;
 		}
-	}
+	}*/
 
-	// x += dx;
-	// y += dy;
 	// else{
 	// 	this->x = 10000;
 	// 	this->y = 10000;
@@ -88,6 +88,13 @@ void CKnife::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 	CGameObject::Update(dt);
 	x += dx;
 	y += dy;
+
+	// CMario *mario = CMario::GetInstance();
+	if (abs(simonPosX - this->x) > KNIFE_ATTACK_RANGE){
+		// isActive = false;
+		// mario->isUsedSubWeapon = false;
+	}
+
 	// vector<LPCOLLISIONEVENT> coEvents;
 	// vector<LPGAMEOBJECT> filterCoObjs;
 	// vector<LPCOLLISIONEVENT> coEventsResult;
