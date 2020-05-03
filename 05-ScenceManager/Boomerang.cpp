@@ -7,6 +7,7 @@ CBoomerang::CBoomerang(){
 	// this->simonPosX = 0.0f;
 	// this->simonPosY = 0.0f;
 	this->tag = 5;
+	this->isComingBack;
 }
 
 CBoomerang::~CBoomerang(){
@@ -114,12 +115,15 @@ void CBoomerang::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 		}
 	}else{
 		CMario *mario = CMario::GetInstance();
-		if (abs(mario->x - this->x) > BOOMERANG_ATTACK_RANGE 
-		 	&& mario->isUsedSubWeaponBoomerang){
+		if(abs(mario->x - this->x) > BOOMERANG_ATTACK_RANGE 
+		  && mario->isUsedSubWeaponBoomerang && this->isComingBack == false){
 		 	mario->isUsedSubWeaponBoomerang = false;
 		 	this->state = BOOMERANG_STATE_DISAPPEAR;
 		 	this->x = 10000;
 		 	this->y = 10000;
+			this->isComingBack = true;
+			vx = -vx;
+			nx = -nx;
 		}
 		x += dx;
 		y += dy;

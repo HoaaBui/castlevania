@@ -12,7 +12,7 @@
 
 #define BOOMERANG_ANI_ATK 0
 
-#define BOOMERANG_ATTACK_RANGE 300
+#define BOOMERANG_ATTACK_RANGE 200
 
 class CBoomerang : public CGameObject{
 public:
@@ -23,6 +23,7 @@ public:
 	// float simonPosX;
 	// float simonPosY;
 	int simonCurrentFrame;
+	bool isComingBack;
 
 public:
     CBoomerang();
