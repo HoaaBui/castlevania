@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Whip.h"
 #include "Knife.h"
+#include "Boomerang.h"
 
 #define MARIO_WALKING_SPEED		0.1f 
 //0.1f
@@ -69,6 +70,7 @@ public:
 	DWORD attackTime;
 	// CWhip* mainWeap;
 	CKnife *knife;
+	CBoomerang *boomerang;
 
 	static CMario* instance;
 	static CMario* GetInstance();

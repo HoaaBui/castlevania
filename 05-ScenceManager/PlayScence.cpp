@@ -11,6 +11,7 @@
 #include "Light.h"
 #include "Knife.h"
 #include "Mario.h"
+#include "Boomerang.h"
 
 using namespace std;
 
@@ -39,6 +40,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define OBJECT_TYPE_WHIP	4
 #define OBJECT_TYPE_LIGHT	5
 #define OBJECT_TYPE_KNIFE	6
+#define OBJECT_TYPE_BOOMERANG	7
 #define OBJECT_TYPE_BRICK	1
 #define OBJECT_TYPE_GOOMBA	2
 #define OBJECT_TYPE_KOOPAS	3
@@ -169,6 +171,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_LIGHT: obj = new CLight(); break;
 	case OBJECT_TYPE_WHIP:  obj = new CWhip(); break;
 	case OBJECT_TYPE_KNIFE:  obj = new CKnife(); break;
+	case OBJECT_TYPE_BOOMERANG:  obj = new CBoomerang(); break;
 	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(); break;
 	case OBJECT_TYPE_PORTAL:
 		{	
@@ -191,7 +194,13 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 		obj->SetAnimationSet(ani_set);
 		mario->knife = (CKnife*)obj; 
-	}else{
+	}
+	// else if(object_type == OBJECT_TYPE_BOOMERANG){
+	// 	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+	// 	obj->SetAnimationSet(ani_set);
+	// 	mario->boomerang = (CBoomerang*)obj; 
+	// }
+	else{
 		// General object setup
 		obj->SetPosition(x, y);
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
@@ -326,10 +335,6 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 		marioo->SetState(MARIO_STATE_JUMP);
 		break;
 	case DIK_A: // reset
-		// mario->SetState(MARIO_STATE_IDLE);
-		// mario->SetLevel(MARIO_LEVEL_BIG);
-		// mario->SetPosition(50.0f, 0.0f);
-		// mario->SetSpeed(0, 0);
 		marioo->isUsedWhip = true;
 		if (marioo->nx > 0){
 			marioo->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);

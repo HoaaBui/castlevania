@@ -9,6 +9,7 @@
 6	textures\light_die.bmp	    255	0	255
 7	textures\knife_right.png	255	0	255
 8	textures\knife_left.png	    255	0	255
+9	textures\boomerang.png	    255	255	255
 20	textures\misc.png	        176	224	248
 10	textures\enemies.png	    3	26	110
 
@@ -75,6 +76,11 @@
 70001	0	0	32	18	7
 # knife left
 70002	0	0	32	18	8
+
+# boomerang
+80001	0	0	28	28	9
+80002	28	0	56	28	9
+80003	56	0	84	28	9
 
 # SMALL MARIO
 # idle small right
@@ -156,6 +162,9 @@
 #knife left
 1002	70002	100
 
+#boomerang
+1101	80001	100	80002	100	80003	100
+
 # ==== BRICK =========
 601	20001	100
 
@@ -183,6 +192,8 @@
 5	901	902
 # KNIFE
 6	1001	1002
+# BOOMERANG
+7	1101
 # BRICK 
 2	601
 # QUESTION MARK BRICK 
@@ -203,6 +214,10 @@
 # KNIFE
 #6	270	316	6
 6	100000	100000	6
+
+# BOOMERANG
+#7	100000	100000	7
+7	270	316	7
 
 # LIGHT
 5	255	316	5
