@@ -137,20 +137,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-
-	//Xet va cham giua roi va cay nen
-	// if(this->isAttack && !this->isUsedSubWeapon){
-	// 	int currentFrame = -1;
-	// 	animation_set->at(MARIO_ANI_BIG_ATTACK_STAND_RIGHT)->GetCurrentFrame(currentFrame);
-	// 	if(currentFrame == 2){
-	// 		// coEvents.clear();//clear
-	// 		// coEventsResult.clear();
-	// 		if(nx>0){
-	// 			CWhip::GetInstance()->SetPosition(this->x+50, this->y+13);	
-	// 		}
-	// 	}
-	// }
-
+	
 	if(this->isUsedSubWeapon){
 		knife->Update(dt,coObjects);
 	}
@@ -180,14 +167,8 @@ void CMario::Render(){
 			ani = MARIO_ANI_DIE;
 		}else if(level == MARIO_LEVEL_BIG){
 			if (vx == 0){
-				// if(state == MARIO_STATE_ATTACK_STAND_RIGHT){
-				// 	ani = MARIO_ANI_BIG_ATTACK_STAND_RIGHT;
-				// }else if(state == MARIO_STATE_ATTACK_STAND_LEFT){
-				// 	ani = MARIO_ANI_BIG_ATTACK_STAND_LEFT;
-				// }else{
-					if (nx>0) ani = MARIO_ANI_BIG_IDLE_RIGHT;
-					else ani = MARIO_ANI_BIG_IDLE_LEFT;
-				// }
+				if (nx>0) ani = MARIO_ANI_BIG_IDLE_RIGHT;
+				else ani = MARIO_ANI_BIG_IDLE_LEFT;
 			}else if(vx > 0){
 				ani = MARIO_ANI_BIG_WALKING_RIGHT; 
 			}else{
@@ -196,34 +177,17 @@ void CMario::Render(){
 		}
 	}
 
-	// if(this->isUsedSubWeapon){
-	// 	attackTime +=dt;
-	// }
 	if(attackTime >= 200){
 		SetState(MARIO_STATE_IDLE);
 		attackTime = 0;
+		this->isUsedWhip = false;
 		this->isAttack = false;
-		if(attackTime >= 400){
-			knife->SetState(KNIFE_STATE_DISAPPEAR);
-			knife->simonCurrentFrame = -1;
-			this->isUsedSubWeapon = false;
-
-		}
 		
 		if(this->isAttack == false){
 			CWhip::GetInstance()->SetState(WHIP_STATE_DISAPPEAR);
 		    CWhip::GetInstance()->simonCurrentFrame = -1;
-
-			// knife->SetState(KNIFE_STATE_DISAPPEAR);
-		    // knife->simonCurrentFrame = -1;
 		}
 	}
-	// if(attackTime >400){
-	// 	this->isUsedSubWeapon = false;
-	// 	attackTime = 0;
-	// 	knife->SetState(KNIFE_STATE_DISAPPEAR);
-	// 	knife->simonCurrentFrame = -1;
-	// }
     
 	int currentFrame = -1;
 	animation_set->at(ani)->GetCurrentFrame(currentFrame);
@@ -243,44 +207,19 @@ void CMario::Render(){
 		knife->Render();
 	}
 
-	if(this->isAttack && !this->isUsedSubWeapon){
+	if(this->isAttack && !this->isUsedSubWeapon && this->isUsedWhip){
         CWhip::GetInstance()->simonCurrentFrame = currentFrame;
 		CWhip::GetInstance()->nx = nx;
 
-		// knife->simonCurrentFrame = currentFrame;
-		// knife->nx = nx;
-
-		// if(this->isUsedSubWeapon){
-		// 	if(nx>0){
-        //    		knife->SetState(KNIFE_STATE_RIGHT);
-		// 	}else{
-        //    		knife->SetState(KNIFE_STATE_LEFT);
-		// 	}	
-		// 	knife->Render();
-		// }else{
-			if(nx>0){
-           		CWhip::GetInstance()->SetState(WHIP_STATE_RIGHT);
-			}else{
-           		CWhip::GetInstance()->SetState(WHIP_STATE_LEFT);
-			}	
-		// }
+		if(nx>0){
+           	CWhip::GetInstance()->SetState(WHIP_STATE_RIGHT);
+		}else{
+           	CWhip::GetInstance()->SetState(WHIP_STATE_LEFT);
+		}	
 	}
-
-	// else if (level == MARIO_LEVEL_SMALL)
-	// {
-	// 	if (vx == 0)
-	// 	{
-	// 		if (nx>0) ani = MARIO_ANI_SMALL_IDLE_RIGHT;
-	// 		else ani = MARIO_ANI_SMALL_IDLE_LEFT;
-	// 	}
-	// 	else if (vx > 0)
-	// 		ani = MARIO_ANI_SMALL_WALKING_RIGHT;
-	// 	else ani = MARIO_ANI_SMALL_WALKING_LEFT;
-	// }
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
-	// DebugOut(L"[INFO] The number of Mario animation is %d \n", ani);
 	animation_set->at(ani)->Render(x, y, alpha);
 
 	RenderBoundingBox();

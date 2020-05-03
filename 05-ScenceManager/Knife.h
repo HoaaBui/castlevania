@@ -13,7 +13,7 @@
 #define KNIFE_ANI_ATK_RIGHT 0
 #define KNIFE_ANI_ATK_LEFT  1
 
-#define KNIFE_ATTACK_RANGE 50
+#define KNIFE_ATTACK_RANGE 200
 
 class CKnife : public CGameObject{
 public:

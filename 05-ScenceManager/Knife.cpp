@@ -1,5 +1,6 @@
 #include "Knife.h"
 #include "Light.h"
+#include "Mario.h"
 
 CKnife::CKnife(){
 	this->simonCurrentFrame = -1;
@@ -60,6 +61,7 @@ void CKnife::SetState(int state){
 			break;
 		case KNIFE_STATE_LEFT:
 			nx = -1;
+			vx = -0.3f;
 			break;
 		default:
 			break;
@@ -89,6 +91,7 @@ void CKnife::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 	// CGameObject::Update(dt);
 	// x += dx;
 	// y += dy;
+	CGameObject::Update(dt);
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPGAMEOBJECT> filterCoObjs;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -118,11 +121,23 @@ void CKnife::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 				CLight *light = dynamic_cast<CLight *>(e->obj);
 				// if (e->nx == 0){
 					light->SetState(LIGHT_STATE_DEAD);
+					this->state = KNIFE_STATE_DISAPPEAR;
+					CMario *mario = CMario::GetInstance();
+					this->x = 10000;
+					this->y = 10000;
+					mario->isUsedSubWeapon = false;
 				// }
 			}
 		}
 	}else{
-		CGameObject::Update(dt);
+		CMario *mario = CMario::GetInstance();
+		if (abs(mario->x - this->x) > KNIFE_ATTACK_RANGE 
+		 	&& mario->isUsedSubWeapon){
+		 	mario->isUsedSubWeapon = false;
+		 	this->state = KNIFE_STATE_DISAPPEAR;
+		 	this->x = 10000;
+		 	this->y = 10000;
+		}
 		x += dx;
 		y += dy;
 	}
