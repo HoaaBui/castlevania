@@ -15,6 +15,7 @@ CGameObject::CGameObject()
 	nx = 1;	
 	tag = -1;
 	isDead = false;
+	isCollision = true;
 }
 
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
@@ -29,7 +30,9 @@ void CGameObject::filterUnwantedColliableObject(
 
 	for (UINT i = 0; i < coObjects->size(); i++){
 		if(coObjects->at(i)->tag != 1){
-			filter.push_back(coObjects->at(i));
+			if (coObjects->at(i)->isCollision == true) {
+				filter.push_back(coObjects->at(i));
+			}
 		}
 	}
 

@@ -10,6 +10,7 @@
 7	textures\knife_right.png	255	0	255
 8	textures\knife_left.png	    255	0	255
 9	textures\boomerang.png	    255	255	255
+11	textures\small_heart.png	    255	255	255
 20	textures\misc.png	        176	224	248
 10	textures\enemies.png	    3	26	110
 
@@ -81,6 +82,9 @@
 80001	0	0	28	28	9
 80002	28	0	56	28	9
 80003	56	0	84	28	9
+
+# heart
+90001	0	0	32	49	11
 
 # SMALL MARIO
 # idle small right
@@ -165,6 +169,9 @@
 #boomerang
 1101	80001	100	80002	100	80003	100
 
+#heart
+1201	90001	100
+
 # ==== BRICK =========
 601	20001	100
 
@@ -194,6 +201,8 @@
 6	1001	1002
 # BOOMERANG
 7	1101
+# heart
+8	1201
 # BRICK 
 2	601
 # QUESTION MARK BRICK 
@@ -216,8 +225,11 @@
 6	100000	100000	6
 
 # BOOMERANG
-#7	100000	100000	7
-7	270	316	7
+7	10000	10000	7
+#7	270	316	7
+
+# heart
+8	270	316	8
 
 # LIGHT
 5	255	316	5

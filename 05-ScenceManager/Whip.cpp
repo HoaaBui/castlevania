@@ -2,6 +2,7 @@
 #include "Utils.h"
 #include "light.h"
 #include "Mario.h"
+#include "Heart.h"
 
 CWhip::CWhip(){
     this->simonCurrentFrame = -1;
@@ -136,6 +137,10 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 				if (e->nx == 0){
 					light->SetState(LIGHT_STATE_DEAD);
 				}
+			}
+			if (dynamic_cast<CHeart *>(e->obj)){
+				CHeart *heart = dynamic_cast<CHeart *>(e->obj);
+				heart->isCollision = true;
 			}
 		}
 	}
