@@ -34,6 +34,8 @@ public:
 	virtual void Render();
 	virtual void Unload();
 
+	void initPlayer() { mario = CMario::GetInstance(); };
+
 	friend class CPlayScenceKeyHandler;
 };
 

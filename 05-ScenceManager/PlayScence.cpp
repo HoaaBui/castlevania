@@ -17,7 +17,9 @@ using namespace std;
 CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 	CScene(id, filePath)
 {
-	mario = CMario::GetInstance();
+	// mario = CMario::GetInstance();
+	// Khong hieu tai sao ham khoi tao lai chay nhieu lan nen viet ham rieng tao gia tri cho SIMON
+	// dung 1 lan.
 	key_handler = new CPlayScenceKeyHandler(this);
 }
 
@@ -154,11 +156,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	switch (object_type)
 	{
 	case OBJECT_TYPE_MARIO:
-		if (mario!=NULL) 
-		{
-			DebugOut(L"[ERROR] MARIO object was created before! ");
-			return;
-		}
+		// if (mario!=NULL) 
+		// {
+		// 	DebugOut(L"[ERROR] MARIO object was created before! ");
+		// 	return;
+		// }
 		// obj = new CMario(); 
 		// mario = (CMario*)obj;  
 		break;
@@ -182,6 +184,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	}
 
 	if(object_type == OBJECT_TYPE_MARIO){
+		mario->SetPosition(x, y);
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 		mario->SetAnimationSet(ani_set);
 	}else if(object_type == OBJECT_TYPE_KNIFE){
@@ -197,8 +200,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	}
 }
 
-void CPlayScene::Load()
-{
+void CPlayScene::Load(){
+	// khoi tao gia tri cho SIMON
+	this->mario = CMario::GetInstance();
 	map1 = new CTileMap(L"textures\\map1_tiled.PNG", 64, 64, 14, 8);
 	map1->initMap("map1.txt", MAP1_LENGTH);
 
@@ -315,29 +319,30 @@ void CPlayScene::Unload()
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	//CMario *mario = ((CPlayScene*)scence)->player;
+	CMario *marioo = CMario::GetInstance();
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		mario->SetState(MARIO_STATE_JUMP);
+		marioo->SetState(MARIO_STATE_JUMP);
 		break;
 	case DIK_A: // reset
 		// mario->SetState(MARIO_STATE_IDLE);
 		// mario->SetLevel(MARIO_LEVEL_BIG);
 		// mario->SetPosition(50.0f, 0.0f);
 		// mario->SetSpeed(0, 0);
-		mario->isUsedWhip = true;
-		if (mario->nx > 0){
-			mario->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);
+		marioo->isUsedWhip = true;
+		if (marioo->nx > 0){
+			marioo->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);
 		}else{
-			mario->SetState(MARIO_STATE_ATTACK_STAND_LEFT);
+			marioo->SetState(MARIO_STATE_ATTACK_STAND_LEFT);
 		}
 		break;
 	case DIK_S:
-		mario->isUsedSubWeapon = true;
-		if (mario->nx > 0){
-			mario->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);
+		marioo->isUsedSubWeapon = true;
+		if (marioo->nx > 0){
+			marioo->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);
 		}else{
-			mario->SetState(MARIO_STATE_ATTACK_STAND_LEFT);
+			marioo->SetState(MARIO_STATE_ATTACK_STAND_LEFT);
 		}
 		break;
 	}
@@ -346,15 +351,15 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 void CPlayScenceKeyHandler::OnKeyUp(int KeyCode){
 	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 	//CMario *mario = ((CPlayScene*)scence)->player;
-	
+	CMario *marioo = CMario::GetInstance();
 	switch (KeyCode){
 		case DIK_DOWN:
-			if (mario->isAttack){
+			if (marioo->isAttack){
 				CWhip * whip = CWhip::GetInstance();
 				whip->animation_set->at(0)->SetCurrentFrame(-1);
 		        whip->animation_set->at(1)->SetCurrentFrame(-1);
 			}
-			mario->isSit = false;
+			marioo->isSit = false;
 			break;
 	}
 }
@@ -362,19 +367,19 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode){
 void CPlayScenceKeyHandler::KeyState(BYTE *states){
 	CGame *game = CGame::GetInstance();
 	//CMario *mario = ((CPlayScene*)scence)->player;
-
+	CMario *marioo = CMario::GetInstance();
 	// disable control key when Mario die 
-	if (mario->GetState() == MARIO_STATE_DIE) return;
+	if (marioo->GetState() == MARIO_STATE_DIE) return;
 
 	// Set State for Mario
 	if(game->IsKeyDown(DIK_RIGHT)){
-		mario->SetState(MARIO_STATE_WALKING_RIGHT);
+		marioo->SetState(MARIO_STATE_WALKING_RIGHT);
 	}else if (game->IsKeyDown(DIK_LEFT)){
-		mario->SetState(MARIO_STATE_WALKING_LEFT);
-	}else if(game->IsKeyDown(DIK_DOWN) && !mario->isAttack){
-		mario->SetState(MARIO_STATE_SIT_RIGHT);
+		marioo->SetState(MARIO_STATE_WALKING_LEFT);
+	}else if(game->IsKeyDown(DIK_DOWN) && !marioo->isAttack){
+		marioo->SetState(MARIO_STATE_SIT_RIGHT);
 		// mario->SetState(MARIO_STATE_SIT_LEFT);
 	}else{
-		mario->SetState(MARIO_STATE_IDLE);
+		marioo->SetState(MARIO_STATE_IDLE);
 	}
 }
