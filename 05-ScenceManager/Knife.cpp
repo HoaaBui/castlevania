@@ -1,14 +1,14 @@
 #include "Knife.h"
 #include "Light.h"
 
-CKnife::~CKnife(){
+CKnife::CKnife(){
 	this->simonCurrentFrame = -1;
 	this->simonPosX = 0.0f;
 	this->simonPosY = 0.0f;
 	this->tag = 4;
 }
 
-CKnife::CKnife(){
+CKnife::~CKnife(){
 
 }
 
@@ -23,10 +23,11 @@ CKnife * CKnife::GetInstance()
 }
 
 void CKnife::Render(){
-	CKnife * knife = CKnife::GetInstance();
-	int state = knife->GetState();
-	float simonX = knife->simonPosX;
-	float simonY = knife->simonPosY;
+	// CKnife * knife = CKnife::GetInstance();
+	// int state = knife->GetState();
+	// float simonX = knife->simonPosX;
+	// float simonY = knife->simonPosY;
+
 
 	if(state == KNIFE_STATE_RIGHT){
 		//animation_set->at(KNIFE_ANI_ATK_RIGHT)->Render(simonX+50, simonY+13);
@@ -55,7 +56,7 @@ void CKnife::SetState(int state){
 	switch (state){
 		case KNIFE_STATE_RIGHT:
 			nx = 1;
-			vx = 0.5f;
+			vx = 0.3f;
 			break;
 		case KNIFE_STATE_LEFT:
 			nx = -1;
@@ -66,14 +67,14 @@ void CKnife::SetState(int state){
 }
 
 void CKnife::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
-	CKnife * knife = CKnife::GetInstance();
-	if(knife->simonCurrentFrame == 2){
-		if(knife->nx>0){
-			this->x = knife->simonPosX + 50;
-			this->y = knife->simonPosY + 13;
+	// CKnife * knife = CKnife::GetInstance();
+	if(simonCurrentFrame == 2){
+		if(nx>0){
+			this->x = simonPosX + 10;
+			this->y = simonPosY;
 		}else{
-			this->x = knife->simonPosX - 40;
-			this->y = knife->simonPosY + 13;
+			this->x = simonPosX - 10;
+			this->y = simonPosY;
 		}
 	}
 
@@ -85,43 +86,47 @@ void CKnife::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 	// 	// Khong xet va cham cho cai roi nua
 	// }
 
-	CGameObject::Update(dt);
-	x += dx;
-	y += dy;
-	// vector<LPCOLLISIONEVENT> coEvents;
-	// vector<LPGAMEOBJECT> filterCoObjs;
-	// vector<LPCOLLISIONEVENT> coEventsResult;
-	// coEvents.clear();
-	// CalcPotentialCollisions(coObjects, coEvents);
+	// CGameObject::Update(dt);
+	// x += dx;
+	// y += dy;
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPGAMEOBJECT> filterCoObjs;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+	coEvents.clear();
+	CalcPotentialCollisions(coObjects, coEvents);
 
-	// // No collision occured, proceed normally
-	// if (coEvents.size()!=0){
-	// 	float min_tx, min_ty, nx = 0, ny;
-	// 	float rdx = 0; 
-	// 	float rdy = 0;
+	// No collision occured, proceed normally
+	if (coEvents.size()!=0){
+		float min_tx, min_ty, nx = 0, ny;
+		float rdx = 0; 
+		float rdy = 0;
 
-	// 	// TODO: This is a very ugly designed function!!!!
-	// 	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+		// TODO: This is a very ugly designed function!!!!
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 		
-	// 	// block every object first!
-	// 	x += min_tx*dx + nx*0.4f;
-	// 	y += min_ty*dy + ny*0.4f;
+		// block every object first!
+		x += min_tx*dx + nx*0.4f;
+		y += min_ty*dy + ny*0.4f;
 
-	// 	if (nx!=0) vx = 0;
-	// 	if (ny!=0) vy = 0;
+		if (nx!=0) vx = 0;
+		if (ny!=0) vy = 0;
 		
-	// 	for (UINT i = 0; i < coEventsResult.size(); i++){
-	// 		LPCOLLISIONEVENT e = coEventsResult[i];
+		for (UINT i = 0; i < coEventsResult.size(); i++){
+			LPCOLLISIONEVENT e = coEventsResult[i];
 
-	// 		if (dynamic_cast<CLight *>(e->obj)){
-	// 			CLight *light = dynamic_cast<CLight *>(e->obj);
-	// 			if (e->nx == 0){
-	// 				light->SetState(LIGHT_STATE_DEAD);
-	// 			}
-	// 		}
-	// 	}
-	// }
+			if (dynamic_cast<CLight *>(e->obj)){
+				CLight *light = dynamic_cast<CLight *>(e->obj);
+				// if (e->nx == 0){
+					light->SetState(LIGHT_STATE_DEAD);
+				// }
+			}
+		}
+	}else{
+		CGameObject::Update(dt);
+		x += dx;
+		y += dy;
+	}
 
-	// // clean up collision events
-	// for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	// clean up collision events
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Whip.h"
-#include "knife.h"
+#include "Knife.h"
 
 #define MARIO_WALKING_SPEED		0.1f 
 //0.1f
@@ -65,8 +65,10 @@ public:
     bool isAttack;
 	bool isSit;
 	bool isUsedSubWeapon;
+	bool isUsedWhip;
 	DWORD attackTime;
 	// CWhip* mainWeap;
+	CKnife *knife;
 
 	// static CMario* instance;
 	// static CMario* GetInstance();
