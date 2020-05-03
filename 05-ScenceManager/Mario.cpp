@@ -18,6 +18,7 @@ CMario::CMario() : CGameObject()
 	isAttack = false;
 	isSit = false;
 	isUsedSubWeapon = false;
+	isUsedSubWeaponBoomerang = false;
 	attackTime = 0;
 	tag = 2;
 	knife = new CKnife();
@@ -141,6 +142,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if(this->isUsedSubWeapon){
 		knife->Update(dt,coObjects);
 	}
+	if(this->isUsedSubWeaponBoomerang){
+		boomerang->Update(dt,coObjects);
+	}
 }
 
 void CMario::Render(){
@@ -198,6 +202,10 @@ void CMario::Render(){
 
 	knife->simonCurrentFrame = currentFrame;
 	knife->nx = nx;
+
+	boomerang->simonCurrentFrame = currentFrame;
+	boomerang->nx = nx;
+
 	if(this->isUsedSubWeapon){
 		if(nx>0){
            	knife->SetState(KNIFE_STATE_RIGHT);
@@ -207,7 +215,16 @@ void CMario::Render(){
 		knife->Render();
 	}
 
-	if(this->isAttack && !this->isUsedSubWeapon && this->isUsedWhip){
+	if(this->isUsedSubWeaponBoomerang){
+		if(nx>0){
+           	boomerang->SetState(BOOMERANG_STATE_RIGHT);
+		}else{
+           	boomerang->SetState(BOOMERANG_STATE_LEFT);
+		}	
+		boomerang->Render();
+	}
+
+	if(this->isAttack && !this->isUsedSubWeapon && !this->isUsedSubWeaponBoomerang && this->isUsedWhip){
         CWhip::GetInstance()->simonCurrentFrame = currentFrame;
 		CWhip::GetInstance()->nx = nx;
 

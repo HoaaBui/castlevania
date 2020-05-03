@@ -67,6 +67,7 @@ public:
 	bool isSit;
 	bool isUsedSubWeapon;
 	bool isUsedWhip;
+	bool isUsedSubWeaponBoomerang;
 	DWORD attackTime;
 	// CWhip* mainWeap;
 	CKnife *knife;

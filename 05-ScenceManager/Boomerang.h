@@ -10,20 +10,19 @@
 #define BOOMERANG_STATE_LEFT 		200
 #define BOOMERANG_STATE_DISAPPEAR	300
 
-#define BOOMERANG_ANI_ATK_RIGHT 0
-#define BOOMERANG_ANI_ATK_LEFT  1
+#define BOOMERANG_ANI_ATK 0
 
 #define BOOMERANG_ATTACK_RANGE 300
 
 class CBoomerang : public CGameObject{
 public:
-	static CBoomerang* instance;
-	static CBoomerang* GetInstance();
+	// static CBoomerang* instance;
+	// static CBoomerang* GetInstance();
 
 	// nhung bien nay co gia tri chi khi ma simon attack
 	// float simonPosX;
 	// float simonPosY;
-	// int simonCurrentFrame;
+	int simonCurrentFrame;
 
 public:
     CBoomerang();

@@ -194,13 +194,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 		obj->SetAnimationSet(ani_set);
 		mario->knife = (CKnife*)obj; 
-	}
-	// else if(object_type == OBJECT_TYPE_BOOMERANG){
-	// 	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
-	// 	obj->SetAnimationSet(ani_set);
-	// 	mario->boomerang = (CBoomerang*)obj; 
-	// }
-	else{
+	}else if(object_type == OBJECT_TYPE_BOOMERANG){
+		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+		obj->SetAnimationSet(ani_set);
+		mario->boomerang = (CBoomerang*)obj; 
+	}else{
 		// General object setup
 		obj->SetPosition(x, y);
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
@@ -344,6 +342,14 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 		break;
 	case DIK_S:
 		marioo->isUsedSubWeapon = true;
+		if (marioo->nx > 0){
+			marioo->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);
+		}else{
+			marioo->SetState(MARIO_STATE_ATTACK_STAND_LEFT);
+		}
+		break;
+	case DIK_D:
+		marioo->isUsedSubWeaponBoomerang = true;
 		if (marioo->nx > 0){
 			marioo->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);
 		}else{
