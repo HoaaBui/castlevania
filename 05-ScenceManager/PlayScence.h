@@ -16,7 +16,8 @@
 class CPlayScene: public CScene
 {
 public: 
-	CMario *player;					// A play scene has to have player, right? 
+	CMario *player;					// A play scene has to have player, right?
+	CMario *mario;		 
 	CTileMap *map1;
 	vector<LPGAMEOBJECT> objects;
 

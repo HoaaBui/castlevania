@@ -24,16 +24,16 @@ CMario::CMario() : CGameObject()
 	// mainWeap = new CWhip();
 }
 
-// CMario* CMario::instance = NULL;
+CMario* CMario::instance = NULL;
 
-// CMario * CMario::GetInstance()
-// {
-// 	if (instance == NULL)
-// 	{
-// 		instance = new CMario();
-// 	}
-// 	return instance;
-// }
+CMario * CMario::GetInstance()
+{
+	if (instance == NULL)
+	{
+		instance = new CMario();
+	}
+	return instance;
+}
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {

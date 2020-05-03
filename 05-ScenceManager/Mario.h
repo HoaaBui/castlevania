@@ -70,8 +70,8 @@ public:
 	// CWhip* mainWeap;
 	CKnife *knife;
 
-	// static CMario* instance;
-	// static CMario* GetInstance();
+	static CMario* instance;
+	static CMario* GetInstance();
 public: 
 	CMario();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);

@@ -10,12 +10,14 @@
 #include "Whip.h"
 #include "Light.h"
 #include "Knife.h"
+#include "Mario.h"
 
 using namespace std;
 
 CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 	CScene(id, filePath)
 {
+	mario = CMario::GetInstance();
 	key_handler = new CPlayScenceKeyHandler(this);
 }
 
@@ -152,13 +154,13 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	switch (object_type)
 	{
 	case OBJECT_TYPE_MARIO:
-		if (player!=NULL) 
+		if (mario!=NULL) 
 		{
 			DebugOut(L"[ERROR] MARIO object was created before! ");
 			return;
 		}
-		obj = new CMario(); 
-		player = (CMario*)obj;  
+		// obj = new CMario(); 
+		// mario = (CMario*)obj;  
 		break;
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
@@ -179,23 +181,19 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		return;
 	}
 
-	if(object_type == OBJECT_TYPE_KNIFE){
+	if(object_type == OBJECT_TYPE_MARIO){
+		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+		mario->SetAnimationSet(ani_set);
+	}else if(object_type == OBJECT_TYPE_KNIFE){
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 		obj->SetAnimationSet(ani_set);
-		player->knife = (CKnife*)obj; 
+		mario->knife = (CKnife*)obj; 
 	}else{
 		// General object setup
 		obj->SetPosition(x, y);
-
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
-
 		obj->SetAnimationSet(ani_set);
-		// objWhip->SetAnimationSet(ani_set);
-		// whip->SetAnimationSet(ani_set);
 		objects.push_back(obj);
-		// if(object_type == OBJECT_TYPE_WHIP){
-		// 	player->AddWeapon(whip);
-		// } 
 	}
 }
 
@@ -266,16 +264,16 @@ void CPlayScene::Update(DWORD dt)
 		objects[i]->Update(dt, &coObjects);
 	}
 
-	// player->Update(dt,&coObjects);
+	mario->Update(dt,&coObjects);
 	
 	// Update camera to follow mario
 	float cx, cy;
-	player->GetPosition(cx, cy);
+	mario->GetPosition(cx, cy);
 	//Update Simon position
 	if(cx<=0){
-		player->SetPosition(0,cy);
+		mario->SetPosition(0,cy);
 	}else if(cx>=1300){
-		player->SetPosition(1300,cy);
+		mario->SetPosition(1300,cy);
 	}
 	//Update camera position
 	if( cx<0 || (cx>=0 && cx<=255) ){
@@ -294,20 +292,12 @@ void CPlayScene::Update(DWORD dt)
 	
 }
 
-void CPlayScene::Render()
-{
-	// vector<LPGAMEOBJECT> objectSimon;
-	int indexSimon = -1;
+void CPlayScene::Render(){
 	map1->renderMap();
 	for (int i = 0; i < objects.size(); i++){
-		if(objects[i]->tag != 2){
-			objects[i]->Render();
-		}else{
-			indexSimon = i;
-		}
+		objects[i]->Render();
 	}
-	objects[indexSimon]->Render();
-	// player->Render();
+	mario->Render();
 }
 
 /*
@@ -319,14 +309,12 @@ void CPlayScene::Unload()
 		delete objects[i];
 
 	objects.clear();
-	player = NULL;
+	mario = NULL;
 }
 
-void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
-{
+void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-
-	CMario *mario = ((CPlayScene*)scence)->player;
+	//CMario *mario = ((CPlayScene*)scence)->player;
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
@@ -357,7 +345,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 
 void CPlayScenceKeyHandler::OnKeyUp(int KeyCode){
 	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
-	CMario *mario = ((CPlayScene*)scence)->player;
+	//CMario *mario = ((CPlayScene*)scence)->player;
 	
 	switch (KeyCode){
 		case DIK_DOWN:
@@ -373,7 +361,7 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode){
 
 void CPlayScenceKeyHandler::KeyState(BYTE *states){
 	CGame *game = CGame::GetInstance();
-	CMario *mario = ((CPlayScene*)scence)->player;
+	//CMario *mario = ((CPlayScene*)scence)->player;
 
 	// disable control key when Mario die 
 	if (mario->GetState() == MARIO_STATE_DIE) return;
