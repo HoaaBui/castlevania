@@ -132,14 +132,18 @@ void CGameObject::FilterCollision(
 			min_ty = c->t; ny = c->ny; 
 			min_iy = i; rdy = c->dy;
 		}
-		if (c->t < min_tx && c->nx == 0){
+		else if (c->t < min_tx && c->nx == 0){
 			min_ix = i;
 			// DebugOut(L"[INFO] Ham co chay dieu kien cay roi vao");
 		}// xet va cham tu ben trong
-	}
 
-	if (min_ix>=0) coEventsResult.push_back(coEvents[min_ix]);
-	if (min_iy>=0) coEventsResult.push_back(coEvents[min_iy]);
+		if (min_ix>=0){
+			coEventsResult.push_back(coEvents[min_ix]);
+		}
+		if (min_iy>=0){
+			coEventsResult.push_back(coEvents[min_iy]);
+		} 	
+	}
 }
 
 

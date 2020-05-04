@@ -9,9 +9,9 @@
 #include "Portal.h"
 #include "Whip.h"
 #include "Knife.h"
+#include "Heart.h"
 
-CMario::CMario() : CGameObject()
-{
+CMario::CMario() : CGameObject(){
 	level = MARIO_LEVEL_BIG;
 	untouchable = 0;
 	SetState(MARIO_STATE_IDLE);
@@ -27,17 +27,14 @@ CMario::CMario() : CGameObject()
 
 CMario* CMario::instance = NULL;
 
-CMario * CMario::GetInstance()
-{
-	if (instance == NULL)
-	{
+CMario * CMario::GetInstance(){
+	if (instance == NULL){
 		instance = new CMario();
 	}
 	return instance;
 }
 
-void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
-{
+void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
@@ -58,20 +55,16 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 
 	// reset untouchable timer if untouchable time has passed
-	if ( GetTickCount() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
-	{
+	if ( GetTickCount() - untouchable_start > MARIO_UNTOUCHABLE_TIME){
 		untouchable_start = 0;
 		untouchable = 0;
 	}
 
 	// No collision occured, proceed normally
-	if (coEvents.size()==0)
-	{
+	if(coEvents.size()==0){
 		x += dx; 
 		y += dy;
-	}
-	else
-	{
+	}else{
 		float min_tx, min_ty, nx = 0, ny;
 		float rdx = 0; 
 		float rdy = 0;
@@ -98,41 +91,35 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (dynamic_cast<CGoomba *>(e->obj)) // if e->obj is Goomba 
-			{
+			if (dynamic_cast<CGoomba *>(e->obj)){ // if e->obj is Goomba 
 				CGoomba *goomba = dynamic_cast<CGoomba *>(e->obj);
 
 				// jump on top >> kill Goomba and deflect a bit 
-				if (e->ny < 0)
-				{
-					if (goomba->GetState()!= GOOMBA_STATE_DIE)
-					{
+				if(e->ny < 0){
+					if(goomba->GetState()!= GOOMBA_STATE_DIE){
 						goomba->SetState(GOOMBA_STATE_DIE);
 						vy = -MARIO_JUMP_DEFLECT_SPEED;
 					}
-				}
-				else if (e->nx != 0)
-				{
-					if (untouchable==0)
-					{
-						if (goomba->GetState()!=GOOMBA_STATE_DIE)
-						{
-							if (level > MARIO_LEVEL_SMALL)
-							{
+				}else if(e->nx != 0){
+					if(untouchable==0){
+						if (goomba->GetState()!=GOOMBA_STATE_DIE){
+							if (level > MARIO_LEVEL_SMALL){
 								level = MARIO_LEVEL_SMALL;
 								StartUntouchable();
-							}
-							else 
-								SetState(MARIO_STATE_DIE);
+							}else SetState(MARIO_STATE_DIE);
 						}
 					}
 				}
 			} // if Goomba
-			else if (dynamic_cast<CPortal *>(e->obj))
-			{
+			else if(dynamic_cast<CPortal *>(e->obj)){
 				CPortal *p = dynamic_cast<CPortal *>(e->obj);
 				DebugOut(L"[INFO] Switching to scene %d", p->GetSceneId());
 				CGame::GetInstance()->SwitchScene(p->GetSceneId());
+			}
+			if (dynamic_cast<CHeart *>(e->obj)){
+				CHeart *heart = dynamic_cast<CHeart *>(e->obj);
+				heart->state = HEART_STATE_DEAD;
+				heart->isCollision = false;
 			}
 		}
 	}
@@ -224,7 +211,9 @@ void CMario::Render(){
 		boomerang->Render();
 	}
 
-	if(this->isAttack && !this->isUsedSubWeapon && !this->isUsedSubWeaponBoomerang && this->isUsedWhip){
+	if(this->isAttack && !this->isUsedSubWeapon 
+	   && !this->isUsedSubWeaponBoomerang && this->isUsedWhip){
+
         CWhip::GetInstance()->simonCurrentFrame = currentFrame;
 		CWhip::GetInstance()->nx = nx;
 
@@ -242,53 +231,50 @@ void CMario::Render(){
 	RenderBoundingBox();
 }
 
-void CMario::SetState(int state)
-{
+void CMario::SetState(int state){
 	CGameObject::SetState(state);
 
-	switch (state)
-	{
-	case MARIO_STATE_WALKING_RIGHT:
-		vx = MARIO_WALKING_SPEED;
-		nx = 1;
-		break;
-	case MARIO_STATE_WALKING_LEFT: 
-		vx = -MARIO_WALKING_SPEED;
-		nx = -1;
-		break;
-	case MARIO_STATE_ATTACK_STAND_RIGHT: 
-		vx = 0;
-		nx = 1;
-		this->isAttack = true;
-		break;
-	case MARIO_STATE_ATTACK_STAND_LEFT: 
-		vx = 0;
-		nx = -1;
-		this->isAttack = true;
-		break;
-	case MARIO_STATE_SIT_RIGHT:
-		vy = 0;
-		vx = 0;
-		this->isSit = true;
-		break;
-	case MARIO_STATE_SIT_LEFT:
-		vy = 0;
-		vx = 0;
-		this->isSit = true;
-		break;
-	case MARIO_STATE_JUMP: 
-		vy = -MARIO_JUMP_SPEED_Y;
-	case MARIO_STATE_IDLE: 
-		vx = 0;
-		break;
-	case MARIO_STATE_DIE:
-		vy = -MARIO_DIE_DEFLECT_SPEED;
-		break;
+	switch (state){
+		case MARIO_STATE_WALKING_RIGHT:
+			vx = MARIO_WALKING_SPEED;
+			nx = 1;
+			break;
+		case MARIO_STATE_WALKING_LEFT: 
+			vx = -MARIO_WALKING_SPEED;
+			nx = -1;
+			break;
+		case MARIO_STATE_ATTACK_STAND_RIGHT: 
+			vx = 0;
+			nx = 1;
+			this->isAttack = true;
+			break;
+		case MARIO_STATE_ATTACK_STAND_LEFT: 
+			vx = 0;
+			nx = -1;
+			this->isAttack = true;
+			break;
+		case MARIO_STATE_SIT_RIGHT:
+			vy = 0;
+			vx = 0;
+			this->isSit = true;
+			break;
+		case MARIO_STATE_SIT_LEFT:
+			vy = 0;
+			vx = 0;
+			this->isSit = true;
+			break;
+		case MARIO_STATE_JUMP: 
+			vy = -MARIO_JUMP_SPEED_Y;
+		case MARIO_STATE_IDLE: 
+			vx = 0;
+			break;
+		case MARIO_STATE_DIE:
+			vy = -MARIO_DIE_DEFLECT_SPEED;
+			break;
 	}
 }
 
-void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
-{
+void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom){
 	left = x;
 	top = y; 
 
