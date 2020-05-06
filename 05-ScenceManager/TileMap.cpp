@@ -1,7 +1,7 @@
 #include "TileMap.h"
+#include <fstream>
 #include <string.h>
 #include <sstream>
-#include <fstream>
 #include "Utils.h"
 #include <math.h>
 #include <iostream> 
@@ -37,6 +37,7 @@ void CTileMap::initMap(string filePath, int mapLength){
 	if (!inputFile) DebugOut(L"file open fail");
 
 	if(inputFile.is_open()){
+		// lay tung dong trong file text
 		getline(inputFile, line);
 		
 		for(int i=0; line[i] != '\0'; i++){
@@ -69,11 +70,14 @@ void CTileMap::renderMap(){
 	int numOfCol = mapLength / tileWidth;
 	int startRow = int(game->GetInstance()->cam_y / tileHeight);
 	int endRow = startRow + (map.size() / numOfCol);			//vi map khong co do sau Y
+	// gia tri offset giup cho map load muot hon
 	float offsetX = floor(-(game->GetInstance()->cam_x)) + startCol * tileHeight; // dung ham floor de tranh hien tuong man hinh bi soc
 	float offsetY = floor(-game->GetInstance()->cam_y) + startRow * tileHeight;
 
 	for (int c = startCol; c <= endCol; c++){
 		for (int r = startRow; r < endRow; r++){
+			//Do map duoc danh so theo kieu tung hang tu trai qua phai, tu tren xuong duoi 
+			// nen phai xac dinh index de goi cai tile
 			int i = numOfCol * r + c;
 			if (i <= map.size() - 1){
 
