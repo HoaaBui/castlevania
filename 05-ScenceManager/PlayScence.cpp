@@ -13,6 +13,7 @@
 #include "Mario.h"
 #include "Boomerang.h"
 #include "Heart.h"
+#include "BrickScene2.h"
 
 using namespace std;
 
@@ -44,6 +45,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define OBJECT_TYPE_BOOMERANG	7
 #define OBJECT_TYPE_HEART	8
 #define OBJECT_TYPE_BRICK	1
+#define OBJECT_TYPE_BRICK_SCENE2	9 //Khong dung
 #define OBJECT_TYPE_GOOMBA	2
 #define OBJECT_TYPE_KOOPAS	3
 
@@ -170,6 +172,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
+	// case OBJECT_TYPE_BRICK_SCENE2: obj = new CBrickScene2(); break;
 	case OBJECT_TYPE_LIGHT: obj = new CLight(); break;
 	case OBJECT_TYPE_WHIP:  obj = new CWhip(); break;
 	case OBJECT_TYPE_KNIFE:  obj = new CKnife(); break;
@@ -216,7 +219,10 @@ void CPlayScene::Load(){
 	// khoi tao gia tri cho SIMON
 	this->mario = CMario::GetInstance();
 	map1 = new CTileMap(L"textures\\map1_tiled.PNG", 64, 64, 14, 8);
+	//map1 = new CTileMap(L"textures\\map1_tiled.PNG", 64, 64, 16, 2);
 	map1->initMap("map1.txt", MAP1_LENGTH);
+	map2 = new CTileMap(L"textures\\map2_tiled.PNG", 64, 64, 16, 2);
+	map2->initMap("map2.txt", MAP2_LENGTH);
 
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
 
@@ -309,7 +315,11 @@ void CPlayScene::Update(DWORD dt)
 }
 
 void CPlayScene::Render(){
-	map1->renderMap();
+	if(CGame::GetInstance()->current_scene == 1){
+		map1->renderMap();
+	}else{
+		map2->renderMap();
+	}
 	for (int i = 0; i < objects.size(); i++){
 		objects[i]->Render();
 	}

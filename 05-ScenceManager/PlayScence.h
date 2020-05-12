@@ -4,6 +4,7 @@
 #include "Scence.h"
 #include "GameObject.h"
 #include "Brick.h"
+#include "BrickScene2.h"
 #include "Mario.h"
 #include "Goomba.h"
 #include "Koopas.h"
@@ -12,6 +13,7 @@
 #include "Light.h"
 #include "Knife.h"
 #define MAP1_LENGTH			1472
+#define MAP2_LENGTH			512
 
 class CPlayScene: public CScene
 {
@@ -19,6 +21,7 @@ public:
 	CMario *player;					// A play scene has to have player, right?
 	CMario *mario;		 
 	CTileMap *map1;
+	CTileMap *map2;
 	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_TEXTURES(string line);
