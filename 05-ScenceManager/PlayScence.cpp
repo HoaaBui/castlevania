@@ -10,6 +10,7 @@
 #include "Whip.h"
 #include "Light.h"
 #include "Knife.h"
+#include "Knight.h"
 #include "Mario.h"
 #include "Boomerang.h"
 #include "Heart.h"
@@ -46,6 +47,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define OBJECT_TYPE_HEART	8
 #define OBJECT_TYPE_BRICK	1
 #define OBJECT_TYPE_BRICK_SCENE2	9 //Khong dung
+#define OBJECT_TYPE_KNIGHT	10
 #define OBJECT_TYPE_GOOMBA	2
 #define OBJECT_TYPE_KOOPAS	3
 
@@ -176,6 +178,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_LIGHT: obj = new CLight(); break;
 	case OBJECT_TYPE_WHIP:  obj = new CWhip(); break;
 	case OBJECT_TYPE_KNIFE:  obj = new CKnife(); break;
+	case OBJECT_TYPE_KNIGHT:  obj = new CKnight(); break;
 	case OBJECT_TYPE_BOOMERANG:  obj = new CBoomerang(); break;
 	case OBJECT_TYPE_HEART:  obj = new CHeart(); break;
 	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(); break;
@@ -292,16 +295,28 @@ void CPlayScene::Update(DWORD dt)
 	float cx, cy;
 	mario->GetPosition(cx, cy);
 	//Update Simon position
-	if(cx<=0){
-		mario->SetPosition(0,cy);
-	}else if(cx>=1300){
-		mario->SetPosition(1300,cy);
-	}
-	//Update camera position
-	if( cx<0 || (cx>=0 && cx<=255) ){
+
+	int a = CGame::GetInstance()->current_scene;
+	DebugOut(L"[INFO] This is your current scene: %d\n", a);
+	if(a==2){
+		if(cx<=70){
+			mario->SetPosition(70,cy);
+		}else if(cx>=407){
+			mario->SetPosition(407,cy);
+		}
 		cx=255;
-	}else if(cx>=1093){
-		cx=1093;
+	}else if(a==1){
+		if(cx<=0){
+			mario->SetPosition(0,cy);
+		}else if(cx>=1300){
+			mario->SetPosition(1300,cy);
+		}
+		//Update camera position
+		if( cx<0 || (cx>=0 && cx<=255) ){
+			cx=255;
+		}else if(cx>=1093){
+			cx=1093;
+		}
 	}
 	DebugOut(L"[INFO] Position of Simon X: %f\n", cx);
 	DebugOut(L"[INFO] Position of Simon Y: %f\n", cy);
