@@ -85,7 +85,7 @@ void CTileMap::renderMap(){
 				float x = (c - startCol) * tileWidth + offsetX;
 				float y;
 				if(CGame::GetInstance()->current_scene == 1){
-					y = (r - startRow) * tileHeight + offsetY;//+32
+					y = (r - startRow) * tileHeight + offsetY;
 				}else{
 					y = (r - startRow) * tileHeight + offsetY + 32;
 				}

@@ -230,6 +230,8 @@ void CPlayScene::Load(){
 	map1->initMap("map1.txt", MAP1_LENGTH);
 	map2 = new CTileMap(L"textures\\map2_tiled.PNG", 64, 64, 16, 2);
 	map2->initMap("map2.txt", MAP2_LENGTH);
+	map3 = new CTileMap(L"textures\\map3_tiled.PNG", 64, 64, 10, 5);
+	map3->initMap("map3.txt", MAP3_LENGTH);
 
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
 
@@ -336,8 +338,10 @@ void CPlayScene::Update(DWORD dt)
 void CPlayScene::Render(){
 	if(CGame::GetInstance()->current_scene == 1){
 		map1->renderMap();
-	}else{
+	}else if(CGame::GetInstance()->current_scene == 2){
 		map2->renderMap();
+	}else if(CGame::GetInstance()->current_scene == 4){
+		map3->renderMap();
 	}
 	for (int i = 0; i < objects.size(); i++){
 		objects[i]->Render();

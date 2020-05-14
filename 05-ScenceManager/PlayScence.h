@@ -14,6 +14,7 @@
 #include "Knife.h"
 #define MAP1_LENGTH			1472
 #define MAP2_LENGTH			512
+#define MAP3_LENGTH			1024
 
 class CPlayScene: public CScene
 {
@@ -22,6 +23,7 @@ public:
 	CMario *mario;		 
 	CTileMap *map1;
 	CTileMap *map2;
+	CTileMap *map3;
 	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_TEXTURES(string line);
