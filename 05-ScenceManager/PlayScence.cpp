@@ -303,7 +303,7 @@ void CPlayScene::Update(DWORD dt)
 	//Update Simon position
 
 	int a = CGame::GetInstance()->current_scene;
-	DebugOut(L"[INFO] This is your current scene: %d\n", a);
+	// DebugOut(L"[INFO] This is your current scene: %d\n", a);
 	DebugOut(L"[INFO] Position of Simon X: %f\n", cx);
 	DebugOut(L"[INFO] Position of Simon Y: %f\n", cy);
 	if(a==2){

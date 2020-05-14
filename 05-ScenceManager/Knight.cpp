@@ -1,4 +1,6 @@
 #include "Knight.h"
+#include "Game.h"
+#include "Utils.h"
 
 CKnight::CKnight(){
 	this->tag = 7;
@@ -24,14 +26,25 @@ void CKnight::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	y += dy;
 
 	if(this->state == KNIGHT_STATE_DISAPPEAR) return;
-	if (vx > 0 && x > 254) {
-		x = 254; vx = -vx;
-        this->state = KNIGHT_STATE_WALKING_LEFT;
-	}
-
-	if (vx < 0 && x < 78) {
-		x = 78; vx = -vx;
-        this->state = KNIGHT_STATE_WALKING_RIGHT;
+	if(CGame::GetInstance()->current_scene == 2){
+		DebugOut(L"[INFO] Co chay vo ham nay\n");
+		if (vx > 0 && x > 254) {
+			x = 254; vx = -vx;
+        	this->state = KNIGHT_STATE_WALKING_LEFT;
+		}
+		if (vx < 0 && x < 78) {
+			x = 78; vx = -vx;
+        	this->state = KNIGHT_STATE_WALKING_RIGHT;
+		}
+	}else if(CGame::GetInstance()->current_scene == 4){
+		if (vx > 0 && x > 670) {
+			x = 670; vx = -vx;
+        	this->state = KNIGHT_STATE_WALKING_LEFT;
+		}
+		if (vx < 0 && x < 635) {
+			x = 635; vx = -vx;
+        	this->state = KNIGHT_STATE_WALKING_RIGHT;
+		}
 	}
 }
 
