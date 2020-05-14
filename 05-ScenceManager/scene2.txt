@@ -236,9 +236,9 @@
 # heart
 8	1201
 # knight
-10	1301	1302
-# knight
-11	1401
+10	1301	1302	902
+# small candle
+11	1401	902
 # BRICK 
 2	601
 # BRICK SCENE 2 

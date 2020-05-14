@@ -37,12 +37,25 @@ void CKnight::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CKnight::Render(){
 	if(this->state == KNIGHT_STATE_DISAPPEAR) return;
-	int ani = 0;
+
+	int ani = 0, currentFrame = -1;
     if(this->state == KNIGHT_STATE_WALKING_RIGHT){
-        ani = 0;
-    }else{
-        ani = 1;
+        ani = KNIGHT_ANI_WALKING_RIGHT;
+    }else if(this->state == KNIGHT_STATE_WALKING_LEFT){
+        ani = KNIGHT_ANI_WALKING_LEFT;
     }
+	if(this->state == KNIGHT_STATE_DEAD){
+		ani = KNIGHT_ANI_DEAD;
+		animation_set->at(KNIGHT_ANI_DEAD)->GetCurrentFrame(currentFrame);
+	}
+
+	if(currentFrame == 1){
+		currentFrame = -1;
+		this->state = KNIGHT_STATE_DISAPPEAR;
+		animation_set->at(KNIGHT_ANI_WALKING_RIGHT)->Render(10000, 10000);
+		animation_set->at(KNIGHT_ANI_WALKING_LEFT)->Render(10000, 10000);
+	}
+
 	animation_set->at(ani)->Render(x,y);
 
 	//RenderBoundingBox();

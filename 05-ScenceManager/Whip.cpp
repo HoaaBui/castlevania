@@ -146,11 +146,11 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 			}
 			if (dynamic_cast<CKnight *>(e->obj)){
 				CKnight *knight = dynamic_cast<CKnight *>(e->obj);
-				knight->state = KNIGHT_STATE_DISAPPEAR;
+				knight->state = KNIGHT_STATE_DEAD;
 			}
 			if (dynamic_cast<CSmallCandle *>(e->obj)){
 				CSmallCandle *smallCandle = dynamic_cast<CSmallCandle *>(e->obj);
-				smallCandle->state = SMALL_CANDLE_STATE_DISAPPEAR;
+				smallCandle->state = SMALL_CANDLE_STATE_DEAD;
 			}
 		}
 	}
