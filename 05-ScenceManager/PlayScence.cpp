@@ -11,6 +11,8 @@
 #include "Light.h"
 #include "Knife.h"
 #include "Knight.h"
+#include "SmallCandle.h"
+#include "Knight.h"
 #include "Mario.h"
 #include "Boomerang.h"
 #include "Heart.h"
@@ -48,6 +50,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define OBJECT_TYPE_BRICK	1
 #define OBJECT_TYPE_BRICK_SCENE2	9 //Khong dung
 #define OBJECT_TYPE_KNIGHT	10
+#define OBJECT_TYPE_SMALL_CANDLE	11
 #define OBJECT_TYPE_GOOMBA	2
 #define OBJECT_TYPE_KOOPAS	3
 
@@ -179,6 +182,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_WHIP:  obj = new CWhip(); break;
 	case OBJECT_TYPE_KNIFE:  obj = new CKnife(); break;
 	case OBJECT_TYPE_KNIGHT:  obj = new CKnight(); break;
+	case OBJECT_TYPE_SMALL_CANDLE:  obj = new CSmallCandle(); break;
 	case OBJECT_TYPE_BOOMERANG:  obj = new CBoomerang(); break;
 	case OBJECT_TYPE_HEART:  obj = new CHeart(); break;
 	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(); break;

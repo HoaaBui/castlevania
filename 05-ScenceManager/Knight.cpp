@@ -1,6 +1,7 @@
 #include "Knight.h"
 
 CKnight::CKnight(){
+	this->tag = 7;
 	SetState(KNIGHT_STATE_WALKING_RIGHT);
 }
 
@@ -8,6 +9,7 @@ void CKnight::GetBoundingBox(float &left, float &top, float &right, float &botto
 	left = x;
 	top = y;
 	right = x + KNIGHT_BBOX_WIDTH;
+	bottom = y + KNIGHT_BBOX_HEIGHT;
 }
 
 void CKnight::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -21,6 +23,7 @@ void CKnight::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	x += dx;
 	y += dy;
 
+	if(this->state == KNIGHT_STATE_DISAPPEAR) return;
 	if (vx > 0 && x > 254) {
 		x = 254; vx = -vx;
         this->state = KNIGHT_STATE_WALKING_LEFT;
@@ -32,8 +35,8 @@ void CKnight::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 }
 
-void CKnight::Render()
-{
+void CKnight::Render(){
+	if(this->state == KNIGHT_STATE_DISAPPEAR) return;
 	int ani = 0;
     if(this->state == KNIGHT_STATE_WALKING_RIGHT){
         ani = 0;

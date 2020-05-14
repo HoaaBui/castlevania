@@ -3,6 +3,8 @@
 #include "light.h"
 #include "Mario.h"
 #include "Heart.h"
+#include "Knight.h"
+#include "SmallCandle.h"
 
 CWhip::CWhip(){
     this->simonCurrentFrame = -1;
@@ -141,6 +143,14 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 			if (dynamic_cast<CHeart *>(e->obj)){
 				CHeart *heart = dynamic_cast<CHeart *>(e->obj);
 				heart->isCollision = true;
+			}
+			if (dynamic_cast<CKnight *>(e->obj)){
+				CKnight *knight = dynamic_cast<CKnight *>(e->obj);
+				knight->state = KNIGHT_STATE_DISAPPEAR;
+			}
+			if (dynamic_cast<CSmallCandle *>(e->obj)){
+				CSmallCandle *smallCandle = dynamic_cast<CSmallCandle *>(e->obj);
+				smallCandle->state = SMALL_CANDLE_STATE_DISAPPEAR;
 			}
 		}
 	}

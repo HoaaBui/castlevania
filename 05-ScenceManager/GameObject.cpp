@@ -29,7 +29,8 @@ void CGameObject::filterUnwantedColliableObject(
 	vector<LPGAMEOBJECT> filter;
 
 	for (UINT i = 0; i < coObjects->size(); i++){
-		if(coObjects->at(i)->tag != 1){
+		if(coObjects->at(i)->tag != 1 
+		  && coObjects->at(i)->tag != 8){
 			if (coObjects->at(i)->isCollision == true) {
 				filter.push_back(coObjects->at(i));
 			}
