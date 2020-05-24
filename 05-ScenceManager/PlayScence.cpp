@@ -342,6 +342,18 @@ void CPlayScene::Update(DWORD dt)
 		}else if(cx>=770){
 			cx=770;
 		}
+	}else if(a==5){ // scene 3.1
+		if(cx<=0){
+			mario->SetPosition(0,cy);
+		}else if(cx>=1430){
+			mario->SetPosition(1430,cy);
+		}
+		//Update camera position
+		if( cx<0 || (cx>=0 && cx<=250) ){
+			cx=250;
+		}else if(cx>=1285){
+			cx=1285;
+		}
 	}
 	// DebugOut(L"[INFO] Position of Simon X: %f\n", cx);
 	// DebugOut(L"[INFO] Position of Simon Y: %f\n", cy);
