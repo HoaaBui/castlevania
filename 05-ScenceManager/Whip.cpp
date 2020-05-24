@@ -5,6 +5,7 @@
 #include "Heart.h"
 #include "Knight.h"
 #include "SmallCandle.h"
+#include "Utils.h"
 
 CWhip::CWhip(){
     this->simonCurrentFrame = -1;
@@ -136,6 +137,8 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 
 			if (dynamic_cast<CLight *>(e->obj)){
 				CLight *light = dynamic_cast<CLight *>(e->obj);
+				// int a = light->ny;
+				// DebugOut(L"[INFO] ny of light: %d\n", a);
 				if (e->nx == 0){
 					light->SetState(LIGHT_STATE_DEAD);
 				}
