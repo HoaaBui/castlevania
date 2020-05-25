@@ -128,6 +128,7 @@
     <ClCompile Include="Boomerang.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BrickScene2.cpp" />
+    <ClCompile Include="BrickStair.cpp" />
     <ClCompile Include="Heart.cpp" />
     <ClCompile Include="Knife.cpp" />
     <ClCompile Include="Knight.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Boomerang.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="BrickScene2.h" />
+    <ClInclude Include="BrickStair.h" />
     <ClInclude Include="Heart.h" />
     <ClInclude Include="Knife.h" />
     <ClInclude Include="Knight.h" />

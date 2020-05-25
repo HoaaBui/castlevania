@@ -73,6 +73,9 @@ public:
 	CKnife *knife;
 	CBoomerang *boomerang;
 
+	bool isTouchingBrickStair;
+	bool isGoingOnStair;
+
 	static CMario* instance;
 	static CMario* GetInstance();
 public: 

@@ -21,6 +21,8 @@ struct CCollisionEvent
 {
 	LPGAMEOBJECT obj;
 	float t, nx, ny;
+
+	float ny2;
 	
 	float dx, dy;		// *RELATIVE* movement distance between this object and obj
 

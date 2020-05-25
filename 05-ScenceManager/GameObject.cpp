@@ -16,6 +16,8 @@ CGameObject::CGameObject()
 	tag = -1;
 	isDead = false;
 	isCollision = true;
+
+	ny2 = 0;
 }
 
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){

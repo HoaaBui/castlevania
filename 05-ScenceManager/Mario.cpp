@@ -23,6 +23,9 @@ CMario::CMario() : CGameObject(){
 	tag = 2;
 	knife = new CKnife();
 	// mainWeap = new CWhip();
+
+	isTouchingBrickStair = false;
+	isGoingOnStair = false;
 }
 
 CMario* CMario::instance = NULL;
