@@ -9,6 +9,7 @@
 13	textures\knight.png	        255	255	255
 14	textures\knight2.png	    255	255	255
 15	textures\candle.png	        255	0	255
+17	textures\BrickStair.png	        0	0	0
 5	textures\light.png	        255	0	255
 6	textures\light_die.png	    255	0	255
 7	textures\knife_right.png	255	0	255
@@ -105,6 +106,12 @@
 20001	0	0	31	31	4
 #BRICK SCENE 2
 21001	0	0	31	31	12
+#BRICK SCENE 3
+#22001	0	0	32	32	16
+
+#BRICK STAIR
+23001	0	0	32	32	17
+
 #KNIGHT SCENE 2
 
 100001	0	0	32	62	13
@@ -120,7 +127,6 @@
 # SMALL CANDLE 
 110001	0	0	16	32	15
 110002	16	0	32	32	15
-
 
 #GOOMBA
 30001	5	14	21	29	10
@@ -204,8 +210,11 @@
 # ==== BRICK =========
 601	20001	100
 
-# ==== BRICK =========
+# ==== BRICK SCENE 2 =========
 603	21001	100
+
+# ==== BRICK STAIR =========
+605	23001	100
 
 # ==== QUESTION MARK BRICK =========
 602	40001	1000	40001	100	40002	100	40003	100	40004	100
@@ -243,6 +252,8 @@
 2	601
 # BRICK SCENE 2 
 9	603
+# BRICK STAIR
+13	605
 # QUESTION MARK BRICK 
 22	602
 # GOOMBA
@@ -340,6 +351,9 @@
 1	224	225	9
 1	256	225	9
 #1	160	225	9
+
+# brick stair 
+1	193	412	13
 
 # small candle
 11	380	290	11

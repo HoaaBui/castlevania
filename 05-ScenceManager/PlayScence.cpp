@@ -17,6 +17,7 @@
 #include "Boomerang.h"
 #include "Heart.h"
 #include "BrickScene2.h"
+#include "BrickStair.h"
 
 using namespace std;
 
@@ -51,6 +52,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define OBJECT_TYPE_BRICK_SCENE2	9 //Khong dung
 #define OBJECT_TYPE_KNIGHT	10
 #define OBJECT_TYPE_SMALL_CANDLE	11
+#define OBJECT_TYPE_BRICK_STAIR		12
 #define OBJECT_TYPE_GOOMBA	2
 #define OBJECT_TYPE_KOOPAS	3
 
@@ -279,7 +281,7 @@ void CPlayScene::Load(){
 
 	f.close();
 
-	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
+CTextures::GetInstance()->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
