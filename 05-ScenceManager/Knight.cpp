@@ -27,7 +27,7 @@ void CKnight::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	if(this->state == KNIGHT_STATE_DISAPPEAR) return;
 	if(CGame::GetInstance()->current_scene == 2){
-		DebugOut(L"[INFO] Co chay vo ham nay\n");
+		
 		if (vx > 0 && x > 254) {
 			x = 254; vx = -vx;
         	this->state = KNIGHT_STATE_WALKING_LEFT;

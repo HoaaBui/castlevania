@@ -10,6 +10,7 @@
 #include "Whip.h"
 #include "Knife.h"
 #include "Heart.h"
+#include "BrickStair.h"
 
 CMario::CMario() : CGameObject(){
 	level = MARIO_LEVEL_BIG;
@@ -123,6 +124,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 				CHeart *heart = dynamic_cast<CHeart *>(e->obj);
 				heart->state = HEART_STATE_DEAD;
 				heart->isCollision = false;
+			}else if (dynamic_cast<CBrickStair *>(e->obj)){
+				CBrickStair *bStair = dynamic_cast<CBrickStair *>(e->obj);
+				DebugOut(L"[INFO] Co chay vo ham nay abcd\n");
 			}
 		}
 	}
