@@ -126,7 +126,14 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 				heart->isCollision = false;
 			}else if (dynamic_cast<CBrickStair *>(e->obj)){
 				CBrickStair *bStair = dynamic_cast<CBrickStair *>(e->obj);
+				// this->isTouchingBrickStair = true;
 				DebugOut(L"[INFO] Co chay vo ham nay abcd\n");
+				// if (e->nx != 0 || e->ny != 0){
+				// 	isTouchingBrickStair = true;
+				// 	brickStairNy = bStair->ny2;
+				// 	brickStairNx = bStair->nx;
+
+				// }
 			}
 		}
 	}

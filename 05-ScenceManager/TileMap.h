@@ -4,7 +4,7 @@
 #include "Game.h"
 using namespace std;
 
-class CTileMap{
+class CTileMap {
 public:
 	CTextures *textures;
 	CSprites *sprites;

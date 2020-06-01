@@ -58,6 +58,8 @@ public:
 
 	int nx;	 
 
+	float ny2;
+
 	int state;
 
 	DWORD dt; 

@@ -11,13 +11,13 @@
 #include <dinput.h>
 
 #include "Scence.h"
+#include "TileMap.h"
 
 using namespace std;
 
 #define KEYBOARD_BUFFER_SIZE 1024
 
-class CGame
-{
+class CGame{
 public:
 	static CGame * __instance;
 	HWND hWnd;									// Window handle
@@ -47,6 +47,10 @@ public:
 
 	void _ParseSection_SETTINGS(string line);
 	void _ParseSection_SCENES(string line);
+
+	CTileMap *map;
+	void _ParseSection_TILEMAP_IMAGE(string line);
+	void _ParseSection_TILEMAP_MAPTXT(string line);
 
 public:
 	void InitKeyboard();

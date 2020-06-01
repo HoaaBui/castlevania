@@ -184,17 +184,17 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_WHIP:  obj = new CWhip(); break;
 	case OBJECT_TYPE_KNIFE:  obj = new CKnife(); break;
 	case OBJECT_TYPE_KNIGHT:  obj = new CKnight(); break;
-	case OBJECT_TYPE_SMALL_CANDLE:
-	{
-		obj = new CSmallCandle(); break;
-	}
+	case OBJECT_TYPE_SMALL_CANDLE:	obj = new CSmallCandle(); break;
 	case OBJECT_TYPE_BOOMERANG:  obj = new CBoomerang(); break;
 	case OBJECT_TYPE_HEART:  obj = new CHeart(); break;
 	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(); break;
 	case OBJECT_TYPE_BRICK_STAIR:
 	{
-		DebugOut(L"[INFO] Co chay vo ham nay abcd\n");
+		// DebugOut(L"[INFO] Co chay vo ham nay abcd\n");
 		obj = new CBrickStair(); 
+		//float y2 = atof(tokens[4].c_str());
+		//DebugOut(L"[INFO] Gia tri ny: %f \n",y2);
+		//obj->ny2 = y2;
 		break;
 	} 
 	case OBJECT_TYPE_PORTAL:
@@ -301,13 +301,11 @@ void CPlayScene::Update(DWORD dt)
 	// TO-DO: This is a "dirty" way, need a more organized way 
 
 	vector<LPGAMEOBJECT> coObjects;
-	for (size_t i = 1; i < objects.size(); i++)
-	{
+	for (size_t i = 1; i < objects.size(); i++){
 		coObjects.push_back(objects[i]);
 	}
 
-	for (size_t i = 0; i < objects.size(); i++)
-	{
+	for (size_t i = 0; i < objects.size(); i++){
 		objects[i]->Update(dt, &coObjects);
 	}
 
@@ -320,8 +318,8 @@ void CPlayScene::Update(DWORD dt)
 
 	int a = CGame::GetInstance()->current_scene;
 	// DebugOut(L"[INFO] This is your current scene: %d\n", a);
-	DebugOut(L"[INFO] Position of Simon X: %f\n", cx);
-	DebugOut(L"[INFO] Position of Simon Y: %f\n", cy);
+	// DebugOut(L"[INFO] Position of Simon X: %f\n", cx);
+	// DebugOut(L"[INFO] Position of Simon Y: %f\n", cy);
 	if(a==2){
 		if(cx<=70){
 			mario->SetPosition(70,cy);

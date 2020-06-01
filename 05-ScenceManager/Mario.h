@@ -75,6 +75,8 @@ public:
 
 	bool isTouchingBrickStair;
 	bool isGoingOnStair;
+	float brickStairNx;
+	float brickStairNy;
 
 	static CMario* instance;
 	static CMario* GetInstance();
