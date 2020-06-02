@@ -9,19 +9,19 @@ using namespace std;
 
 CTileMap::~CTileMap(){}
 
-CTileMap::CTileMap(LPWSTR texPath, int tWidth, int tHeight, int numOfTileCol, int numOfTileRow){
+CTileMap::CTileMap(wstring texPath, int tWidth, int tHeight, int numOfTileCol, int numOfTileRow, int textureID, int R, int G, int B){
 	this->tileWidth = tWidth;
 	this->tileHeight = tHeight;
 	sprites = new CSprites();
 	textures = new CTextures();
-	textures->Add(1,texPath, D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(textureID, texPath.c_str(), D3DCOLOR_XRGB(R, G, B));
 
 	int spriteID = 0;
 
 	for (int i = 0; i < numOfTileCol; i++){
 		for (int k = 0; k < numOfTileRow; k++){
 			sprites->Add(spriteID++, i * tileWidth, tileHeight * k, 
-						tileWidth * (i + 1), tileHeight * (k + 1), textures->Get(1));
+						tileWidth * (i + 1), tileHeight * (k + 1), textures->Get(textureID));
 		}
 	}
 }

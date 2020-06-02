@@ -65,14 +65,36 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 
 void CPlayScene::_ParseSection_TILEMAP_IMAGE(string line){
 	DebugOut(L"[INFO] This is your happy command: \n");
+	vector<string> tokens = split(line);
+
+	if (tokens.size() < 9) return; // skip invalid lines
+
+	int texID = atoi(tokens[0].c_str());
+	wstring path = ToWSTR(tokens[1]);
+	int R = atoi(tokens[2].c_str());
+	int G = atoi(tokens[3].c_str());
+	int B = atoi(tokens[4].c_str());
+	int tWidth = atoi(tokens[5].c_str());
+	int tHeight = atoi(tokens[6].c_str());
+	int numOfTileCol = atoi(tokens[7].c_str());
+	int numOfTileRow = atoi(tokens[8].c_str());
+
+	map = new CTileMap(path, tWidth, tHeight, numOfTileCol, numOfTileRow, texID, R, G, B);
 }
 
 void CPlayScene::_ParseSection_TILEMAP_MAPTXT(string line){
+	vector<string> tokens = split(line);
+	if (tokens.size() < 4) return; // skip invalid lines
 
+	int mapNumber = atoi(tokens[0].c_str());
+	wstring path = ToWSTR(tokens[1]);
+	int mapLength = atoi(tokens[2].c_str());
+	int texID = atoi(tokens[3].c_str());
+
+	map->initMap(texPath.c_str(), mapLength);
 }
 
-void CPlayScene::_ParseSection_TEXTURES(string line)
-{
+void CPlayScene::_ParseSection_TEXTURES(string line){
 	vector<string> tokens = split(line);
 
 	if (tokens.size() < 5) return; // skip invalid lines
@@ -246,9 +268,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 void CPlayScene::Load(){
 	// khoi tao gia tri cho SIMON
 	this->mario = CMario::GetInstance();
-	map1 = new CTileMap(L"textures\\map1_tiled.PNG", 64, 64, 14, 8);
-	//map1 = new CTileMap(L"textures\\map1_tiled.PNG", 64, 64, 16, 2);
-	map1->initMap("map1.txt", MAP1_LENGTH);
+	// map1 = new CTileMap(L"textures\\map1_tiled.PNG", 64, 64, 14, 8);
+	// //map1 = new CTileMap(L"textures\\map1_tiled.PNG", 64, 64, 16, 2);
+	// map1->initMap("map1.txt", MAP1_LENGTH);
 	
 	map2 = new CTileMap(L"textures\\map2_tiled.PNG", 64, 64, 16, 2);
 	map2->initMap("map2.txt", MAP2_LENGTH);
@@ -398,7 +420,8 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render(){
 	if(CGame::GetInstance()->current_scene == 1){
-		map1->renderMap();
+		// map1->renderMap();
+		map->renderMap();
 	}else if(CGame::GetInstance()->current_scene == 2){
 		map2->renderMap();
 	}else if(CGame::GetInstance()->current_scene == 4){
