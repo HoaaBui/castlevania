@@ -301,9 +301,6 @@ CGame *CGame::GetInstance()
 #define GAME_FILE_SECTION_SETTINGS 1
 #define GAME_FILE_SECTION_SCENES 2
 
-#define GAME_FILE_SECTION_TILEMAP_IMAGE 3
-#define GAME_FILE_SECTION_TILEMAP_MAPTXT 4
-
 void CGame::_ParseSection_SETTINGS(string line)
 {
 	vector<string> tokens = split(line);
@@ -327,14 +324,6 @@ void CGame::_ParseSection_SCENES(string line)
 	scenes[id] = scene;
 }
 
-void CGame::_ParseSection_TILEMAP_IMAGE(string line){
-
-}
-
-void CGame::_ParseSection_TILEMAP_MAPTXT(string line){
-
-}
-
 /*
 	Load game campaign file and load/initiate first scene
 */
@@ -356,8 +345,6 @@ void CGame::Load(LPCWSTR gameFile){
 		if (line == "[SETTINGS]") { section = GAME_FILE_SECTION_SETTINGS; continue; }
 		if (line == "[SCENES]") { section = GAME_FILE_SECTION_SCENES; continue; }
 
-		if (line == "[TILEMAP_IMAGE]") { section = GAME_FILE_SECTION_TILEMAP_IMAGE; continue; }
-		if (line == "[TILEMAP_TXT]") { section = GAME_FILE_SECTION_TILEMAP_MAPTXT; continue; }
 
 		//
 		// data section
@@ -365,9 +352,6 @@ void CGame::Load(LPCWSTR gameFile){
 		switch(section){
 			case GAME_FILE_SECTION_SETTINGS: _ParseSection_SETTINGS(line); break;
 			case GAME_FILE_SECTION_SCENES: _ParseSection_SCENES(line); break;
-
-			case GAME_FILE_SECTION_TILEMAP_IMAGE: _ParseSection_TILEMAP_IMAGE(line); break;
-			case GAME_FILE_SECTION_TILEMAP_MAPTXT: _ParseSection_TILEMAP_MAPTXT(line); break;
 		}
 	}
 	f.close();

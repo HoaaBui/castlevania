@@ -26,6 +26,8 @@ public:
 	CTileMap *map2;
 	CTileMap *map3;
 	CTileMap *map4;
+
+	CTileMap *map;
 	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_TEXTURES(string line);
@@ -33,6 +35,9 @@ public:
 	void _ParseSection_ANIMATIONS(string line);
 	void _ParseSection_ANIMATION_SETS(string line);
 	void _ParseSection_OBJECTS(string line);
+
+	void _ParseSection_TILEMAP_IMAGE(string line);
+	void _ParseSection_TILEMAP_MAPTXT(string line);
 public: 
 	CPlayScene(int id, LPCWSTR filePath);
 

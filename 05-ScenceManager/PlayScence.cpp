@@ -42,6 +42,9 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define SCENE_SECTION_ANIMATION_SETS	5
 #define SCENE_SECTION_OBJECTS	6
 
+#define SCENE_SECTION_TILEMAP_IMAGE		7
+#define SCENE_SECTION_TILEMAP_MAPTXT	8
+
 #define OBJECT_TYPE_MARIO	0
 #define OBJECT_TYPE_WHIP	4
 #define OBJECT_TYPE_LIGHT	5
@@ -60,6 +63,13 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 
 #define MAX_SCENE_LINE 1024
 
+void CPlayScene::_ParseSection_TILEMAP_IMAGE(string line){
+	DebugOut(L"[INFO] This is your happy command: \n");
+}
+
+void CPlayScene::_ParseSection_TILEMAP_MAPTXT(string line){
+
+}
 
 void CPlayScene::_ParseSection_TEXTURES(string line)
 {
@@ -264,7 +274,8 @@ void CPlayScene::Load(){
 
 		if (line[0] == '#') continue;	// skip comment lines	
 
-		if (line == "[TEXTURES]") { section = SCENE_SECTION_TEXTURES; continue; }
+		if (line == "[TEXTURES]") {
+			section = SCENE_SECTION_TEXTURES; continue; }
 		if (line == "[SPRITES]") { 
 			section = SCENE_SECTION_SPRITES; continue; }
 		if (line == "[ANIMATIONS]") { 
@@ -273,7 +284,14 @@ void CPlayScene::Load(){
 			section = SCENE_SECTION_ANIMATION_SETS; continue; }
 		if (line == "[OBJECTS]") { 
 			section = SCENE_SECTION_OBJECTS; continue; }
-		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
+		// if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
+
+		if(line == "[TILEMAP_IMAGE]"){ 
+			section = SCENE_SECTION_TILEMAP_IMAGE; continue;
+		}
+		if(line == "[TILEMAP_TXT]"){ 
+			section = SCENE_SECTION_TILEMAP_MAPTXT; continue; 
+		}
 
 		//
 		// data section
@@ -285,6 +303,9 @@ void CPlayScene::Load(){
 			case SCENE_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
 			case SCENE_SECTION_ANIMATION_SETS: _ParseSection_ANIMATION_SETS(line); break;
 			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
+
+			case SCENE_SECTION_TILEMAP_IMAGE: _ParseSection_TILEMAP_IMAGE(line); break;
+			case SCENE_SECTION_TILEMAP_MAPTXT: _ParseSection_TILEMAP_MAPTXT(line); break;
 		}
 	}
 
