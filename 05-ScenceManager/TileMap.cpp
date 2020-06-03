@@ -26,7 +26,7 @@ CTileMap::CTileMap(wstring texPath, int tWidth, int tHeight, int numOfTileCol, i
 	}
 }
 
-void CTileMap::initMap(string filePath, int mapLength){
+void CTileMap::initMap(LPCWSTR filePath, int mapLength){
 	ifstream inputFile;
 	string line;
 	char a;

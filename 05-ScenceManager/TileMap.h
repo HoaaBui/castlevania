@@ -16,7 +16,7 @@ public:
 public:
 	CTileMap(wstring texPath, int tileWidth, int tileHeight, int numOfTileCol, int numOfTileRow, int textureID, int R, int G, int B);
 	~CTileMap();
-	void initMap(string filePath, int mapLength);
+	void initMap(LPCWSTR filePath, int mapLength);
 	void renderMap();
 };
 
