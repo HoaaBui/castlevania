@@ -1,6 +1,6 @@
 #tile map image
 [TILEMAP_IMAGE]
-1 textures\\map1_tiled.PNG 255 0 255 64 64 14 8
+1 textures\\map1_tiled.PNG 255 0 255 64 64 6 5
 
 # tile map txt
 [TILEMAP_TXT]
