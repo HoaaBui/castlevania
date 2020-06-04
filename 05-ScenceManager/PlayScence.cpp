@@ -64,7 +64,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define MAX_SCENE_LINE 1024
 
 void CPlayScene::_ParseSection_TILEMAP_IMAGE(string line){
-	DebugOut(L"[INFO] This is your happy command: \n");
+	// DebugOut(L"[INFO] This is your happy command: \n");
 	vector<string> tokens = split(line);
 
 	if (tokens.size() < 9) return; // skip invalid lines
@@ -78,8 +78,8 @@ void CPlayScene::_ParseSection_TILEMAP_IMAGE(string line){
 	int tHeight = atoi(tokens[6].c_str());
 	int numOfTileCol = atoi(tokens[7].c_str());
 	int numOfTileRow = atoi(tokens[8].c_str());
-
-	map = new CTileMap(path, tWidth, tHeight, numOfTileCol, numOfTileRow, texID, R, G, B);
+	DebugOut(L"[INFO] This is your happy command: \n");
+	// map = new CTileMap(path, tWidth, tHeight, numOfTileCol, numOfTileRow, texID, R, G, B);
 }
 
 void CPlayScene::_ParseSection_TILEMAP_MAPTXT(string line){
@@ -91,7 +91,7 @@ void CPlayScene::_ParseSection_TILEMAP_MAPTXT(string line){
 	int mapLength = atoi(tokens[2].c_str());
 	int texID = atoi(tokens[3].c_str());
 
-	map->initMap(path, mapLength);
+	// map->initMap(path, mapLength);
 }
 
 void CPlayScene::_ParseSection_TEXTURES(string line){
@@ -421,7 +421,7 @@ void CPlayScene::Update(DWORD dt)
 void CPlayScene::Render(){
 	if(CGame::GetInstance()->current_scene == 1){
 		// map1->renderMap();
-		map->renderMap();
+		// map->renderMap();
 	}
 	// else if(CGame::GetInstance()->current_scene == 2){
 	// 	map2->renderMap();
