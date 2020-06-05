@@ -454,7 +454,10 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		marioo->SetState(MARIO_STATE_JUMP);
+		if(marioo->isJumped == false){
+			marioo->isJumped = true;
+			marioo->SetState(MARIO_STATE_JUMP);
+		}
 		break;
 	case DIK_A: // reset
 		marioo->isUsedWhip = true;

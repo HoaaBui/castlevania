@@ -11,6 +11,7 @@
 #include "Knife.h"
 #include "Heart.h"
 #include "BrickStair.h"
+#include "Brick.h"
 
 CMario::CMario() : CGameObject(){
 	level = MARIO_LEVEL_BIG;
@@ -22,6 +23,7 @@ CMario::CMario() : CGameObject(){
 	isUsedSubWeaponBoomerang = false;
 	attackTime = 0;
 	tag = 2;
+	isJumped = false;
 	knife = new CKnife();
 	// mainWeap = new CWhip();
 
@@ -134,6 +136,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 				// 	brickStairNx = bStair->nx;
 
 				// }
+			}else if(dynamic_cast<CBrick *>(e->obj)){
+				this->isJumped = false;
 			}
 		}
 	}

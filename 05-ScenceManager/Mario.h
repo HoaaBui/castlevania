@@ -6,7 +6,7 @@
 
 #define MARIO_WALKING_SPEED		0.1f 
 //0.1f
-#define MARIO_JUMP_SPEED_Y		0.5f
+#define MARIO_JUMP_SPEED_Y		0.65f
 #define MARIO_JUMP_DEFLECT_SPEED 0.2f
 #define MARIO_GRAVITY			0.002f
 #define MARIO_DIE_DEFLECT_SPEED	 0.5f
@@ -68,6 +68,7 @@ public:
 	bool isUsedSubWeapon;
 	bool isUsedWhip;
 	bool isUsedSubWeaponBoomerang;
+	bool isJumped;
 	DWORD attackTime;
 	// CWhip* mainWeap;
 	CKnife *knife;
