@@ -1,7 +1,6 @@
 #include "Whip.h"
 #include "Utils.h"
 #include "light.h"
-#include "Mario.h"
 #include "Heart.h"
 #include "Knight.h"
 #include "SmallCandle.h"
@@ -49,7 +48,7 @@ void CWhip::Render(){
 	int state = whip->GetState();
 	float simonX = whip->simonPosX;
 	float simonY = whip->simonPosY;
-
+	return;
 	if(state == WHIP_STATE_RIGHT){
 	      if(whip->simonCurrentFrame == 0){
 			// DebugOut(L"[INFO] This is your current whip STATE when Simon 0 : %d\n", state);
@@ -95,6 +94,7 @@ void CWhip::GetBoundingBox(float &l, float &t, float &r, float &b){
 
 void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 	CWhip * whip = CWhip::GetInstance();
+	return;
 	if(whip->simonCurrentFrame == 2){
 		if(whip->nx>0){
 			this->x = whip->simonPosX + 50;

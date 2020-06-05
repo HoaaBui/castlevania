@@ -213,7 +213,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
 	// case OBJECT_TYPE_BRICK_SCENE2: obj = new CBrickScene2(); break;
 	case OBJECT_TYPE_LIGHT: obj = new CLight(); break;
-	case OBJECT_TYPE_WHIP:  obj = new CWhip(); break;
+	// case OBJECT_TYPE_WHIP:  obj = new CWhip(); break;
 	case OBJECT_TYPE_KNIFE:  obj = new CKnife(); break;
 	case OBJECT_TYPE_KNIGHT:  obj = new CKnight(); break;
 	case OBJECT_TYPE_SMALL_CANDLE:	obj = new CSmallCandle(); break;
@@ -256,6 +256,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 		obj->SetAnimationSet(ani_set);
 		mario->boomerang = (CBoomerang*)obj; 
+	}else if(object_type == OBJECT_TYPE_WHIP){
+		obj->SetPosition(x, y);
+		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+		obj->SetAnimationSet(ani_set);
+		mario->whip = (CWhip*)obj; 
 	}else{
 		// General object setup
 		obj->SetPosition(x, y);
@@ -460,6 +465,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 		}
 		break;
 	case DIK_A: // reset
+		if(marioo->isUsedWhip) return;
 		marioo->isUsedWhip = true;
 		if (marioo->nx > 0){
 			marioo->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);
@@ -468,6 +474,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 		}
 		break;
 	case DIK_S:
+		if(marioo->isUsedSubWeapon) return;
 		marioo->isUsedSubWeapon = true;
 		if (marioo->nx > 0){
 			marioo->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);
@@ -476,6 +483,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 		}
 		break;
 	case DIK_D:
+		if(marioo->isUsedSubWeaponBoomerang) return;
 		marioo->isUsedSubWeaponBoomerang = true;
 		if (marioo->nx > 0){
 			marioo->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);
@@ -509,9 +517,9 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states){
 	// disable control key when Mario die 
 	if (marioo->GetState() == MARIO_STATE_DIE) return;
 	// Set State for Mario
-	if(game->IsKeyDown(DIK_RIGHT) && marioo->isSit == false){
+	if(game->IsKeyDown(DIK_RIGHT) && marioo->isSit == false && !marioo->isAttack){
 		marioo->SetState(MARIO_STATE_WALKING_RIGHT);
-	}else if (game->IsKeyDown(DIK_LEFT) && marioo->isSit == false){
+	}else if (game->IsKeyDown(DIK_LEFT) && marioo->isSit == false && !marioo->isAttack){
 		marioo->SetState(MARIO_STATE_WALKING_LEFT);
 	}else if(game->IsKeyDown(DIK_DOWN) && !marioo->isAttack){
 		marioo->SetState(MARIO_STATE_SIT_RIGHT);

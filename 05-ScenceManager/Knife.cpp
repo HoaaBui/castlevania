@@ -37,8 +37,8 @@ void CKnife::Render(){
 		//animation_set->at(KNIFE_ANI_ATK_LEFT)->Render(simonX-40, simonY+13);
 		animation_set->at(KNIFE_ANI_ATK_LEFT)->Render(x, y);
 	}else if(state == KNIFE_STATE_DISAPPEAR){
-		animation_set->at(KNIFE_ANI_ATK_RIGHT)->Render(10000, 10000);
-		animation_set->at(KNIFE_ANI_ATK_LEFT)->Render(10000, 10000);
+		// animation_set->at(KNIFE_ANI_ATK_RIGHT)->Render(10000, 10000);
+		// animation_set->at(KNIFE_ANI_ATK_LEFT)->Render(10000, 10000);
 	}
 	//RenderBoundingBox();
 }

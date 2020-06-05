@@ -2,7 +2,6 @@
 #include "GameObject.h"
 #include "Utils.h"
 #include "light.h"
-#include "Mario.h"
 
 #define WHIP_BBOX_WIDTH  60
 #define WHIP_BBOX_HEIGHT 20

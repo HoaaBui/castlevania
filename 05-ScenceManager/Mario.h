@@ -73,6 +73,7 @@ public:
 	// CWhip* mainWeap;
 	CKnife *knife;
 	CBoomerang *boomerang;
+	CWhip *whip;
 
 	bool isTouchingBrickStair;
 	bool isGoingOnStair;
