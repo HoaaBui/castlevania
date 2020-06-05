@@ -64,11 +64,9 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define MAX_SCENE_LINE 1024
 
 void CPlayScene::_ParseSection_TILEMAP_IMAGE(string line){
-	// DebugOut(L"[INFO] This is your happy command: \n");
 	vector<string> tokens = split(line);
-
-	if (tokens.size() < 9) return; // skip invalid lines
-
+	if (tokens.size() < 9) {return;} // skip invalid lines
+	// DebugOut(L"[INFO] This is your happy commandabc: \n");
 	int texID = atoi(tokens[0].c_str());
 	wstring path = ToWSTR(tokens[1]);
 	int R = atoi(tokens[2].c_str());
@@ -78,8 +76,9 @@ void CPlayScene::_ParseSection_TILEMAP_IMAGE(string line){
 	int tHeight = atoi(tokens[6].c_str());
 	int numOfTileCol = atoi(tokens[7].c_str());
 	int numOfTileRow = atoi(tokens[8].c_str());
-	DebugOut(L"[INFO] This is your happy command: \n");
-	// map = new CTileMap(path, tWidth, tHeight, numOfTileCol, numOfTileRow, texID, R, G, B);
+	// DebugOut(L"[INFO] This is your happy command: \n");
+	// DebugOut(L"[INFO] This is your happy number %d \n", tWidth);
+	map = new CTileMap(path, tWidth, tHeight, numOfTileCol, numOfTileRow, texID, R, G, B);
 }
 
 void CPlayScene::_ParseSection_TILEMAP_MAPTXT(string line){
@@ -91,15 +90,16 @@ void CPlayScene::_ParseSection_TILEMAP_MAPTXT(string line){
 	int mapLength = atoi(tokens[2].c_str());
 	int texID = atoi(tokens[3].c_str());
 
-	// map->initMap(path, mapLength);
+	map->initMap(path, mapLength);
 }
 
 void CPlayScene::_ParseSection_TEXTURES(string line){
 	vector<string> tokens = split(line);
 
 	if (tokens.size() < 5) return; // skip invalid lines
-
+	// DebugOut(L"[INFO] This is your happy commandabc: \n");
 	int texID = atoi(tokens[0].c_str());
+	// DebugOut(L"[INFO] This is your happy number texID %d \n", texID);
 	wstring path = ToWSTR(tokens[1]);
 	int R = atoi(tokens[2].c_str());
 	int G = atoi(tokens[3].c_str());
@@ -280,7 +280,7 @@ void CPlayScene::Load(){
 
 	// map4 = new CTileMap(L"textures\\map4_tiled.PNG", 64, 64, 17, 5);
 	// map4->initMap("map4.txt", MAP4_LENGTH);
-
+	// DebugOut(L"[INFO] This is your happy command: \n");
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
 
 	ifstream f;
@@ -296,6 +296,13 @@ void CPlayScene::Load(){
 
 		if (line[0] == '#') continue;	// skip comment lines	
 
+		if(line == "[TILEMAP_IMAGE]"){ 
+			section = SCENE_SECTION_TILEMAP_IMAGE; continue;
+		}
+		if(line == "[TILEMAP_TXT]"){ 
+			section = SCENE_SECTION_TILEMAP_MAPTXT; continue; 
+		}
+
 		if (line == "[TEXTURES]") {
 			section = SCENE_SECTION_TEXTURES; continue; }
 		if (line == "[SPRITES]") { 
@@ -308,26 +315,18 @@ void CPlayScene::Load(){
 			section = SCENE_SECTION_OBJECTS; continue; }
 		// if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
 
-		if(line == "[TILEMAP_IMAGE]"){ 
-			section = SCENE_SECTION_TILEMAP_IMAGE; continue;
-		}
-		if(line == "[TILEMAP_TXT]"){ 
-			section = SCENE_SECTION_TILEMAP_MAPTXT; continue; 
-		}
-
 		//
 		// data section
 		//
-		switch (section)
-		{ 
+		switch(section){
+			case SCENE_SECTION_TILEMAP_IMAGE: _ParseSection_TILEMAP_IMAGE(line); break;
+			case SCENE_SECTION_TILEMAP_MAPTXT: _ParseSection_TILEMAP_MAPTXT(line); break; 
+
 			case SCENE_SECTION_TEXTURES: _ParseSection_TEXTURES(line); break;
 			case SCENE_SECTION_SPRITES: _ParseSection_SPRITES(line); break;
 			case SCENE_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
 			case SCENE_SECTION_ANIMATION_SETS: _ParseSection_ANIMATION_SETS(line); break;
 			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
-
-			case SCENE_SECTION_TILEMAP_IMAGE: _ParseSection_TILEMAP_IMAGE(line); break;
-			case SCENE_SECTION_TILEMAP_MAPTXT: _ParseSection_TILEMAP_MAPTXT(line); break;
 		}
 	}
 
@@ -421,7 +420,7 @@ void CPlayScene::Update(DWORD dt)
 void CPlayScene::Render(){
 	if(CGame::GetInstance()->current_scene == 1){
 		// map1->renderMap();
-		// map->renderMap();
+		map->renderMap();
 	}
 	// else if(CGame::GetInstance()->current_scene == 2){
 	// 	map2->renderMap();
