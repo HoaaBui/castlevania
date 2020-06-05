@@ -360,8 +360,8 @@ void CPlayScene::Update(DWORD dt)
 
 	int a = CGame::GetInstance()->current_scene;
 	// DebugOut(L"[INFO] This is your current scene: %d\n", a);
-	// DebugOut(L"[INFO] Position of Simon X: %f\n", cx);
-	// DebugOut(L"[INFO] Position of Simon Y: %f\n", cy);
+	DebugOut(L"[INFO] Position of Simon X: %f\n", cx);
+	DebugOut(L"[INFO] Position of Simon Y: %f\n", cy);
 	if(a==2){
 		if(cx<=70){
 			mario->SetPosition(70,cy);
@@ -372,14 +372,14 @@ void CPlayScene::Update(DWORD dt)
 	}else if(a==1){
 		if(cx<=0){
 			mario->SetPosition(0,cy);
-		}else if(cx>=1300){
-			mario->SetPosition(1300,cy);
+		}else if(cx>=1369){
+			mario->SetPosition(1369,cy);
 		}
 		//Update camera position
 		if( cx<0 || (cx>=0 && cx<=255) ){
 			cx=255;
-		}else if(cx>=1093){
-			cx=1093;
+		}else if(cx>=1259){
+			cx=1259;
 		}
 	}else if(a==4){ // scene 2.2
 		if(cx<=0){

@@ -4,7 +4,7 @@
 
 # tile map txt
 [TILEMAP_TXT]
-1	map1.txt	1472	1
+1	map1.txt	1536	1
 
 # id	file_path	transparent_color_r	g	b
 [TEXTURES]
@@ -328,5 +328,5 @@
 
 # --- SCENE PORTAL ----
 # type	l	t	ani_set_id	r	b	scene_id
-50	1093	316	0	1100	350	2
+50	1369	316	0	1450	350	2
 
