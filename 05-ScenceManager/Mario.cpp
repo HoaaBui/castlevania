@@ -25,7 +25,7 @@ CMario::CMario() : CGameObject(){
 	tag = 2;
 	isJumped = false;
 	knife = new CKnife();
-	Whip = new CWhip();
+	whip = new CWhip();
 	boomerang = new CBoomerang();
 
 	isTouchingBrickStair = false;
@@ -145,6 +145,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	
+	if(this->isUsedWhip && whip != NULL){
+		whip->Update(dt,coObjects);
+	}
 	if(this->isUsedSubWeapon && knife != NULL){
 		knife->Update(dt,coObjects);
 	}
@@ -203,14 +206,25 @@ void CMario::Render(){
 	animation_set->at(ani)->GetCurrentFrame(currentFrame);
     // CWhip::GetInstance()->simonPosX = this->x;
 	// CWhip::GetInstance()->simonPosY = this->y;
-	knife->simonPosX = this->x;
-	knife->simonPosY = this->y;
+	// knife->simonPosX = this->x;
+	// knife->simonPosY = this->y;
 
-	knife->simonCurrentFrame = currentFrame;
-	knife->nx = nx;
+	// knife->simonCurrentFrame = currentFrame;
+	// knife->nx = nx;
 
 	boomerang->simonCurrentFrame = currentFrame;
 	boomerang->nx = nx;
+
+	if(this->isUsedWhip){
+		if(nx>0){
+           	whip->SetState(WHIP_STATE_RIGHT);
+			whip->x = x - 50;
+			whip->y = y;
+		}else{
+           	whip->SetState(WHIP_STATE_LEFT);
+		}	
+		whip->Render();
+	}
 
 	if(this->isUsedSubWeapon){
 		if(nx>0){

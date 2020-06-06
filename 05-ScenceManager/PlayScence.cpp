@@ -213,7 +213,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
 	// case OBJECT_TYPE_BRICK_SCENE2: obj = new CBrickScene2(); break;
 	case OBJECT_TYPE_LIGHT: obj = new CLight(); break;
-	// case OBJECT_TYPE_WHIP:  obj = new CWhip(); break;
+	case OBJECT_TYPE_WHIP:  obj = new CWhip(); break;
 	case OBJECT_TYPE_KNIFE:  obj = new CKnife(); break;
 	case OBJECT_TYPE_KNIGHT:  obj = new CKnight(); break;
 	case OBJECT_TYPE_SMALL_CANDLE:	obj = new CSmallCandle(); break;
@@ -246,6 +246,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		mario->SetPosition(x, y);
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 		mario->SetAnimationSet(ani_set);
+	}else if(object_type == OBJECT_TYPE_WHIP){
+		obj->SetPosition(x, y);
+		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+		obj->SetAnimationSet(ani_set);
+		mario->whip = (CWhip*)obj;
 	}else if(object_type == OBJECT_TYPE_KNIFE){
 		obj->SetPosition(x, y);
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
@@ -257,10 +262,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj->SetAnimationSet(ani_set);
 		mario->boomerang = (CBoomerang*)obj; 
 	}else if(object_type == OBJECT_TYPE_WHIP){
-		obj->SetPosition(x, y);
-		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
-		obj->SetAnimationSet(ani_set);
-		mario->whip = (CWhip*)obj; 
+		// DebugOut(L"[INFO] This is your happy commandabc: \n"); 
+
+		// obj->SetPosition(x, y);
+		// LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+		// obj->SetAnimationSet(ani_set);
+		// mario->whip = (CWhip*)obj;
 	}else{
 		// General object setup
 		obj->SetPosition(x, y);
@@ -365,8 +372,8 @@ void CPlayScene::Update(DWORD dt)
 
 	int a = CGame::GetInstance()->current_scene;
 	// DebugOut(L"[INFO] This is your current scene: %d\n", a);
-	DebugOut(L"[INFO] Position of Simon X: %f\n", cx);
-	DebugOut(L"[INFO] Position of Simon Y: %f\n", cy);
+	// DebugOut(L"[INFO] Position of Simon X: %f\n", cx);
+	// DebugOut(L"[INFO] Position of Simon Y: %f\n", cy);
 	if(a==2){
 		if(cx<=70){
 			mario->SetPosition(70,cy);
@@ -411,8 +418,6 @@ void CPlayScene::Update(DWORD dt)
 			cx=1285;
 		}
 	}
-	// DebugOut(L"[INFO] Position of Simon X: %f\n", cx);
-	// DebugOut(L"[INFO] Position of Simon Z: %f\n", cy);
 
 	CGame *game = CGame::GetInstance();
 	cx -= game->GetScreenWidth() / 2;
@@ -423,17 +428,8 @@ void CPlayScene::Update(DWORD dt)
 }
 
 void CPlayScene::Render(){
-	if(CGame::GetInstance()->current_scene == 1){
-		// map1->renderMap();
-		map->renderMap();
-	}
-	// else if(CGame::GetInstance()->current_scene == 2){
-	// 	map2->renderMap();
-	// }else if(CGame::GetInstance()->current_scene == 4){
-	// 	map3->renderMap();
-	// }else if(CGame::GetInstance()->current_scene == 5){
-	// 	map4->renderMap();
-	// }
+	map->renderMap();
+
 	for (int i = 0; i < objects.size(); i++){
 		objects[i]->Render();
 	}
@@ -459,6 +455,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
+		if(marioo->isSit == true) return;
 		if(marioo->isJumped == false){
 			marioo->isJumped = true;
 			marioo->SetState(MARIO_STATE_JUMP);
@@ -521,7 +518,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states){
 		marioo->SetState(MARIO_STATE_WALKING_RIGHT);
 	}else if (game->IsKeyDown(DIK_LEFT) && marioo->isSit == false && !marioo->isAttack){
 		marioo->SetState(MARIO_STATE_WALKING_LEFT);
-	}else if(game->IsKeyDown(DIK_DOWN) && !marioo->isAttack){
+	}else if(game->IsKeyDown(DIK_DOWN) && !marioo->isAttack && !marioo->isJumped){
 		marioo->SetState(MARIO_STATE_SIT_RIGHT);
 		// mario->SetState(MARIO_STATE_SIT_LEFT);
 	}else{

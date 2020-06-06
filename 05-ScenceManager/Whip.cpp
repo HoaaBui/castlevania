@@ -44,44 +44,47 @@ void CWhip::SetState(int state){
 }
 
 void CWhip::Render(){
-	CWhip * whip = CWhip::GetInstance();
-	int state = whip->GetState();
-	float simonX = whip->simonPosX;
-	float simonY = whip->simonPosY;
-	return;
+	// CWhip * whip = CWhip::GetInstance();
+	// int state = whip->GetState();
+	// float simonX = whip->simonPosX;
+	// float simonY = whip->simonPosY;
+
 	if(state == WHIP_STATE_RIGHT){
-	      if(whip->simonCurrentFrame == 0){
-			// DebugOut(L"[INFO] This is your current whip STATE when Simon 0 : %d\n", state);
-			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(0);
-			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->renderOnlyCurrentFrame(simonX-25, simonY+14);
-		  }else if(whip->simonCurrentFrame == 1){
-			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(1);
-            animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->renderOnlyCurrentFrame(simonX-25, simonY+14);
-		  }else if(whip->simonCurrentFrame == 2){
-			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(2);
-            animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->renderOnlyCurrentFrame(simonX+50, simonY+13);
-		  }else{
-			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(-1);
-		  }
+	    //   if(whip->simonCurrentFrame == 0){
+		// 	// DebugOut(L"[INFO] This is your current whip STATE when Simon 0 : %d\n", state);
+		// 	animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(0);
+		// 	animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->renderOnlyCurrentFrame(simonX-25, simonY+14);
+		//   }else if(whip->simonCurrentFrame == 1){
+		// 	animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(1);
+        //     animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->renderOnlyCurrentFrame(simonX-25, simonY+14);
+		//   }else if(whip->simonCurrentFrame == 2){
+		// 	animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(2);
+        //     animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->renderOnlyCurrentFrame(simonX+50, simonY+13);
+		//   }else{
+		// 	animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(-1);
+		//   }
+		animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->Render(x,y);
 	}else if(state == WHIP_STATE_LEFT){
-          if(whip->simonCurrentFrame == 0){
-			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(0);
-			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonX+45, simonY+11);
-		  }else if(whip->simonCurrentFrame == 1){
-			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(1);
-            animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonX+45, simonY+6);
-		  }else if(whip->simonCurrentFrame == 2){
-			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(2);
-            animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonX-70, simonY+13);
-		  }else{
-			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(-1);
-		  }
-	}else if(state == WHIP_STATE_DISAPPEAR){
-		animation_set->at(0)->SetCurrentFrame(-1);
-		animation_set->at(1)->SetCurrentFrame(-1);
-		animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->Render(10000, 10000);
-		animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->Render(10000, 10000);
+        //   if(whip->simonCurrentFrame == 0){
+		// 	animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(0);
+		// 	animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonX+45, simonY+11);
+		//   }else if(whip->simonCurrentFrame == 1){
+		// 	animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(1);
+        //     animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonX+45, simonY+6);
+		//   }else if(whip->simonCurrentFrame == 2){
+		// 	animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(2);
+        //     animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonX-70, simonY+13);
+		//   }else{
+		// 	animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(-1);
+		//   }
+		animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->Render(x,y);
 	}
+	// else if(state == WHIP_STATE_DISAPPEAR){
+	// 	animation_set->at(0)->SetCurrentFrame(-1);
+	// 	animation_set->at(1)->SetCurrentFrame(-1);
+	// 	animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->Render(10000, 10000);
+	// 	animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->Render(10000, 10000);
+	// }
 
 }
 
@@ -94,20 +97,20 @@ void CWhip::GetBoundingBox(float &l, float &t, float &r, float &b){
 
 void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 	CWhip * whip = CWhip::GetInstance();
-	return;
-	if(whip->simonCurrentFrame == 2){
-		if(whip->nx>0){
-			this->x = whip->simonPosX + 50;
-			this->y = whip->simonPosY + 13;
-		}else{
-			this->x = whip->simonPosX - 70;
-			this->y = whip->simonPosY + 13;
-		}
-	}else{
-		this->x = 10000;
-		this->y = 10000;
-		// Khong xet va cham cho cai roi nua
-	}
+	// return;
+	// if(whip->simonCurrentFrame == 2){
+	// 	if(whip->nx>0){
+	// 		this->x = whip->simonPosX + 50;
+	// 		this->y = whip->simonPosY + 13;
+	// 	}else{
+	// 		this->x = whip->simonPosX - 70;
+	// 		this->y = whip->simonPosY + 13;
+	// 	}
+	// }else{
+	// 	this->x = 10000;
+	// 	this->y = 10000;
+	// 	// Khong xet va cham cho cai roi nua
+	// }
 
 	CGameObject::Update(dt);
 	vector<LPCOLLISIONEVENT> coEvents;

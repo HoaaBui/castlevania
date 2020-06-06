@@ -12,10 +12,10 @@
 #include "Whip.h"
 #include "Light.h"
 #include "Knife.h"
-#define MAP1_LENGTH			1472
-#define MAP2_LENGTH			512
-#define MAP3_LENGTH			1024
-#define MAP4_LENGTH			1536
+// #define MAP1_LENGTH			1472
+// #define MAP2_LENGTH			512
+// #define MAP3_LENGTH			1024
+// #define MAP4_LENGTH			1536
 
 class CPlayScene: public CScene
 {
