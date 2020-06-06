@@ -51,7 +51,7 @@ void CWhip::Render(){
 			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->renderOnlyCurrentFrame(simonPosX-25, simonPosY+14);
 		}else if(simonCurrentFrame == 1){
 			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(simonCurrentFrame);
-            animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->renderOnlyCurrentFrame(simonPosX-25, simonPosY+14);
+            animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->renderOnlyCurrentFrame(simonPosX-20, simonPosY+5);
 		}else if(simonCurrentFrame == 2){
 			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(simonCurrentFrame);
             animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->renderOnlyCurrentFrame(simonPosX+50, simonPosY+13);
@@ -63,7 +63,7 @@ void CWhip::Render(){
 			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonPosX+45, simonPosY+11);
 		  }else if(simonCurrentFrame == 1){
 			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(simonCurrentFrame);
-            animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonPosX+45, simonPosY+11);
+            animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonPosX+38, simonPosY+5);
 		  }else if(simonCurrentFrame == 2){
 			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(simonCurrentFrame);
             animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonPosX-70, simonPosY+13);
