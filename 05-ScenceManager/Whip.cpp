@@ -126,6 +126,7 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 				}
 			}
 			if (dynamic_cast<CHeart *>(e->obj)){
+				// DebugOut(L"[INFO] Ham co chay dieu kien trai tim vao");
 				CHeart *heart = dynamic_cast<CHeart *>(e->obj);
 				heart->isCollision = true;
 			}
