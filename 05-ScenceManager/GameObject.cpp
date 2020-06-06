@@ -28,12 +28,13 @@ void CGameObject::filterUnwantedColliableObject(
 	vector<LPGAMEOBJECT> *coObjects, vector<LPGAMEOBJECT> &result){
 	vector<LPGAMEOBJECT> filter;
 
+	// if(coObjects->at(i)->tag != 1){
+	// 	if (coObjects->at(i)->isCollision == true) {
+	// 		filter.push_back(coObjects->at(i));
+	// 	}
+	// }
 	for (UINT i = 0; i < coObjects->size(); i++){
-		if(coObjects->at(i)->tag != 1){
-			if (coObjects->at(i)->isCollision == true) {
-				filter.push_back(coObjects->at(i));
-			}
-		}
+		filter.push_back(coObjects->at(i));
 	}
 
 	// can xem lai cach lam cho nay do bao loi tren error list.

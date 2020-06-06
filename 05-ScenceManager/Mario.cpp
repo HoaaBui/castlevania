@@ -117,9 +117,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 				CGame::GetInstance()->SwitchScene(p->GetSceneId());
 			}
 			if (dynamic_cast<CHeart *>(e->obj)){
-				CHeart *heart = dynamic_cast<CHeart *>(e->obj);
-				heart->state = HEART_STATE_DEAD;
-				heart->isCollision = false;
+				// CHeart *heart = dynamic_cast<CHeart *>(e->obj);
+				// heart->state = HEART_STATE_DEAD;
+				// heart->isCollision = false;
 			}
 		}
 	}
