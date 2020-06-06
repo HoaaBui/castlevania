@@ -204,8 +204,6 @@ void CMario::Render(){
     
 	int currentFrame = -1;
 	animation_set->at(ani)->GetCurrentFrame(currentFrame);
-    // CWhip::GetInstance()->simonPosX = this->x;
-	// CWhip::GetInstance()->simonPosY = this->y;
 	// knife->simonPosX = this->x;
 	// knife->simonPosY = this->y;
 
@@ -215,7 +213,8 @@ void CMario::Render(){
 	boomerang->simonCurrentFrame = currentFrame;
 	boomerang->nx = nx;
 
-	if(this->isUsedWhip){
+	if(this->isAttack && !this->isUsedSubWeapon 
+	   && !this->isUsedSubWeaponBoomerang && this->isUsedWhip){
 		if(nx>0){
 			DebugOut(L"[INFO] Simon current frame when attacking %d \n", currentFrame);
            	whip->SetState(WHIP_STATE_RIGHT);

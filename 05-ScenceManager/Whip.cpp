@@ -47,37 +47,29 @@ void CWhip::Render(){
 
 	if(state == WHIP_STATE_RIGHT){
 	    if(simonCurrentFrame == 0){
-			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(0);
+			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(simonCurrentFrame);
 			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->renderOnlyCurrentFrame(simonPosX-25, simonPosY+14);
 		}else if(simonCurrentFrame == 1){
-			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(1);
+			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(simonCurrentFrame);
             animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->renderOnlyCurrentFrame(simonPosX-25, simonPosY+14);
 		}else if(simonCurrentFrame == 2){
-			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(2);
+			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(simonCurrentFrame);
             animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->renderOnlyCurrentFrame(simonPosX+50, simonPosY+13);
 		}
 		// animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->Render(x,y);
 	}else if(state == WHIP_STATE_LEFT){
-        //   if(whip->simonCurrentFrame == 0){
-		// 	animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(0);
-		// 	animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonX+45, simonY+11);
-		//   }else if(whip->simonCurrentFrame == 1){
-		// 	animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(1);
-        //     animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonX+45, simonY+6);
-		//   }else if(whip->simonCurrentFrame == 2){
-		// 	animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(2);
-        //     animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonX-70, simonY+13);
-		//   }else{
-		// 	animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(-1);
-		//   }
-		animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->Render(x,y);
+          if(simonCurrentFrame == 0){
+			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(simonCurrentFrame);
+			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonPosX+45, simonPosY+11);
+		  }else if(simonCurrentFrame == 1){
+			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(simonCurrentFrame);
+            animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonPosX+45, simonPosY+11);
+		  }else if(simonCurrentFrame == 2){
+			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(simonCurrentFrame);
+            animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonPosX-70, simonPosY+13);
+		  }
+		// animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->Render(x,y);
 	}
-	// else if(state == WHIP_STATE_DISAPPEAR){
-	// 	animation_set->at(0)->SetCurrentFrame(-1);
-	// 	animation_set->at(1)->SetCurrentFrame(-1);
-	// 	animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->Render(10000, 10000);
-	// 	animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->Render(10000, 10000);
-	// }
 
 }
 
@@ -89,13 +81,12 @@ void CWhip::GetBoundingBox(float &l, float &t, float &r, float &b){
 }
 
 void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
-	CWhip * whip = CWhip::GetInstance();
 	if(simonCurrentFrame == 2){
-		if(whip->nx>0){
+		if(nx>0){
 			this->x = simonPosX + 50;
 			this->y = simonPosY + 13;
 		}else{
-			this->x = simonPosX - 70;
+			this->x = simonPosX - 30;
 			this->y = simonPosY + 13;
 		}
 	}

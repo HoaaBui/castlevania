@@ -3,7 +3,7 @@
 #include "Utils.h"
 #include "light.h"
 
-#define WHIP_BBOX_WIDTH  60
+#define WHIP_BBOX_WIDTH  50
 #define WHIP_BBOX_HEIGHT 20
 
 
