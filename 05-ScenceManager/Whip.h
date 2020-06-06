@@ -24,6 +24,9 @@ public:
 	float simonPosX;
 	float simonPosY;
 	int simonCurrentFrame;
+
+	int level; // cap do cua cay roi
+	
 public:
     CWhip();
 	~CWhip();

@@ -18,6 +18,7 @@
 #include "Heart.h"
 #include "BrickScene2.h"
 #include "BrickStair.h"
+#include "WhipIcon.h"
 
 using namespace std;
 
@@ -58,6 +59,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define OBJECT_TYPE_BRICK_STAIR	12
 #define OBJECT_TYPE_GOOMBA	2
 #define OBJECT_TYPE_KOOPAS	3
+#define OBJECT_TYPE_WHIP_ICON	14 // khong dung so 13
 
 #define OBJECT_TYPE_PORTAL	50
 
@@ -210,6 +212,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
 	// case OBJECT_TYPE_BRICK_SCENE2: obj = new CBrickScene2(); break;
+	case OBJECT_TYPE_WHIP_ICON: obj = new CWhipIcon(); break;
 	case OBJECT_TYPE_LIGHT: obj = new CLight(); break;
 	case OBJECT_TYPE_WHIP:  obj = new CWhip(); break;
 	case OBJECT_TYPE_KNIFE:  obj = new CKnife(); break;

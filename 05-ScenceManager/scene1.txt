@@ -21,6 +21,7 @@
 11	textures\small_heart.png	    255	255	255
 20	textures\misc.png	        176	224	248
 10	textures\enemies.png	    3	26	110
+18	textures\whip_icon.png	    255	255	255
 
 # id	left	top	right	bottom	texture_id
 [SPRITES]
@@ -93,6 +94,9 @@
 
 # heart
 90001	0	0	32	49	11
+
+# whip icon
+110001	0	0	32	32	18
 
 # SMALL MARIO
 # idle small right
@@ -180,6 +184,9 @@
 #heart
 1201	90001	100
 
+#whip icon
+1501	110001	100
+
 # ==== BRICK =========
 601	20001	100
 
@@ -211,6 +218,8 @@
 7	1101
 # heart
 8	1201
+# whip icon
+14	1501
 # BRICK 
 2	601
 # QUESTION MARK BRICK 
@@ -238,6 +247,9 @@
 
 # heart
 8	255	316	8
+
+# whip icon
+14	180	350	14
 
 # LIGHT
 5	255	316	5

@@ -11,6 +11,7 @@ CWhip::CWhip(){
 	this->simonPosX = 0.0f;
 	this->simonPosY = 0.0f;
 	this->tag = 3;
+	this->level = 0;
 }
 
 CWhip::~CWhip(){
@@ -119,8 +120,6 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 
 			if (dynamic_cast<CLight *>(e->obj)){
 				CLight *light = dynamic_cast<CLight *>(e->obj);
-				// int a = light->ny;
-				// DebugOut(L"[INFO] ny of light: %d\n", a);
 				if (e->nx == 0){
 					light->SetState(LIGHT_STATE_DEAD);
 				}
