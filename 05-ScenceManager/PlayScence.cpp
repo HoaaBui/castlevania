@@ -195,8 +195,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	CAnimationSets * animation_sets = CAnimationSets::GetInstance();
 
 	CGameObject *obj = NULL;
-	CGameObject *objWhip = NULL;
-	CWhip *whip = new CWhip();
 
 	switch (object_type)
 	{

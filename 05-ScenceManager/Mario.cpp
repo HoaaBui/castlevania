@@ -217,12 +217,16 @@ void CMario::Render(){
 
 	if(this->isUsedWhip){
 		if(nx>0){
+			DebugOut(L"[INFO] Simon current frame when attacking %d \n", currentFrame);
            	whip->SetState(WHIP_STATE_RIGHT);
-			whip->x = x - 50;
-			whip->y = y;
 		}else{
            	whip->SetState(WHIP_STATE_LEFT);
 		}	
+
+		// whip->Render();
+		whip->simonCurrentFrame = currentFrame;
+		whip->simonPosX = x;
+		whip->simonPosY = y;
 		whip->Render();
 	}
 
