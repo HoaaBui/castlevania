@@ -7,6 +7,8 @@
 #define WHIP_ICON_STATE_ALIVE		100
 #define WHIP_ICON_STATE_DEAD	    200
 
+#define WHIP_ICON_GRAVITY			0.002f
+
 class CWhipIcon : public CGameObject{
 
 public:

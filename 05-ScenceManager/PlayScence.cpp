@@ -68,7 +68,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 void CPlayScene::_ParseSection_TILEMAP_IMAGE(string line){
 	vector<string> tokens = split(line);
 	if (tokens.size() < 9) {return;} // skip invalid lines
-	// DebugOut(L"[INFO] This is your happy commandabc: \n");
+	
 	int texID = atoi(tokens[0].c_str());
 	wstring path = ToWSTR(tokens[1]);
 	int R = atoi(tokens[2].c_str());
@@ -78,8 +78,7 @@ void CPlayScene::_ParseSection_TILEMAP_IMAGE(string line){
 	int tHeight = atoi(tokens[6].c_str());
 	int numOfTileCol = atoi(tokens[7].c_str());
 	int numOfTileRow = atoi(tokens[8].c_str());
-	// DebugOut(L"[INFO] This is your happy command: \n");
-	// DebugOut(L"[INFO] This is your happy number %d \n", tWidth);
+
 	map = new CTileMap(path, tWidth, tHeight, numOfTileCol, numOfTileRow, texID, R, G, B);
 }
 

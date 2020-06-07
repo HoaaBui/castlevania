@@ -5,6 +5,7 @@
 #include "Knight.h"
 #include "SmallCandle.h"
 #include "Utils.h"
+#include "WhipIcon.h"
 
 CWhip::CWhip(){
     this->simonCurrentFrame = -1;
@@ -136,6 +137,11 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 			if (dynamic_cast<CSmallCandle *>(e->obj)){
 				CSmallCandle *smallCandle = dynamic_cast<CSmallCandle *>(e->obj);
 				smallCandle->state = SMALL_CANDLE_STATE_DEAD;
+			}
+			if (dynamic_cast<CWhipIcon *>(e->obj)){
+				DebugOut(L"[INFO] Co chay vao cai icon: \n");
+				CWhipIcon *wIcon = dynamic_cast<CWhipIcon *>(e->obj);
+				wIcon->isCollision = true;
 			}
 		}
 	}

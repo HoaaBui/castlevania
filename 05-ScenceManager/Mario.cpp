@@ -12,6 +12,7 @@
 #include "Heart.h"
 #include "BrickStair.h"
 #include "Brick.h"
+#include "WhipIcon.h"
 
 CMario::CMario() : CGameObject(){
 	level = MARIO_LEVEL_BIG;
@@ -140,6 +141,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 			}else if(dynamic_cast<CBrick *>(e->obj)){
 				this->isJumped = false;
 			}
+
+			if (dynamic_cast<CWhipIcon *>(e->obj)){
+				DebugOut(L"[INFO] Co chay vao cai icon: \n");
+				CWhipIcon *wIcon = dynamic_cast<CWhipIcon *>(e->obj);
+				wIcon->state = WHIP_ICON_STATE_DEAD;
+				wIcon->isCollision = false;
+			}
 		}
 	}
 	// clean up collision events
@@ -216,7 +224,6 @@ void CMario::Render(){
 	if(this->isAttack && !this->isUsedSubWeapon 
 	   && !this->isUsedSubWeaponBoomerang && this->isUsedWhip){
 		if(nx>0){
-			DebugOut(L"[INFO] Simon current frame when attacking %d \n", currentFrame);
            	whip->SetState(WHIP_STATE_RIGHT);
 		}else{
            	whip->SetState(WHIP_STATE_LEFT);

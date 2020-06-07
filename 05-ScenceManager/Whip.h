@@ -14,6 +14,10 @@
 #define ANIMATION_ATTACK_WHIP_RIGHT_ZERO 0
 #define ANIMATION_ATTACK_WHIP_LEFT_ZERO 1
 
+#define WHIP_LEVEL_0				0
+#define WHIP_LEVEL_1				1
+#define WHIP_LEVEL_2				2
+
 class CWhip : public CGameObject
 {
 public:
