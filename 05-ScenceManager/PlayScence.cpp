@@ -497,11 +497,11 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode){
 	CMario *marioo = CMario::GetInstance();
 	switch (KeyCode){
 		case DIK_DOWN:
-			if (marioo->isAttack){
-				CWhip * whip = CWhip::GetInstance();
-				whip->animation_set->at(0)->SetCurrentFrame(-1);
-		        whip->animation_set->at(1)->SetCurrentFrame(-1);
-			}
+			// if (marioo->isAttack){
+			// 	CWhip * whip = CWhip::GetInstance();
+			// 	whip->animation_set->at(0)->SetCurrentFrame(-1);
+		    //     whip->animation_set->at(1)->SetCurrentFrame(-1);
+			// }
 			marioo->isSit = false;
 			break;
 	}

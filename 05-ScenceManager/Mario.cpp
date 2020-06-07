@@ -180,11 +180,19 @@ void CMario::Render(){
 	if(this->isAttack){
 		attackTime += dt;
 		if(nx>0){
-			ani = MARIO_ANI_BIG_ATTACK_STAND_RIGHT;
-		}else{
-			ani = MARIO_ANI_BIG_ATTACK_STAND_LEFT;
+			if(this->isSit == true){
+				ani = MARIO_ANI_BIG_ATTACK_SIT_RIGHT;
+			}else if(this->isSit == false){
+				ani = MARIO_ANI_BIG_ATTACK_STAND_RIGHT;
+			}
+		}else if(nx<0){
+			if(this->isSit == true){
+				ani = MARIO_ANI_BIG_ATTACK_SIT_LEFT;
+			}else if(this->isSit == false){
+				ani = MARIO_ANI_BIG_ATTACK_STAND_LEFT;
+			}
 		}
-	}else if(this->isSit){
+	}else if(this->isSit && this->isAttack == false){
 		if(nx>0){
 			ani = MARIO_ANI_BIG_SIT_RIGHT;
 		}else{
