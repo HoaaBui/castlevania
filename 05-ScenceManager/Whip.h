@@ -6,7 +6,7 @@
 #define WHIP_BBOX_WIDTH  		50
 #define WHIP_BBOX_HEIGHT 		20
 
-#define WHIP_BBOX_WIDTH_1		70
+#define WHIP_BBOX_WIDTH_1		75
 #define WHIP_BBOX_HEIGHT_1		20
 
 #define WHIP_BBOX_WIDTH_2		90

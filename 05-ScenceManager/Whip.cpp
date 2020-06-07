@@ -12,7 +12,7 @@ CWhip::CWhip(){
 	this->simonPosX = 0.0f;
 	this->simonPosY = 0.0f;
 	this->tag = 3;
-	this->level = WHIP_LEVEL_0;
+	this->level = WHIP_LEVEL_1;
 }
 
 CWhip::~CWhip(){
@@ -46,7 +46,7 @@ void CWhip::SetState(int state){
 }
 
 void CWhip::Render(){
-	int ani= -1; // xet animation cho cay whip
+	int ani= -1; // xet animation cho cay roi
 	if(this->level == 0){
 		if(state == WHIP_STATE_RIGHT){
 			ani = ANIMATION_ATTACK_WHIP_RIGHT_ZERO;
@@ -67,32 +67,95 @@ void CWhip::Render(){
 		}
 	}
 
-	//xet position cho cay whip
+	//xet position cho cay roi
 	float whipX = 0.0f;
 	float whipY = 0.0f;
 
+	if(this->level == 0){
+		if(state == WHIP_STATE_RIGHT){
+			if(simonCurrentFrame == 0){
+				whipX =  simonPosX-25; whipY =  simonPosY+14;
+			}else if(simonCurrentFrame == 1){
+				whipX =  simonPosX-20; whipY =  simonPosY+5;
+			}else if(simonCurrentFrame == 2){
+				whipX =  simonPosX+50; whipY =  simonPosY+13;
+			}
+		}else if(state == WHIP_STATE_LEFT){
+			if(simonCurrentFrame == 0){
+				whipX =  simonPosX+45; whipY =  simonPosY+11;
+			}else if(simonCurrentFrame == 1){
+				whipX =  simonPosX+38; whipY =  simonPosY+5;
+			}else if(simonCurrentFrame == 2){
+				whipX =  simonPosX-70; whipY =  simonPosY+13;
+			}
+		}
+	}
+	else if(this->level == 1){
+		if(state == WHIP_STATE_RIGHT){
+			if(simonCurrentFrame == 0){
+				whipX =  simonPosX-25; whipY =  simonPosY+14;
+			}else if(simonCurrentFrame == 1){
+				whipX =  simonPosX-20; whipY =  simonPosY+5;
+			}else if(simonCurrentFrame == 2){
+				whipX =  simonPosX-30; whipY =  simonPosY+16;
+			}
+		}else if(state == WHIP_STATE_LEFT){
+			if(simonCurrentFrame == 0){
+				whipX =  simonPosX-80; whipY =  simonPosY+11;
+			}else if(simonCurrentFrame == 1){
+				whipX =  simonPosX-80; whipY =  simonPosY+5;
+			}else if(simonCurrentFrame == 2){
+				whipX =  simonPosX-80; whipY =  simonPosY+13;
+			}
+		}
+	}
+	// else if(this->level == 2){
+	// 	if(state == WHIP_STATE_RIGHT){
+	// 		if(simonCurrentFrame == 0){
+	// 			whipX =  ;
+	// 			whipY =  ;
+	// 		}else if(simonCurrentFrame == 1){
+	// 			whipX =  ;
+	// 			whipY =  ;
+	// 		}else if(simonCurrentFrame == 2){
+	// 			whipX =  ;
+	// 			whipY =  ;
+	// 		}
+	// 	}else if(state == WHIP_STATE_LEFT){
+	// 		if(simonCurrentFrame == 0){
+	// 			whipX =  ;
+	// 			whipY =  ;
+	// 		}else if(simonCurrentFrame == 1){
+	// 			whipX =  ;
+	// 			whipY =  ;
+	// 		}else if(simonCurrentFrame == 2){
+	// 			whipX =  ;
+	// 			whipY =  ;
+	// 		}
+	// 	}
+	// }
 
 	if(state == WHIP_STATE_RIGHT){
 	    if(simonCurrentFrame == 0){
 			animation_set->at(ani)->SetCurrentFrame(simonCurrentFrame);
-			animation_set->at(ani)->renderOnlyCurrentFrame(simonPosX-25, simonPosY+14);
+			animation_set->at(ani)->renderOnlyCurrentFrame(whipX, whipY);
 		}else if(simonCurrentFrame == 1){
 			animation_set->at(ani)->SetCurrentFrame(simonCurrentFrame);
-            animation_set->at(ani)->renderOnlyCurrentFrame(simonPosX-20, simonPosY+5);
+            animation_set->at(ani)->renderOnlyCurrentFrame(whipX, whipY);
 		}else if(simonCurrentFrame == 2){
 			animation_set->at(ani)->SetCurrentFrame(simonCurrentFrame);
-            animation_set->at(ani)->renderOnlyCurrentFrame(simonPosX+50, simonPosY+13);
+            animation_set->at(ani)->renderOnlyCurrentFrame(whipX, whipY);
 		}
 	}else if(state == WHIP_STATE_LEFT){
         if(simonCurrentFrame == 0){
 			animation_set->at(ani)->SetCurrentFrame(simonCurrentFrame);
-			animation_set->at(ani)->renderOnlyCurrentFrame(simonPosX+45, simonPosY+11);
+			animation_set->at(ani)->renderOnlyCurrentFrame(whipX, whipY);
 		}else if(simonCurrentFrame == 1){
 			animation_set->at(ani)->SetCurrentFrame(simonCurrentFrame);
-            animation_set->at(ani)->renderOnlyCurrentFrame(simonPosX+38, simonPosY+5);
+            animation_set->at(ani)->renderOnlyCurrentFrame(whipX, whipY);
 		}else if(simonCurrentFrame == 2){
 			animation_set->at(ani)->SetCurrentFrame(simonCurrentFrame);
-            animation_set->at(ani)->renderOnlyCurrentFrame(simonPosX-70, simonPosY+13);
+            animation_set->at(ani)->renderOnlyCurrentFrame(whipX, whipY);
 		}
 	}
 
@@ -101,18 +164,37 @@ void CWhip::Render(){
 void CWhip::GetBoundingBox(float &l, float &t, float &r, float &b){
 	l = x;
 	t = y;
-	r = x + WHIP_BBOX_WIDTH;
-	b = y + WHIP_BBOX_HEIGHT;
+
+	if(this->level == 0){
+		r = x + WHIP_BBOX_WIDTH;
+		b = y + WHIP_BBOX_HEIGHT;
+	}else if(this->level == 1){
+		r = x + WHIP_BBOX_WIDTH_1;
+		b = y + WHIP_BBOX_HEIGHT_1;
+	}else if(this->level == 2){
+		r = x + WHIP_BBOX_WIDTH_2;
+		b = y + WHIP_BBOX_HEIGHT_2;
+	}
 }
 
 void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 	if(simonCurrentFrame == 2){
 		if(nx>0){
-			this->x = simonPosX + 50;
-			this->y = simonPosY + 13;
+			if(level == 0){
+				this->x = simonPosX + 50;
+				this->y = simonPosY + 13;
+			}else if(level == 1){
+				this->x = simonPosX + 50;
+				this->y = simonPosY + 13;
+			}
 		}else{
-			this->x = simonPosX - 30;
-			this->y = simonPosY + 13;
+			if(level == 0){
+				this->x = simonPosX - 30;
+				this->y = simonPosY + 13;
+			}else if(level == 1){
+				this->x = simonPosX - 30;
+				this->y = simonPosY + 13;
+			}
 		}
 	}
 
