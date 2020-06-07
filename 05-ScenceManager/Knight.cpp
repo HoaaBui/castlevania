@@ -14,13 +14,8 @@ void CKnight::GetBoundingBox(float &left, float &top, float &right, float &botto
 	bottom = y + KNIGHT_BBOX_HEIGHT;
 }
 
-void CKnight::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
-{
+void CKnight::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 	CGameObject::Update(dt, coObjects);
-
-	//
-	// TO-DO: make sure Goomba can interact with the world and to each of them too!
-	// 
 
 	x += dx;
 	y += dy;

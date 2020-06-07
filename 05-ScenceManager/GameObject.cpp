@@ -16,6 +16,7 @@ CGameObject::CGameObject()
 	tag = -1;
 	isDead = false;
 	isCollision = true;
+	isHitGround = true;
 
 	//ny2 = 0.0f;
 }
