@@ -6,12 +6,12 @@
 #define WHIP_BBOX_WIDTH  		50
 #define WHIP_BBOX_HEIGHT 		20
 
-#define WHIP_BBOX_WIDTH_1		75
+#define WHIP_BBOX_WIDTH_1		60
 #define WHIP_BBOX_HEIGHT_1		20
 
 #define WHIP_BBOX_WIDTH_2		90
 #define WHIP_BBOX_HEIGHT_2		20
-
+// Can than cai vu bounding box nay
 
 #define WHIP_STATE_RIGHT		100
 #define WHIP_STATE_LEFT			200

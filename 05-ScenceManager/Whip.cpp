@@ -184,7 +184,7 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 				this->x = simonPosX + 50;
 				this->y = simonPosY + 13;
 			}else if(level == 1){
-				this->x = simonPosX + 50;
+				this->x = simonPosX + 80;
 				this->y = simonPosY + 13;
 			}
 		}else{
@@ -192,7 +192,7 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 				this->x = simonPosX - 30;
 				this->y = simonPosY + 13;
 			}else if(level == 1){
-				this->x = simonPosX - 30;
+				this->x = simonPosX - 60;
 				this->y = simonPosY + 13;
 			}
 		}
