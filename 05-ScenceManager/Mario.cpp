@@ -143,10 +143,17 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 			}
 
 			if (dynamic_cast<CWhipIcon *>(e->obj)){
-				DebugOut(L"[INFO] Co chay vao cai icon: \n");
+				// DebugOut(L"[INFO] Co chay vao cai icon: \n");
 				CWhipIcon *wIcon = dynamic_cast<CWhipIcon *>(e->obj);
 				wIcon->state = WHIP_ICON_STATE_DEAD;
 				wIcon->isCollision = false;
+
+				// Xet level cho cay roi
+				if(whip->level == 0){
+					whip->level += 1;
+				}else if(whip->level == 1){
+					whip->level += 1;
+				}
 			}
 		}
 	}

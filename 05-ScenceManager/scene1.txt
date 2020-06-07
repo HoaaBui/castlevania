@@ -64,14 +64,32 @@
 10099	215	120	231	135	0
 
 # WHIP
-# whip attack right level ZERO
+# whip attack right level KHONG
 50001	70	12	105	70	2
 50002	325	5	375	60	2
 50003	660	10	720	35	2
-# whip attack left level ZERO
+# whip attack left level KHONG
 50004	665	10	700	65	3
 50005	395	5	435	60	3
 50006	30	10	105	35	3
+
+# whip attack right level MOT
+50007	70	75	105	133	2
+50008	325	70	375	125	2
+50009	580	335	750	365	2
+# whip attack left level MOT
+50010	540	75	700	130	3
+50011	290	70	435	125	3
+50012	20	330	105	355	3
+
+# whip attack right level HAI
+50013	70	12	105	70	2
+50014	325	5	375	60	2
+50015	660	10	720	35	2
+# whip attack left level HAI
+50016	665	10	700	65	3
+50017	395	5	435	60	3
+50018	30	10	105	35	3
 
 # LIGHT
 # light state alive
@@ -163,10 +181,21 @@
 #die
 599	10099	100
 
-#whip right level ZERO
+#whip right level KHONG
 801	50001	100	50002	100	50003	100
-#whip left level ZERO
+#whip left level KHONG
 802	50004	100	50005	100	50006	100
+
+#whip right level MOT
+803	50007	100	50008	100	50009	100
+#whip left level MOT
+804	50010	100	50011	100	50012	100
+
+
+#whip right level HAI
+805	50013	100	50014	100	50015	100
+#whip left level HAI
+806	50016	100	50017	100	50018	100
 
 #light state alive
 901	60001	100	60002	100
@@ -209,7 +238,7 @@
 # MARIO
 1	400	401	402	403	500	501	502	503	599	504	505	506	507	508	509
 # WHIP 
-4	801	802
+4	801	802	803	804	805	806
 # LIGHT 
 5	901	902
 # KNIFE

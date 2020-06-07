@@ -12,7 +12,7 @@ CWhip::CWhip(){
 	this->simonPosX = 0.0f;
 	this->simonPosY = 0.0f;
 	this->tag = 3;
-	this->level = 0;
+	this->level = WHIP_LEVEL_0;
 }
 
 CWhip::~CWhip(){
@@ -46,31 +46,54 @@ void CWhip::SetState(int state){
 }
 
 void CWhip::Render(){
+	int ani= -1; // xet animation cho cay whip
+	if(this->level == 0){
+		if(state == WHIP_STATE_RIGHT){
+			ani = ANIMATION_ATTACK_WHIP_RIGHT_ZERO;
+		}else if(state == WHIP_STATE_LEFT){
+			ani = ANIMATION_ATTACK_WHIP_LEFT_ZERO;
+		}
+	}else if(this->level == 1){
+		if(state == WHIP_STATE_RIGHT){
+			ani = ANIMATION_ATTACK_WHIP_RIGHT_MOT;
+		}else if(state == WHIP_STATE_LEFT){
+			ani = ANIMATION_ATTACK_WHIP_LEFT_MOT;
+		}
+	}else if(this->level == 2){
+		if(state == WHIP_STATE_RIGHT){
+			ani = ANIMATION_ATTACK_WHIP_RIGHT_HAI;
+		}else if(state == WHIP_STATE_LEFT){
+			ani = ANIMATION_ATTACK_WHIP_LEFT_HAI;
+		}
+	}
+
+	//xet position cho cay whip
+	float whipX = 0.0f;
+	float whipY = 0.0f;
+
 
 	if(state == WHIP_STATE_RIGHT){
 	    if(simonCurrentFrame == 0){
-			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(simonCurrentFrame);
-			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->renderOnlyCurrentFrame(simonPosX-25, simonPosY+14);
+			animation_set->at(ani)->SetCurrentFrame(simonCurrentFrame);
+			animation_set->at(ani)->renderOnlyCurrentFrame(simonPosX-25, simonPosY+14);
 		}else if(simonCurrentFrame == 1){
-			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(simonCurrentFrame);
-            animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->renderOnlyCurrentFrame(simonPosX-20, simonPosY+5);
+			animation_set->at(ani)->SetCurrentFrame(simonCurrentFrame);
+            animation_set->at(ani)->renderOnlyCurrentFrame(simonPosX-20, simonPosY+5);
 		}else if(simonCurrentFrame == 2){
-			animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(simonCurrentFrame);
-            animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->renderOnlyCurrentFrame(simonPosX+50, simonPosY+13);
+			animation_set->at(ani)->SetCurrentFrame(simonCurrentFrame);
+            animation_set->at(ani)->renderOnlyCurrentFrame(simonPosX+50, simonPosY+13);
 		}
-		// animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->Render(x,y);
 	}else if(state == WHIP_STATE_LEFT){
-          if(simonCurrentFrame == 0){
-			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(simonCurrentFrame);
-			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonPosX+45, simonPosY+11);
-		  }else if(simonCurrentFrame == 1){
-			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(simonCurrentFrame);
-            animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonPosX+38, simonPosY+5);
-		  }else if(simonCurrentFrame == 2){
-			animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(simonCurrentFrame);
-            animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->renderOnlyCurrentFrame(simonPosX-70, simonPosY+13);
-		  }
-		// animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->Render(x,y);
+        if(simonCurrentFrame == 0){
+			animation_set->at(ani)->SetCurrentFrame(simonCurrentFrame);
+			animation_set->at(ani)->renderOnlyCurrentFrame(simonPosX+45, simonPosY+11);
+		}else if(simonCurrentFrame == 1){
+			animation_set->at(ani)->SetCurrentFrame(simonCurrentFrame);
+            animation_set->at(ani)->renderOnlyCurrentFrame(simonPosX+38, simonPosY+5);
+		}else if(simonCurrentFrame == 2){
+			animation_set->at(ani)->SetCurrentFrame(simonCurrentFrame);
+            animation_set->at(ani)->renderOnlyCurrentFrame(simonPosX-70, simonPosY+13);
+		}
 	}
 
 }
@@ -100,16 +123,13 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 	coEvents.clear();
 	CalcPotentialCollisions(coObjects, coEvents);
 
-	// No collision occured, proceed normally
 	if (coEvents.size()!=0){
 		float min_tx, min_ty, nx = 0, ny;
 		float rdx = 0; 
 		float rdy = 0;
 
-		// TODO: This is a very ugly designed function!!!!
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 		
-		// block every object first!
 		x += min_tx*dx + nx*0.4f;
 		y += min_ty*dy + ny*0.4f;
 
@@ -126,7 +146,6 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 				}
 			}
 			if (dynamic_cast<CHeart *>(e->obj)){
-				// DebugOut(L"[INFO] Ham co chay dieu kien trai tim vao");
 				CHeart *heart = dynamic_cast<CHeart *>(e->obj);
 				heart->isCollision = true;
 			}
