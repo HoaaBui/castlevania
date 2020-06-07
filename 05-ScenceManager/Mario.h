@@ -4,12 +4,12 @@
 #include "Knife.h"
 #include "Boomerang.h"
 
-#define MARIO_WALKING_SPEED		0.1f 
+#define MARIO_WALKING_SPEED					0.1f 
 //0.1f
-#define MARIO_JUMP_SPEED_Y		0.65f
-#define MARIO_JUMP_DEFLECT_SPEED 0.2f
-#define MARIO_GRAVITY			0.002f
-#define MARIO_DIE_DEFLECT_SPEED	 0.5f
+#define MARIO_JUMP_SPEED_Y					0.65f
+#define MARIO_JUMP_DEFLECT_SPEED 			0.2f
+#define MARIO_GRAVITY						0.002f
+#define MARIO_DIE_DEFLECT_SPEED	 			0.5f
 
 #define MARIO_STATE_IDLE					0
 #define MARIO_STATE_WALKING_RIGHT			100
@@ -42,18 +42,18 @@
 #define MARIO_ANI_BIG_ATTACK_SIT_RIGHT		13
 #define MARIO_ANI_BIG_ATTACK_SIT_LEFT		14
 
-#define MARIO_ANI_DIE				8
+#define MARIO_ANI_DIE						8
 
-#define	MARIO_LEVEL_SMALL	1
-#define	MARIO_LEVEL_BIG		2
+#define	MARIO_LEVEL_SMALL					1
+#define	MARIO_LEVEL_BIG						2
 
-#define MARIO_BIG_BBOX_WIDTH  40
-#define MARIO_BIG_BBOX_HEIGHT 63
+#define MARIO_BIG_BBOX_WIDTH  				40
+#define MARIO_BIG_BBOX_HEIGHT 				63
 
-#define MARIO_SMALL_BBOX_WIDTH  13
-#define MARIO_SMALL_BBOX_HEIGHT 15
+#define MARIO_SMALL_BBOX_WIDTH  			13
+#define MARIO_SMALL_BBOX_HEIGHT 			15
 
-#define MARIO_UNTOUCHABLE_TIME 5000
+#define MARIO_UNTOUCHABLE_TIME 				5000
 
 
 class CMario : public CGameObject

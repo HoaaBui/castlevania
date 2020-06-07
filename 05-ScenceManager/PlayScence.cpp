@@ -519,6 +519,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states){
 	}else if (game->IsKeyDown(DIK_LEFT) && marioo->isSit == false && !marioo->isAttack){
 		marioo->SetState(MARIO_STATE_WALKING_LEFT);
 	}else if(game->IsKeyDown(DIK_DOWN) && !marioo->isAttack && !marioo->isJumped){
+		marioo->isSit = true;
 		marioo->SetState(MARIO_STATE_SIT_RIGHT);
 		// mario->SetState(MARIO_STATE_SIT_LEFT);
 	}else{

@@ -70,7 +70,6 @@ void CWhip::Render(){
 	//xet position cho cay roi
 	float whipX = 0.0f;
 	float whipY = 0.0f;
-
 	if(this->level == 0){
 		if(state == WHIP_STATE_RIGHT){
 			if(simonCurrentFrame == 0){
@@ -89,8 +88,7 @@ void CWhip::Render(){
 				whipX =  simonPosX-70; whipY =  simonPosY+13;
 			}
 		}
-	}
-	else if(this->level == 1){
+	}else if(this->level == 1){
 		if(state == WHIP_STATE_RIGHT){
 			if(simonCurrentFrame == 0){
 				whipX =  simonPosX-25; whipY =  simonPosY+14;
