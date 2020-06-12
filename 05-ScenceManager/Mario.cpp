@@ -174,7 +174,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 void CMario::Render(){
 	int ani = -1;
  
-    float simonPosX = 0.0f, simonPosY = 0.0f, xxx = 0.0f, yyy = 0.0f;
+    float simonPosX = 0.0f, simonPosY = 0.0f;
 	GetPosition(simonPosX, simonPosY);
 
 	if(this->isAttack){
@@ -213,43 +213,26 @@ void CMario::Render(){
 		}
 	}
 
-	if(attackTime >= 200){
-		SetState(MARIO_STATE_IDLE);
-		attackTime = 0;
-		this->isUsedWhip = false;
-		this->isAttack = false;
-		
-		if(this->isAttack == false){
-			// CWhip::GetInstance()->SetState(WHIP_STATE_DISAPPEAR);
-		    // CWhip::GetInstance()->simonCurrentFrame = -1;
-		}
-	}
-    
 	int currentFrame = -1;
 	animation_set->at(ani)->GetCurrentFrame(currentFrame);
-	// knife->simonPosX = this->x;
-	// knife->simonPosY = this->y;
 
-	// knife->simonCurrentFrame = currentFrame;
-	// knife->nx = nx;
+	// con so 220 la do mo dai
+	if(attackTime >= 230){
+		animation_set->at(MARIO_ANI_BIG_ATTACK_STAND_RIGHT)->SetCurrentFrame(-1);
+		animation_set->at(MARIO_ANI_BIG_ATTACK_STAND_LEFT)->SetCurrentFrame(-1);
+		whip->animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(-1);
+		whip->animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(-1);
+
+		attackTime = 0.0f;
+		this->isUsedWhip = false;
+		this->isAttack = false;
+		SetState(MARIO_STATE_IDLE);
+		animation_set->at(ani)->SetCurrentFrame(-1);
+		this->state = MARIO_STATE_IDLE;
+	}
 
 	boomerang->simonCurrentFrame = currentFrame;
 	boomerang->nx = nx;
-
-	if(this->isAttack && !this->isUsedSubWeapon 
-	   && !this->isUsedSubWeaponBoomerang && this->isUsedWhip){
-		if(nx>0){
-           	whip->SetState(WHIP_STATE_RIGHT);
-		}else{
-           	whip->SetState(WHIP_STATE_LEFT);
-		}	
-
-		// whip->Render();
-		whip->simonCurrentFrame = currentFrame;
-		whip->simonPosX = x;
-		whip->simonPosY = y;
-		whip->Render();
-	}
 
 	if(this->isUsedSubWeapon){
 		if(nx>0){
@@ -269,24 +252,46 @@ void CMario::Render(){
 		boomerang->Render();
 	}
 
-	if(this->isAttack && !this->isUsedSubWeapon 
-	   && !this->isUsedSubWeaponBoomerang && this->isUsedWhip){
-
-        // CWhip::GetInstance()->simonCurrentFrame = currentFrame;
-		// CWhip::GetInstance()->nx = nx;
-
-		// if(nx>0){
-        //    	CWhip::GetInstance()->SetState(WHIP_STATE_RIGHT);
-		// }else{
-        //    	CWhip::GetInstance()->SetState(WHIP_STATE_LEFT);
-		// }	
-	}
-
 	int alpha = 255;
 	if (untouchable) alpha = 128;
-	animation_set->at(ani)->Render(x, y, alpha);
+
+	int curFrame = -1;
+	animation_set->at(ani)->GetCurrentFrame(curFrame);
+
+	if(this->isAttack == true){
+		DebugOut(L"[INFO] This is your Simon Attack current frame: %d \n",currentFrame);
+		// animation_set->at(ani)->Render(x, y, alpha);	
+		animation_set->at(ani)->Render(x-10, y, alpha);	
+		// if(curFrame == 0){
+		// 	animation_set->at(ani)->Render(x-32, y, alpha);	
+		// }else if(curFrame == 1){
+		// 	animation_set->at(ani)->Render(x, y, alpha);	
+		// }else if(curFrame == 2){
+		// 	animation_set->at(ani)->Render(x, y, alpha);	
+		// }else if(curFrame == 3){
+		// 	// animation_set->at(ani)->SetCurrentFrame(curFrame);
+		// 	animation_set->at(ani)->Render(x, y, alpha);	
+		// }
+	}else{
+		animation_set->at(ani)->Render(x, y, alpha);	
+	}
 
 	RenderBoundingBox();
+
+	if(this->isAttack && this->isUsedWhip){
+		if(nx>0){
+           	whip->SetState(WHIP_STATE_RIGHT);
+		}else{
+           	whip->SetState(WHIP_STATE_LEFT);
+		}	
+
+		// // whip->Render();
+		// DebugOut(L"[INFO] This is your Simon Attack current frame: %d \n",currentFrame);
+		whip->simonCurrentFrame = currentFrame;
+		whip->simonPosX = x;
+		whip->simonPosY = y;
+		// whip->Render();
+	}
 }
 
 void CMario::SetState(int state){

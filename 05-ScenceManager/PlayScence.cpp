@@ -462,16 +462,22 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 		}
 		break;
 	case DIK_A: // reset
-		if(marioo->isUsedWhip) return;
-		marioo->isUsedWhip = true;
-		if (marioo->nx > 0){
-			marioo->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);
+
+		if(marioo->isUsedWhip == true || marioo->isAttack == true
+		   || marioo->state == MARIO_STATE_ATTACK_STAND_RIGHT){
+			break;
+			DebugOut(L"[INFO] Phim attack bi can lien tuc \n");
 		}else{
-			marioo->SetState(MARIO_STATE_ATTACK_STAND_LEFT);
+			marioo->isUsedWhip = true;
+			if (marioo->nx > 0){
+				marioo->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);
+			}else{
+				marioo->SetState(MARIO_STATE_ATTACK_STAND_LEFT);
+			}
 		}
 		break;
 	case DIK_S:
-		if(marioo->isUsedSubWeapon) return;
+		if(marioo->isUsedSubWeapon) break;
 		marioo->isUsedSubWeapon = true;
 		if (marioo->nx > 0){
 			marioo->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);
@@ -502,7 +508,17 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode){
 			// 	whip->animation_set->at(0)->SetCurrentFrame(-1);
 		    //     whip->animation_set->at(1)->SetCurrentFrame(-1);
 			// }
+			
+			if (marioo->isAttack == true ){
+				marioo->animation_set->at(MARIO_ANI_BIG_ATTACK_STAND_RIGHT)->SetCurrentFrame(-1);
+				marioo->animation_set->at(MARIO_ANI_BIG_ATTACK_STAND_LEFT)->SetCurrentFrame(-1);
+				marioo->whip->animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(-1);
+				marioo->whip->animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(-1);
+				marioo->attackTime = 0.0f;
+			}
 			marioo->isSit = false;
+			// marioo->isAttack = false;
+			// marioo->isUsedWhip = false;
 			break;
 	}
 }
