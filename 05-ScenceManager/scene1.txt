@@ -283,23 +283,16 @@
 8	255	316	8
 
 # whip icon
-#14	180	320	14
+14	435	320	14
 
 # LIGHT
 5	255	316	5
 # heart an gian khuc nay do chay bi loi
-8	435	316	8
+#8	435	316	8
 5	435	316	5
 5	615	316	5
 5	795	316	5
 5	975	316	5
-
-# GOOMBA
-# 2	200	135	3
-# 2	260	135	3
-# 2	320	135	3
-# 2	480	135	3
-# 2	500	135	3
 
 # BRICK 
 # --- platform (hint: I created the list using Excel!) ----
@@ -358,21 +351,6 @@
 1	1664	380	2
 1	1696	380	2
 1	1728	380	2
-
-# ---- brick group 1 ----
-# 1	100	74	2
-# 1	100	90	22
-# 1	84	90	22
-
-# ---- brick group 2 ----
-# 1	160	74	2
-# 1	160	90	22
-# 1	144	90	22
-
-# ---- brick group 3 ----
-# 1	220	74	2
-# 1	220	90	22
-# 1	204	90	22
 
 # --- SCENE PORTAL ----
 # type	l	t	ani_set_id	r	b	scene_id

@@ -152,7 +152,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 				if(whip->level == 0){
 					whip->level += 1;
 				}else if(whip->level == 1){
-					whip->level += 1;
+					// whip->level += 1;
 				}
 			}
 		}

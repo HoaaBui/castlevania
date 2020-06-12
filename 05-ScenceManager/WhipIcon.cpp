@@ -56,7 +56,7 @@ void CWhipIcon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 }
 
 void CWhipIcon::Render(){
-	if(this->state == WHIP_ICON_STATE_ALIVE){
+	if(this->state == WHIP_ICON_STATE_ALIVE && this->isCollision == true){
 		animation_set->at(0)->Render(x, y);
 	}
 }

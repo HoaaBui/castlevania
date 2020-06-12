@@ -9,7 +9,7 @@ CHeart::CHeart(){
 CHeart::~CHeart(){}
 
 void CHeart::Render(){
-	if(this->state == HEART_STATE_ALIVE){
+	if(this->state == HEART_STATE_ALIVE && this->isCollision == true){
 		animation_set->at(0)->Render(x, y);
 	}
 }
