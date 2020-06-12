@@ -42,6 +42,7 @@ void CWhip::SetState(int state){
 }
 
 void CWhip::Render(){
+
 	int ani= -1; // xet animation cho cay roi
 	if(this->level == 0){
 		if(state == WHIP_STATE_RIGHT){
@@ -132,32 +133,33 @@ void CWhip::Render(){
 	if(state == WHIP_STATE_RIGHT){
 	    if(simonCurrentFrame == 1){
 			// DebugOut(L"[INFO] This is your whip current frame: %d \n",simonCurrentFrame);
-			animation_set->at(ani)->SetCurrentFrame(simonCurrentFrame);
+			animation_set->at(ani)->SetCurrentFrame(0);
 			animation_set->at(ani)->renderOnlyCurrentFrame(whipX, whipY);
 		}else if(simonCurrentFrame == 2){
 			// DebugOut(L"[INFO] This is your whip current frame: %d \n",simonCurrentFrame);
-			animation_set->at(ani)->SetCurrentFrame(simonCurrentFrame);
+			animation_set->at(ani)->SetCurrentFrame(1);
             animation_set->at(ani)->renderOnlyCurrentFrame(whipX, whipY);
 		}else if(simonCurrentFrame == 3){
 			// DebugOut(L"[INFO] This is your whip current frame: %d \n",simonCurrentFrame);
-			animation_set->at(ani)->SetCurrentFrame(simonCurrentFrame);
+			animation_set->at(ani)->SetCurrentFrame(2);
             animation_set->at(ani)->renderOnlyCurrentFrame(whipX, whipY);
 			// simonCurrentFrame = -1;
 		}
 	}else if(state == WHIP_STATE_LEFT){
         if(simonCurrentFrame == 1){
-			animation_set->at(ani)->SetCurrentFrame(simonCurrentFrame);
+			animation_set->at(ani)->SetCurrentFrame(0);
 			animation_set->at(ani)->renderOnlyCurrentFrame(whipX, whipY);
 		}else if(simonCurrentFrame == 2){
-			animation_set->at(ani)->SetCurrentFrame(simonCurrentFrame);
+			animation_set->at(ani)->SetCurrentFrame(1);
             animation_set->at(ani)->renderOnlyCurrentFrame(whipX, whipY);
 		}else if(simonCurrentFrame == 3){
-			animation_set->at(ani)->SetCurrentFrame(simonCurrentFrame);
+			animation_set->at(ani)->SetCurrentFrame(2);
             animation_set->at(ani)->renderOnlyCurrentFrame(whipX, whipY);
 			// simonCurrentFrame = -1;
 		}
 	}
 
+	// RenderBoundingBox();
 }
 
 void CWhip::GetBoundingBox(float &l, float &t, float &r, float &b){

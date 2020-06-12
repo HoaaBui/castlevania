@@ -217,7 +217,7 @@ void CMario::Render(){
 	animation_set->at(ani)->GetCurrentFrame(currentFrame);
 
 	// con so 220 la do mo dai
-	if(attackTime >= 230){
+	if(attackTime >= 300){
 		animation_set->at(MARIO_ANI_BIG_ATTACK_STAND_RIGHT)->SetCurrentFrame(-1);
 		animation_set->at(MARIO_ANI_BIG_ATTACK_STAND_LEFT)->SetCurrentFrame(-1);
 		whip->animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(-1);
@@ -260,8 +260,8 @@ void CMario::Render(){
 
 	if(this->isAttack == true){
 		DebugOut(L"[INFO] This is your Simon Attack current frame: %d \n",currentFrame);
-		// animation_set->at(ani)->Render(x, y, alpha);	
-		animation_set->at(ani)->Render(x-10, y, alpha);	
+		// animation_set->at(ani)->Render(x, y, alpha);
+		animation_set->at(ani)->Render(x, y, alpha);
 		// if(curFrame == 0){
 		// 	animation_set->at(ani)->Render(x-32, y, alpha);	
 		// }else if(curFrame == 1){
@@ -276,7 +276,7 @@ void CMario::Render(){
 		animation_set->at(ani)->Render(x, y, alpha);	
 	}
 
-	RenderBoundingBox();
+	// RenderBoundingBox();
 
 	if(this->isAttack && this->isUsedWhip){
 		if(nx>0){
@@ -290,7 +290,7 @@ void CMario::Render(){
 		whip->simonCurrentFrame = currentFrame;
 		whip->simonPosX = x;
 		whip->simonPosY = y;
-		// whip->Render();
+		whip->Render();
 	}
 }
 
