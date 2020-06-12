@@ -202,7 +202,13 @@ void CMario::Render(){
 		if(state == MARIO_STATE_DIE){
 			ani = MARIO_ANI_DIE;
 		}else if(level == MARIO_LEVEL_BIG){
-			if (vx == 0){
+			if(this->isJumped == true){
+				if(nx>0){
+					ani = MARIO_ANI_BIG_JUMP_RIGHT;
+				}else{
+					ani = MARIO_ANI_BIG_JUMP_LEFT;
+				}
+			}else if (vx == 0){
 				if (nx>0) ani = MARIO_ANI_BIG_IDLE_RIGHT;
 				else ani = MARIO_ANI_BIG_IDLE_LEFT;
 			}else if(vx > 0){
@@ -273,8 +279,7 @@ void CMario::Render(){
            	whip->SetState(WHIP_STATE_LEFT);
 		}	
 
-		// // whip->Render();
-		// DebugOut(L"[INFO] This is your Simon Attack current frame: %d \n",currentFrame);
+		DebugOut(L"[INFO] This is your Simon Attack current frame: %d \n",currentFrame);
 		// whip->simonCurrentFrame = currentFrame;
 		// whip->simonPosX = x;
 		// whip->simonPosY = y;
@@ -316,6 +321,7 @@ void CMario::SetState(int state){
 			this->isSit = true;
 			break;
 		case MARIO_STATE_JUMP: 
+			this->isJumped = true;
 			vy = -MARIO_JUMP_SPEED_Y;
 		case MARIO_STATE_IDLE: 
 			vx = 0;
