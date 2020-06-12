@@ -85,6 +85,8 @@ public:
 
 	static CMario* instance;
 	static CMario* GetInstance();
+
+	int simonCurrentFrame;
 public: 
 	CMario();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);

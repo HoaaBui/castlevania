@@ -31,6 +31,8 @@ CMario::CMario() : CGameObject(){
 
 	isTouchingBrickStair = false;
 	isGoingOnStair = false;
+
+	this->simonCurrentFrame = -1;
 }
 
 CMario* CMario::instance = NULL;
@@ -241,13 +243,22 @@ void CMario::Render(){
 	boomerang->simonCurrentFrame = currentFrame;
 	boomerang->nx = nx;
 
-	if(this->isUsedSubWeapon){
-		if(nx>0){
-           	knife->SetState(KNIFE_STATE_RIGHT);
+	knife->simonCurrentFrame = currentFrame;
+	knife->simonPosX = x;
+	knife->simonPosY = y;
+	this->simonCurrentFrame = currentFrame;
+	if(this->isUsedSubWeapon == true){
+		if(this->isSit == true){
+			this->isUsedSubWeapon == false;
 		}else{
-           	knife->SetState(KNIFE_STATE_LEFT);
-		}	
-		knife->Render();
+			if(nx>0){
+				// DebugOut(L"[INFO] Ham co chay dieu kien con dao vao");
+				knife->SetState(KNIFE_STATE_RIGHT);
+			}else{
+				knife->SetState(KNIFE_STATE_LEFT);
+			}	
+			knife->Render();
+		}
 	}
 
 	if(this->isUsedSubWeaponBoomerang){
@@ -271,6 +282,10 @@ void CMario::Render(){
 	whip->simonPosX = x;
 	whip->simonPosY = y;
 	whip->isSimonSit = this->isSit;
+
+	if(this->isUsedSubWeapon == true){
+		DebugOut(L"[INFO] This is your Simon Attack current frame cua con dao: %d \n",currentFrame);
+	}
 
 	if(this->isAttack && this->isUsedWhip){
 		if(nx>0){

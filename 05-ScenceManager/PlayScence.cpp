@@ -476,7 +476,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 		}
 		break;
 	case DIK_S:
-		if(marioo->isUsedSubWeapon) break;
+		if(marioo->isUsedSubWeapon == true) break;
 		marioo->isUsedSubWeapon = true;
 		if (marioo->nx > 0){
 			marioo->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);
@@ -530,7 +530,8 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states){
 	//CMario *mario = ((CPlayScene*)scence)->player;
 	CMario *marioo = CMario::GetInstance();
 	// disable control key when Mario die 
-	if (marioo->GetState() == MARIO_STATE_DIE) return;
+	if (marioo->GetState() == MARIO_STATE_DIE 
+	|| marioo->isUsedSubWeapon == true) return;
 	// Set State for Mario
 	if(game->IsKeyDown(DIK_RIGHT) && marioo->isSit == false && !marioo->isAttack){
 		marioo->SetState(MARIO_STATE_WALKING_RIGHT);

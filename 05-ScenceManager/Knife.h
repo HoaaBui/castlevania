@@ -10,8 +10,8 @@
 #define KNIFE_STATE_LEFT 		200
 #define KNIFE_STATE_DISAPPEAR	300
 
-#define KNIFE_ANI_ATK_RIGHT 0
-#define KNIFE_ANI_ATK_LEFT  1
+#define KNIFE_ANI_ATTACK_RIGHT 0
+#define KNIFE_ANI_ATTACK_LEFT  1
 
 #define KNIFE_ATTACK_RANGE 200
 
@@ -24,7 +24,7 @@ public:
 	float simonPosX;
 	float simonPosY;
 	int simonCurrentFrame;
-
+	int count;
 public:
     CKnife();
 	~CKnife();
