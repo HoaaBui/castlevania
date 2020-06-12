@@ -40,6 +40,7 @@ public:
 	int simonCurrentFrame;
 
 	int level; // cap do cua cay roi
+	bool isSimonSit;
 	
 public:
     CWhip();

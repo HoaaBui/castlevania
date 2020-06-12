@@ -515,8 +515,11 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode){
 				marioo->whip->animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(-1);
 				marioo->whip->animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(-1);
 				marioo->attackTime = 0.0f;
+			}else{
+				marioo->isSit = false;
 			}
-			marioo->isSit = false;
+			
+			// marioo->isSit = false;
 			// marioo->isAttack = false;
 			// marioo->isUsedWhip = false;
 			break;

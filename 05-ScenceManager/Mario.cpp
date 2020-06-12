@@ -226,6 +226,7 @@ void CMario::Render(){
 		attackTime = 0.0f;
 		this->isUsedWhip = false;
 		this->isAttack = false;
+		this->isSit = false;
 		SetState(MARIO_STATE_IDLE);
 		animation_set->at(ani)->SetCurrentFrame(-1);
 		this->state = MARIO_STATE_IDLE;
@@ -258,25 +259,12 @@ void CMario::Render(){
 	int curFrame = -1;
 	animation_set->at(ani)->GetCurrentFrame(curFrame);
 
-	if(this->isAttack == true){
-		DebugOut(L"[INFO] This is your Simon Attack current frame: %d \n",currentFrame);
-		// animation_set->at(ani)->Render(x, y, alpha);
-		animation_set->at(ani)->Render(x, y, alpha);
-		// if(curFrame == 0){
-		// 	animation_set->at(ani)->Render(x-32, y, alpha);	
-		// }else if(curFrame == 1){
-		// 	animation_set->at(ani)->Render(x, y, alpha);	
-		// }else if(curFrame == 2){
-		// 	animation_set->at(ani)->Render(x, y, alpha);	
-		// }else if(curFrame == 3){
-		// 	// animation_set->at(ani)->SetCurrentFrame(curFrame);
-		// 	animation_set->at(ani)->Render(x, y, alpha);	
-		// }
-	}else{
-		animation_set->at(ani)->Render(x, y, alpha);	
-	}
+	animation_set->at(ani)->Render(x, y, alpha);	
 
-	// RenderBoundingBox();
+	whip->simonCurrentFrame = currentFrame;
+	whip->simonPosX = x;
+	whip->simonPosY = y;
+	whip->isSimonSit = this->isSit;
 
 	if(this->isAttack && this->isUsedWhip){
 		if(nx>0){
@@ -287,9 +275,10 @@ void CMario::Render(){
 
 		// // whip->Render();
 		// DebugOut(L"[INFO] This is your Simon Attack current frame: %d \n",currentFrame);
-		whip->simonCurrentFrame = currentFrame;
-		whip->simonPosX = x;
-		whip->simonPosY = y;
+		// whip->simonCurrentFrame = currentFrame;
+		// whip->simonPosX = x;
+		// whip->simonPosY = y;
+		// whip->isSimonSit = this->isSit;
 		whip->Render();
 	}
 }
