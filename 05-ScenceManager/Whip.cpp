@@ -76,19 +76,19 @@ void CWhip::Render(){
 				if(this->isSimonSit == false){
 					whipX = simonPosX-25; whipY = simonPosY+14;
 				}else if(this->isSimonSit == true){
-					whipX = simonPosX-25; whipY = simonPosY+30;
+					whipX = simonPosX-28; whipY = simonPosY+30;
 				}
 			}else if(simonCurrentFrame == 2){
 				if(this->isSimonSit == false){
 					whipX = simonPosX-22; whipY = simonPosY+5;	
 				}else if(this->isSimonSit == true){
-					whipX = simonPosX-20; whipY = simonPosY+20;	
+					whipX = simonPosX-23; whipY = simonPosY+20;	
 				}
 			}else if(simonCurrentFrame == 3){
 				if(this->isSimonSit == false){
-					whipX = simonPosX+50; whipY = simonPosY+11;
+					whipX = simonPosX+50; whipY = simonPosY+12;
 				}else if(this->isSimonSit == true){
-					whipX = simonPosX+50; whipY = simonPosY+27;
+					whipX = simonPosX+50; whipY = simonPosY+25;
 				}
 			}
 		}else if(state == WHIP_STATE_LEFT){
@@ -128,9 +128,9 @@ void CWhip::Render(){
 				}
 			}else if(simonCurrentFrame == 3){
 				if(this->isSimonSit == false){
-					whipX = simonPosX-30; whipY = simonPosY+16;
+					whipX = simonPosX+56; whipY = simonPosY+18;
 				}else if(this->isSimonSit == true){
-					whipX = simonPosX-30; whipY = simonPosY+29;
+					whipX = simonPosX+56; whipY = simonPosY+31;
 				}
 			}
 		}else if(state == WHIP_STATE_LEFT){
@@ -148,44 +148,55 @@ void CWhip::Render(){
 				}
 			}else if(simonCurrentFrame == 3){
 				if(this->isSimonSit == false){
-					whipX = simonPosX-80; whipY = simonPosY+11;
+					whipX = simonPosX-50; whipY = simonPosY+18;
 				}else if(this->isSimonSit == true){
-					whipX = simonPosX-80; whipY = simonPosY+27;
+					whipX = simonPosX-50; whipY = simonPosY+30;
+				}
+			}
+		}
+	}else if(this->level == 2){
+		if(state == WHIP_STATE_RIGHT){
+			if(simonCurrentFrame == 1){
+				if(this->isSimonSit == false){
+					whipX = simonPosX-23; whipY = simonPosY+14;
+				}else if(this->isSimonSit == true){
+					whipX = simonPosX-23; whipY = simonPosY+30;
+				}
+			}else if(simonCurrentFrame == 2){
+				if(this->isSimonSit == false){
+					whipX = simonPosX-20; whipY = simonPosY+5;	
+				}else if(this->isSimonSit == true){
+					whipX = simonPosX-18; whipY = simonPosY+20;	
+				}
+			}else if(simonCurrentFrame == 3){
+				if(this->isSimonSit == false){
+					whipX = simonPosX+55; whipY = simonPosY+17;
+				}else if(this->isSimonSit == true){
+					whipX = simonPosX+55; whipY = simonPosY+30;
+				}
+			}
+		}else if(state == WHIP_STATE_LEFT){
+			if(simonCurrentFrame == 1){
+				if(this->isSimonSit == false){
+					whipX =  simonPosX+53; whipY = simonPosY+11;
+				}else if(this->isSimonSit == true){
+					whipX =  simonPosX+53; whipY = simonPosY+33;
+				}
+			}else if(simonCurrentFrame == 2){
+				if(this->isSimonSit == false){
+					whipX =  simonPosX+38; whipY = simonPosY+5;
+				}else if(this->isSimonSit == true){
+					whipX =  simonPosX+38; whipY = simonPosY+20;
+				}
+			}else if(simonCurrentFrame == 3){
+				if(this->isSimonSit == false){
+					whipX = simonPosX-80; whipY = simonPosY+17;
+				}else if(this->isSimonSit == true){
+					whipX = simonPosX-80; whipY = simonPosY+30;
 				}
 			}
 		}
 	}
-	// else if(this->level == 2){
-	// 	if(state == WHIP_STATE_RIGHT){
-	// 		if(simonCurrentFrame == 0){
-	// 			whipX =  ;
-	// 			whipY =  ;
-	// 		}else if(simonCurrentFrame == 1){
-	// 			whipX =  ;
-	// 			whipY =  ;
-	// 		}else if(simonCurrentFrame == 2){
-	// 			whipX =  ;
-	// 			whipY =  ;
-	// 		}
-	// 	}else if(state == WHIP_STATE_LEFT){
-	// 		if(simonCurrentFrame == 0){
-	// 			whipX =  ;
-	// 			whipY =  ;
-	// 		}else if(simonCurrentFrame == 1){
-	// 			whipX =  ;
-	// 			whipY =  ;
-	// 		}else if(simonCurrentFrame == 2){
-	// 			whipX =  ;
-	// 			whipY =  ;
-	// 		}
-	// 	}
-	// }
-
-	// if(this->isSimonSit == false){
-
-	// }else if(this->isSimonSit == true){
-					
-	// }
 
 	if(state == WHIP_STATE_RIGHT){
 	    if(simonCurrentFrame == 1){
@@ -238,6 +249,9 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 			}else if(level == 1){
 				this->x = simonPosX + 60;
 				this->y = simonPosY + 13;
+			}else if(level == 2){
+				this->x = simonPosX + 45;
+				this->y = simonPosY + 13;
 			}
 		}else{
 			if(level == 0){
@@ -245,6 +259,9 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 				this->y = simonPosY + 13;
 			}else if(level == 1){
 				this->x = simonPosX - 60;
+				this->y = simonPosY + 13;
+			}else if(level == 2){
+				this->x = simonPosX - 34;
 				this->y = simonPosY + 13;
 			}
 		}

@@ -50,6 +50,9 @@ CMario * CMario::GetInstance(){
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
+
+	int count = 0; // gianh cho chay TH vao cay roi
+
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
@@ -107,24 +110,24 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
 			if (dynamic_cast<CGoomba *>(e->obj)){ // if e->obj is Goomba 
-				CGoomba *goomba = dynamic_cast<CGoomba *>(e->obj);
+				// CGoomba *goomba = dynamic_cast<CGoomba *>(e->obj);
 
-				// jump on top >> kill Goomba and deflect a bit 
-				if(e->ny < 0){
-					if(goomba->GetState()!= GOOMBA_STATE_DIE){
-						goomba->SetState(GOOMBA_STATE_DIE);
-						vy = -MARIO_JUMP_DEFLECT_SPEED;
-					}
-				}else if(e->nx != 0){
-					if(untouchable==0){
-						if (goomba->GetState()!=GOOMBA_STATE_DIE){
-							if (level > MARIO_LEVEL_SMALL){
-								level = MARIO_LEVEL_SMALL;
-								StartUntouchable();
-							}else SetState(MARIO_STATE_DIE);
-						}
-					}
-				}
+				// // jump on top >> kill Goomba and deflect a bit 
+				// if(e->ny < 0){
+				// 	if(goomba->GetState()!= GOOMBA_STATE_DIE){
+				// 		goomba->SetState(GOOMBA_STATE_DIE);
+				// 		vy = -MARIO_JUMP_DEFLECT_SPEED;
+				// 	}
+				// }else if(e->nx != 0){
+				// 	if(untouchable==0){
+				// 		if (goomba->GetState()!=GOOMBA_STATE_DIE){
+				// 			if (level > MARIO_LEVEL_SMALL){
+				// 				level = MARIO_LEVEL_SMALL;
+				// 				StartUntouchable();
+				// 			}else SetState(MARIO_STATE_DIE);
+				// 		}
+				// 	}
+				// }
 			} // if Goomba
 			else if(dynamic_cast<CPortal *>(e->obj)){
 				CPortal *p = dynamic_cast<CPortal *>(e->obj);
@@ -165,10 +168,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 				this->state = MARIO_STATE_TAKE_WEAPON;
 
 				// Xet level cho cay roi
-				if(whip->level == 0){
-					whip->level += 1;
-				}else if(whip->level == 1){
-					// whip->level += 1;
+				if(count != 1){
+					if(whip->level == 0){
+						whip->level += 1;
+						count = 1;
+					}else if(whip->level == 1){
+						whip->level += 1;
+					}
 				}
 			}
 
@@ -178,9 +184,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 				kIcon->state = KNIFE_ICON_STATE_DEAD;
 				kIcon->x = 10000;
 				kIcon->y = 10000;
-				this->canUseKnife = true;
 				kIcon->isCollision = false;
+				this->canUseKnife = true;
 			}
+			count = 0;
 		}
 	}
 	// clean up collision events
@@ -331,10 +338,6 @@ void CMario::Render(){
 		}	
 
 		DebugOut(L"[INFO] This is your Simon Attack current frame: %d \n",currentFrame);
-		// whip->simonCurrentFrame = currentFrame;
-		// whip->simonPosX = x;
-		// whip->simonPosY = y;
-		// whip->isSimonSit = this->isSit;
 		whip->Render();
 	}
 }
