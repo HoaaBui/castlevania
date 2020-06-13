@@ -18,10 +18,11 @@
 7	textures\knife_right.png	255	0	255
 8	textures\knife_left.png	    255	0	255
 9	textures\boomerang.png	    255	255	255
-11	textures\small_heart.png	    255	255	255
-20	textures\misc.png	        176	224	248
 10	textures\enemies.png	    3	26	110
+11	textures\small_heart.png	    255	255	255
 18	textures\whip_icon.png	    255	255	255
+20	textures\misc.png	        176	224	248
+21	textures\simonRenderWhenTakeWeapon.png	        255	0	255
 
 # id	left	top	right	bottom	texture_id
 [SPRITES]
@@ -66,6 +67,16 @@
 10091	420	264	480	330	1
 10092	0	330	60	396	1
 10093	60	330	120	396	1
+
+# take weapon right
+10101	382	0	435	65	21
+10102	447	0	500	65	21
+10103	512	0	565	65	21
+# take weapon left
+10104	135	0	180	65	21
+10105	70	0	115	65	21
+10106	6	0	50	65	21
+
 # die 
 10099	215	120	231	135	0
 
@@ -180,11 +191,15 @@
 508	10061	150	10081	150	10082	150	10083	150
 #sit attack left big
 509	10071	150	10091	150	10092	150	10093	150
-
 #jump right big
 510	10016	100
 #jump left big
 511	10017	100
+
+# take weapon right big
+512	10101	100	10102	100	10103	100
+# take weapon left big
+513	10104	100	10105	100	10106	100
 
 #die
 599	10099	100
@@ -241,7 +256,7 @@
 #
 [ANIMATION_SETS]
 # MARIO
-1	400	401	402	403	500	501	502	503	599	504	505	506	507	508	509	510	511
+1	400	401	402	403	500	501	502	503	599	504	505	506	507	508	509	510	511	512	513
 # WHIP 
 4	801	802	803	804	805	806
 # LIGHT 

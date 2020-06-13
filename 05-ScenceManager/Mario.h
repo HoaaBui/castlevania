@@ -22,6 +22,7 @@
 #define MARIO_STATE_SIT_LEFT				800
 #define MARIO_STATE_ATTACK_SIT_RIGHT		900
 #define MARIO_STATE_ATTACK_SIT_LEFT			1000
+#define MARIO_STATE_TAKE_WEAPON				1100
 
 #define MARIO_ANI_BIG_IDLE_RIGHT			0
 #define MARIO_ANI_BIG_IDLE_LEFT				1
@@ -44,6 +45,9 @@
 
 #define MARIO_ANI_BIG_JUMP_RIGHT			15
 #define MARIO_ANI_BIG_JUMP_LEFT				16
+
+#define MARIO_ANI_BIG_TAKE_WEAPON_RIGHT		17
+#define MARIO_ANI_BIG_TAKE_WEAPON_LEFT		18
 
 #define MARIO_ANI_DIE						8
 
@@ -87,8 +91,11 @@ public:
 	static CMario* GetInstance();
 
 	int simonCurrentFrame;
-
 	bool canUseKnife;
+
+	bool isTakeWeapon;
+	DWORD takeWeaponTime;
+
 public: 
 	CMario();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);

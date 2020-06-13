@@ -525,7 +525,8 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states){
 	CMario *marioo = CMario::GetInstance();
 	// disable control key when Mario die 
 	if (marioo->GetState() == MARIO_STATE_DIE 
-	|| marioo->isUsedSubWeapon == true) return;
+	|| marioo->isUsedSubWeapon == true
+	|| marioo->isTakeWeapon == true) return;
 	
 	if(game->IsKeyDown(DIK_A)){}
 

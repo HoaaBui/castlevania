@@ -34,7 +34,10 @@ CMario::CMario() : CGameObject(){
 	isGoingOnStair = false;
 
 	this->simonCurrentFrame = -1;
-	this->canUseKnife = true;
+	this->canUseKnife = false;
+
+	this->isTakeWeapon = false;
+	this->takeWeaponTime = 0;
 }
 
 CMario* CMario::instance = NULL;
@@ -132,6 +135,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 				CHeart *heart = dynamic_cast<CHeart *>(e->obj);
 				heart->state = HEART_STATE_DEAD;
 				heart->isCollision = false;
+				// fix bug xet va cham
+				heart->x = 10000;
+				heart->y = 10000;
 			}else if (dynamic_cast<CBrickStair *>(e->obj)){
 				CBrickStair *bStair = dynamic_cast<CBrickStair *>(e->obj);
 				// this->isTouchingBrickStair = true;
@@ -151,6 +157,12 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 				CWhipIcon *wIcon = dynamic_cast<CWhipIcon *>(e->obj);
 				wIcon->state = WHIP_ICON_STATE_DEAD;
 				wIcon->isCollision = false;
+				wIcon->state = WHIP_ICON_STATE_DEAD;
+				wIcon->x = 10000;
+				wIcon->y = 10000;
+
+				this->isTakeWeapon = true;
+				this->state = MARIO_STATE_TAKE_WEAPON;
 
 				// Xet level cho cay roi
 				if(whip->level == 0){
@@ -164,6 +176,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 				// DebugOut(L"[INFO] Co chay vao cai icon: \n");
 				CKnifeIcon *kIcon = dynamic_cast<CKnifeIcon *>(e->obj);
 				kIcon->state = KNIFE_ICON_STATE_DEAD;
+				kIcon->x = 10000;
+				kIcon->y = 10000;
 				this->canUseKnife = true;
 				kIcon->isCollision = false;
 			}
@@ -231,10 +245,27 @@ void CMario::Render(){
 		}
 	}
 
+	if(this->isTakeWeapon == true){
+		this->takeWeaponTime +=dt;
+		if(nx>0){
+			ani = MARIO_ANI_BIG_TAKE_WEAPON_RIGHT;
+		}else{
+			ani = MARIO_ANI_BIG_TAKE_WEAPON_LEFT;
+		}
+	}
+
+	if(this->takeWeaponTime > 350){
+
+		animation_set->at(ani)->SetCurrentFrame(-1);
+		this->takeWeaponTime = 0.0f;
+		this->isTakeWeapon = false;
+		this->state = MARIO_STATE_IDLE;
+	}
+
 	int currentFrame = -1;
 	animation_set->at(ani)->GetCurrentFrame(currentFrame);
 
-	// con so 300 la do mo dai
+	// con so 320 la do mo dai
 	if(attackTime >= 320){
 		animation_set->at(MARIO_ANI_BIG_ATTACK_STAND_RIGHT)->SetCurrentFrame(-1);
 		animation_set->at(MARIO_ANI_BIG_ATTACK_STAND_LEFT)->SetCurrentFrame(-1);
@@ -285,7 +316,7 @@ void CMario::Render(){
 	int curFrame = -1;
 	animation_set->at(ani)->GetCurrentFrame(curFrame);
 
-    animation_set->at(ani)->Render(x, y, alpha);	
+	animation_set->at(ani)->Render(x, y, alpha);	
 
 	whip->simonCurrentFrame = currentFrame;
 	whip->simonPosX = x;
@@ -348,6 +379,9 @@ void CMario::SetState(int state){
 			break;
 		case MARIO_STATE_DIE:
 			vy = -MARIO_DIE_DEFLECT_SPEED;
+			break;
+		case MARIO_STATE_TAKE_WEAPON:
+			vx = 0;
 			break;
 	}
 }
