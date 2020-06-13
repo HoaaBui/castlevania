@@ -41,7 +41,7 @@ public:
 
 	int level; // cap do cua cay roi
 	bool isSimonSit;
-	
+	int count;
 public:
     CWhip();
 	~CWhip();

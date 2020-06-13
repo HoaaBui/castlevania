@@ -19,15 +19,13 @@
 #include "BrickScene2.h"
 #include "BrickStair.h"
 #include "WhipIcon.h"
+#include "KnifeIcon.h"
 
 using namespace std;
 
 CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 	CScene(id, filePath)
 {
-	// mario = CMario::GetInstance();
-	// Khong hieu tai sao ham khoi tao lai chay nhieu lan nen viet ham rieng tao gia tri cho SIMON
-	// dung 1 lan.
 	key_handler = new CPlayScenceKeyHandler(this);
 }
 
@@ -60,7 +58,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define OBJECT_TYPE_GOOMBA	2
 #define OBJECT_TYPE_KOOPAS	3
 #define OBJECT_TYPE_WHIP_ICON	14 // khong dung so 13
-
+#define OBJECT_TYPE_KNIFE_ICON	15
 #define OBJECT_TYPE_PORTAL	50
 
 #define MAX_SCENE_LINE 1024
@@ -212,6 +210,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
 	// case OBJECT_TYPE_BRICK_SCENE2: obj = new CBrickScene2(); break;
 	case OBJECT_TYPE_WHIP_ICON: obj = new CWhipIcon(); break;
+	case OBJECT_TYPE_KNIFE_ICON: obj = new CKnifeIcon(); break;
 	case OBJECT_TYPE_LIGHT: obj = new CLight(); break;
 	case OBJECT_TYPE_WHIP:  obj = new CWhip(); break;
 	case OBJECT_TYPE_KNIFE:  obj = new CKnife(); break;
@@ -450,7 +449,6 @@ void CPlayScene::Unload()
 
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-	//CMario *mario = ((CPlayScene*)scence)->player;
 	CMario *marioo = CMario::GetInstance();
 	switch (KeyCode)
 	{
@@ -476,7 +474,10 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 		}
 		break;
 	case DIK_S:
-		if(marioo->isUsedSubWeapon == true) break;
+		if(marioo->isUsedSubWeapon == true
+		  || marioo->isUsedSubWeapon == true
+		  || marioo->canUseKnife == false) break;
+		  
 		marioo->isUsedSubWeapon = true;
 		if (marioo->nx > 0){
 			marioo->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);
@@ -498,17 +499,11 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 
 void CPlayScenceKeyHandler::OnKeyUp(int KeyCode){
 	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
-	//CMario *mario = ((CPlayScene*)scence)->player;
 	CMario *marioo = CMario::GetInstance();
 	switch (KeyCode){
 		case DIK_DOWN:
-			// if (marioo->isAttack){
-			// 	CWhip * whip = CWhip::GetInstance();
-			// 	whip->animation_set->at(0)->SetCurrentFrame(-1);
-		    //     whip->animation_set->at(1)->SetCurrentFrame(-1);
-			// }
 			
-			if (marioo->isAttack == true ){
+			if (marioo->isAttack == true && marioo->isUsedWhip == true){
 				marioo->animation_set->at(MARIO_ANI_BIG_ATTACK_STAND_RIGHT)->SetCurrentFrame(-1);
 				marioo->animation_set->at(MARIO_ANI_BIG_ATTACK_STAND_LEFT)->SetCurrentFrame(-1);
 				marioo->whip->animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(-1);
@@ -527,20 +522,20 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode){
 
 void CPlayScenceKeyHandler::KeyState(BYTE *states){
 	CGame *game = CGame::GetInstance();
-	//CMario *mario = ((CPlayScene*)scence)->player;
 	CMario *marioo = CMario::GetInstance();
 	// disable control key when Mario die 
 	if (marioo->GetState() == MARIO_STATE_DIE 
 	|| marioo->isUsedSubWeapon == true) return;
-	// Set State for Mario
+	
+	if(game->IsKeyDown(DIK_A)){}
+
 	if(game->IsKeyDown(DIK_RIGHT) && marioo->isSit == false && !marioo->isAttack){
 		marioo->SetState(MARIO_STATE_WALKING_RIGHT);
 	}else if (game->IsKeyDown(DIK_LEFT) && marioo->isSit == false && !marioo->isAttack){
 		marioo->SetState(MARIO_STATE_WALKING_LEFT);
 	}else if(game->IsKeyDown(DIK_DOWN) && !marioo->isAttack && !marioo->isJumped){
-		marioo->isSit = true;
+		// marioo->isSit = true;
 		marioo->SetState(MARIO_STATE_SIT_RIGHT);
-		// mario->SetState(MARIO_STATE_SIT_LEFT);
 	}else{
 		marioo->SetState(MARIO_STATE_IDLE);
 	}

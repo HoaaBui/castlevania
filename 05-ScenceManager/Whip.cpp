@@ -6,6 +6,7 @@
 #include "SmallCandle.h"
 #include "Utils.h"
 #include "WhipIcon.h"
+#include "KnifeIcon.h"
 
 CWhip::CWhip(){
     this->simonCurrentFrame = -1;
@@ -14,6 +15,7 @@ CWhip::CWhip(){
 	this->tag = 3;
 	this->level = WHIP_LEVEL_0;
 	this->isSimonSit = false;
+	this->count = 0;
 }
 
 CWhip::~CWhip(){}
@@ -227,18 +229,19 @@ void CWhip::GetBoundingBox(float &l, float &t, float &r, float &b){
 }
 
 void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
+
 	if(simonCurrentFrame == 3){
 		if(nx>0){
 			if(level == 0){
-				this->x = simonPosX + 50;
+				this->x = simonPosX + 45;
 				this->y = simonPosY + 13;
 			}else if(level == 1){
-				this->x = simonPosX + 80;
+				this->x = simonPosX + 60;
 				this->y = simonPosY + 13;
 			}
 		}else{
 			if(level == 0){
-				this->x = simonPosX - 30;
+				this->x = simonPosX - 34;
 				this->y = simonPosY + 13;
 			}else if(level == 1){
 				this->x = simonPosX - 60;
@@ -289,9 +292,13 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 				smallCandle->state = SMALL_CANDLE_STATE_DEAD;
 			}
 			if (dynamic_cast<CWhipIcon *>(e->obj)){
-				DebugOut(L"[INFO] Co chay vao cai icon: \n");
+				// DebugOut(L"[INFO] Co chay vao cai icon: \n");
 				CWhipIcon *wIcon = dynamic_cast<CWhipIcon *>(e->obj);
 				wIcon->isCollision = true;
+			}
+			if (dynamic_cast<CKnifeIcon *>(e->obj)){
+				CKnifeIcon *kIcon = dynamic_cast<CKnifeIcon *>(e->obj);
+				kIcon->isCollision = true;
 			}
 		}
 	}

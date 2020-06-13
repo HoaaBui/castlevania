@@ -87,6 +87,8 @@ public:
 	static CMario* GetInstance();
 
 	int simonCurrentFrame;
+
+	bool canUseKnife;
 public: 
 	CMario();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);

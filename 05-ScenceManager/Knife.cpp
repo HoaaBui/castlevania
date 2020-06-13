@@ -1,6 +1,8 @@
 #include "Knife.h"
 #include "Light.h"
 #include "Mario.h"
+#include "Heart.h"
+#include "WhipIcon.h"
 
 CKnife::CKnife(){
 	this->simonCurrentFrame = -1;
@@ -18,6 +20,27 @@ CKnife * CKnife::GetInstance(){
 		instance = new CKnife();
 	}
 	return instance;
+}
+
+void CKnife::filterUnwantedColliableObjectForKnife(
+	vector<LPGAMEOBJECT> *coObjects, vector<LPGAMEOBJECT> &result){
+	vector<LPGAMEOBJECT> filter;
+
+	// for (UINT i = 0; i < coObjects->size(); i++){
+	// 	if (coObjects->at(i)->isCollision == true) {
+	// 			filter.push_back(coObjects->at(i));
+	// 	}
+	// }
+
+	for (UINT i = 0; i < coObjects->size(); i++){
+		if(coObjects->at(i)->tag != 6){
+			if (coObjects->at(i)->isCollision == true){
+				filter.push_back(coObjects->at(i));
+			}
+		}
+	}
+
+	result = filter;
 }
 
 void CKnife::Render(){
@@ -78,8 +101,11 @@ void CKnife::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 	vector<LPGAMEOBJECT> filterCoObjs;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 	coEvents.clear();
-	CalcPotentialCollisions(coObjects, coEvents);
+	
+	filterUnwantedColliableObjectForKnife(coObjects,filterCoObjs);
+	CalcPotentialCollisions(&filterCoObjs, coEvents);
 
+	CMario *mario = CMario::GetInstance();
 	if (coEvents.size()!=0){
 		float min_tx, min_ty, nx = 0, ny;
 		float rdx = 0; 
@@ -102,13 +128,33 @@ void CKnife::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 				// if (e->nx == 0){
 					light->SetState(LIGHT_STATE_DEAD);
 					this->state = KNIFE_STATE_DISAPPEAR;
-					CMario *mario = CMario::GetInstance();
 					mario->isUsedSubWeapon = false;
 					mario->simonCurrentFrame = -1;
 					this->x = mario->x;
 					this->y = mario->y;
 					this->count = 0;
 				// }
+			}
+
+			if (dynamic_cast<CHeart *>(e->obj)){
+				CHeart *heart = dynamic_cast<CHeart *>(e->obj);
+				heart->isCollision = false;
+				mario->isUsedSubWeapon = false;
+				mario->simonCurrentFrame = -1;
+				this->x = mario->x;
+				this->y = mario->y;
+				this->count = 0;
+			}
+
+			if (dynamic_cast<CWhipIcon *>(e->obj)){
+				// DebugOut(L"[INFO] Co chay vao cai icon: \n");
+				CWhipIcon *wIcon = dynamic_cast<CWhipIcon *>(e->obj);
+				wIcon->isCollision = false;
+				mario->isUsedSubWeapon = false;
+				mario->simonCurrentFrame = -1;
+				this->x = mario->x;
+				this->y = mario->y;
+				this->count = 0;
 			}
 		}
 	}else if(this->count == 1){

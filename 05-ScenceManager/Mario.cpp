@@ -13,6 +13,7 @@
 #include "BrickStair.h"
 #include "Brick.h"
 #include "WhipIcon.h"
+#include "KnifeIcon.h"
 
 CMario::CMario() : CGameObject(){
 	level = MARIO_LEVEL_BIG;
@@ -33,6 +34,7 @@ CMario::CMario() : CGameObject(){
 	isGoingOnStair = false;
 
 	this->simonCurrentFrame = -1;
+	this->canUseKnife = true;
 }
 
 CMario* CMario::instance = NULL;
@@ -157,6 +159,14 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 					// whip->level += 1;
 				}
 			}
+
+			if (dynamic_cast<CKnifeIcon *>(e->obj)){
+				// DebugOut(L"[INFO] Co chay vao cai icon: \n");
+				CKnifeIcon *kIcon = dynamic_cast<CKnifeIcon *>(e->obj);
+				kIcon->state = KNIFE_ICON_STATE_DEAD;
+				this->canUseKnife = true;
+				kIcon->isCollision = false;
+			}
 		}
 	}
 	// clean up collision events
@@ -165,7 +175,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 	if(this->isUsedWhip && whip != NULL){
 		whip->Update(dt,coObjects);
 	}
-	if(this->isUsedSubWeapon && knife != NULL){
+	if(this->isUsedSubWeapon == true && this->canUseKnife == true){
 		knife->Update(dt,coObjects);
 	}
 	if(this->isUsedSubWeaponBoomerang){
@@ -224,8 +234,8 @@ void CMario::Render(){
 	int currentFrame = -1;
 	animation_set->at(ani)->GetCurrentFrame(currentFrame);
 
-	// con so 220 la do mo dai
-	if(attackTime >= 300){
+	// con so 300 la do mo dai
+	if(attackTime >= 320){
 		animation_set->at(MARIO_ANI_BIG_ATTACK_STAND_RIGHT)->SetCurrentFrame(-1);
 		animation_set->at(MARIO_ANI_BIG_ATTACK_STAND_LEFT)->SetCurrentFrame(-1);
 		whip->animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(-1);
@@ -247,12 +257,11 @@ void CMario::Render(){
 	knife->simonPosX = x;
 	knife->simonPosY = y;
 	this->simonCurrentFrame = currentFrame;
-	if(this->isUsedSubWeapon == true){
+	if(this->isUsedSubWeapon == true && this->canUseKnife == true){
 		if(this->isSit == true){
 			this->isUsedSubWeapon == false;
 		}else{
 			if(nx>0){
-				// DebugOut(L"[INFO] Ham co chay dieu kien con dao vao");
 				knife->SetState(KNIFE_STATE_RIGHT);
 			}else{
 				knife->SetState(KNIFE_STATE_LEFT);
@@ -283,9 +292,9 @@ void CMario::Render(){
 	whip->simonPosY = y;
 	whip->isSimonSit = this->isSit;
 
-	if(this->isUsedSubWeapon == true){
-		DebugOut(L"[INFO] This is your Simon Attack current frame cua con dao: %d \n",currentFrame);
-	}
+	// if(this->isUsedSubWeapon == true || this->isAttack == true){
+	// 	DebugOut(L"[INFO] This is your Simon Attack current frame: %d \n",currentFrame);
+	// }
 
 	if(this->isAttack && this->isUsedWhip){
 		if(nx>0){
@@ -351,10 +360,10 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 	left = x;
 	top = y; 
 
-	if (level==MARIO_LEVEL_BIG) {
+	if(level == MARIO_LEVEL_BIG){
 		right = x + MARIO_BIG_BBOX_WIDTH;
 		bottom = y + MARIO_BIG_BBOX_HEIGHT;
-	} else {
+	}else{
 		right = x + MARIO_SMALL_BBOX_WIDTH;
 		bottom = y + MARIO_SMALL_BBOX_HEIGHT;
 	}

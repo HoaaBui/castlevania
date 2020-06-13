@@ -254,6 +254,8 @@
 8	1201
 # whip icon
 14	1501
+# knife icon
+15	1001
 # BRICK 
 2	601
 # QUESTION MARK BRICK 
@@ -281,19 +283,22 @@
 
 # heart
 8	255	316	8
-
+8	615	316	8
+8	795	316	8
+8	975	316	8
 # whip icon
 14	435	320	14
 
+# knife icon
+15	1055	316	15
+
 # LIGHT
 5	255	316	5
-# heart an gian khuc nay do chay bi loi
-#8	435	316	8
 5	435	316	5
 5	615	316	5
 5	795	316	5
 5	975	316	5
-
+5	1055	316	5
 # BRICK 
 # --- platform (hint: I created the list using Excel!) ----
 1	0	380	2
@@ -354,5 +359,5 @@
 
 # --- SCENE PORTAL ----
 # type	l	t	ani_set_id	r	b	scene_id
-50	1369	316	0	1450	350	2
+#50	1369	316	0	1450	350	2
 
