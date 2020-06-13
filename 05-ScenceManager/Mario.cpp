@@ -38,6 +38,8 @@ CMario::CMario() : CGameObject(){
 
 	this->isTakeWeapon = false;
 	this->takeWeaponTime = 0;
+
+	this->isWalking = false;
 }
 
 CMario* CMario::instance = NULL;
@@ -349,10 +351,12 @@ void CMario::SetState(int state){
 		case MARIO_STATE_WALKING_RIGHT:
 			vx = MARIO_WALKING_SPEED;
 			nx = 1;
+			this->isWalking = true;
 			break;
 		case MARIO_STATE_WALKING_LEFT: 
 			vx = -MARIO_WALKING_SPEED;
 			nx = -1;
+			this->isWalking = true;
 			break;
 		case MARIO_STATE_ATTACK_STAND_RIGHT: 
 			vx = 0;
@@ -379,6 +383,7 @@ void CMario::SetState(int state){
 			vy = -MARIO_JUMP_SPEED_Y;
 		case MARIO_STATE_IDLE: 
 			vx = 0;
+			this->isWalking = false;
 			break;
 		case MARIO_STATE_DIE:
 			vy = -MARIO_DIE_DEFLECT_SPEED;

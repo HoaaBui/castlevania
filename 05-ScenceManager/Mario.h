@@ -96,6 +96,8 @@ public:
 	bool isTakeWeapon;
 	DWORD takeWeaponTime;
 
+	bool isWalking;
+
 public: 
 	CMario();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);

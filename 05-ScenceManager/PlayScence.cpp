@@ -461,7 +461,8 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 	case DIK_A: // reset
 
 		if(marioo->isUsedWhip == true || marioo->isAttack == true
-		   || marioo->state == MARIO_STATE_ATTACK_STAND_RIGHT){
+		   || marioo->state == MARIO_STATE_ATTACK_STAND_RIGHT
+		   || marioo->isWalking == true){
 			break;
 			DebugOut(L"[INFO] Phim attack bi can lien tuc \n");
 		}else{
@@ -528,8 +529,6 @@ void CPlayScenceKeyHandler::KeyState(BYTE *states){
 	|| marioo->isUsedSubWeapon == true
 	|| marioo->isTakeWeapon == true) return;
 	
-	if(game->IsKeyDown(DIK_A)){}
-
 	if(game->IsKeyDown(DIK_RIGHT) && marioo->isSit == false && !marioo->isAttack){
 		marioo->SetState(MARIO_STATE_WALKING_RIGHT);
 	}else if (game->IsKeyDown(DIK_LEFT) && marioo->isSit == false && !marioo->isAttack){
