@@ -3,15 +3,13 @@
 
 CAnimationSets * CAnimationSets::__instance = NULL;
 
-void CAnimation::Add(int spriteId, DWORD time)
-{
+void CAnimation::Add(int spriteId, DWORD time){
 	int t = time;
 	if (time == 0) t = this->defaultTime;
 
 	LPSPRITE sprite = CSprites::GetInstance()->Get(spriteId);
 
-	if (sprite == NULL)
-	{
+	if (sprite == NULL){
 		DebugOut(L"[ERROR] Sprite ID %d cannot be found!\n", spriteId);
 	}
 
@@ -43,29 +41,24 @@ void CAnimation::renderOnlyCurrentFrame(float x, float y, int alpha){
 
 CAnimations * CAnimations::__instance = NULL;
 
-CAnimations * CAnimations::GetInstance()
-{
+CAnimations * CAnimations::GetInstance(){
 	if (__instance == NULL) __instance = new CAnimations();
 	return __instance;
 }
 
-void CAnimations::Add(int id, LPANIMATION ani)
-{
+void CAnimations::Add(int id, LPANIMATION ani){
 	animations[id] = ani;
 }
 
-LPANIMATION CAnimations::Get(int id)
-{
+LPANIMATION CAnimations::Get(int id){
 	LPANIMATION ani = animations[id];
 	if (ani == NULL)
 		DebugOut(L"[ERROR] Failed to find animation id: %d\n", id);
 	return ani;
 }
 
-void CAnimations::Clear()
-{
-	for (auto x : animations)
-	{
+void CAnimations::Clear(){
+	for (auto x : animations){
 		LPANIMATION ani = x.second;
 		delete ani;
 	}
@@ -73,19 +66,14 @@ void CAnimations::Clear()
 	animations.clear();
 }
 
-CAnimationSets::CAnimationSets()
-{
+CAnimationSets::CAnimationSets(){}
 
-}
-
-CAnimationSets *CAnimationSets::GetInstance()
-{
+CAnimationSets *CAnimationSets::GetInstance(){
 	if (__instance == NULL) __instance = new CAnimationSets();
 	return __instance;
 }
 
-LPANIMATION_SET CAnimationSets::Get(unsigned int id)
-{
+LPANIMATION_SET CAnimationSets::Get(unsigned int id){
 	LPANIMATION_SET ani_set = animation_sets[id];
 	if (ani_set == NULL)
 		DebugOut(L"[ERROR] Failed to find animation set id: %d\n",id);
@@ -93,7 +81,6 @@ LPANIMATION_SET CAnimationSets::Get(unsigned int id)
 	return ani_set;
 }
 
-void CAnimationSets::Add(int id, LPANIMATION_SET ani_set)
-{
+void CAnimationSets::Add(int id, LPANIMATION_SET ani_set){
 	animation_sets[id] = ani_set;
 }

@@ -240,7 +240,7 @@ void CMario::Render(){
 		animation_set->at(MARIO_ANI_BIG_ATTACK_STAND_LEFT)->SetCurrentFrame(-1);
 		whip->animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(-1);
 		whip->animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(-1);
-
+  
 		attackTime = 0.0f;
 		this->isUsedWhip = false;
 		this->isAttack = false;
@@ -285,16 +285,12 @@ void CMario::Render(){
 	int curFrame = -1;
 	animation_set->at(ani)->GetCurrentFrame(curFrame);
 
-	animation_set->at(ani)->Render(x, y, alpha);	
+    animation_set->at(ani)->Render(x, y, alpha);	
 
 	whip->simonCurrentFrame = currentFrame;
 	whip->simonPosX = x;
 	whip->simonPosY = y;
 	whip->isSimonSit = this->isSit;
-
-	// if(this->isUsedSubWeapon == true || this->isAttack == true){
-	// 	DebugOut(L"[INFO] This is your Simon Attack current frame: %d \n",currentFrame);
-	// }
 
 	if(this->isAttack && this->isUsedWhip){
 		if(nx>0){
