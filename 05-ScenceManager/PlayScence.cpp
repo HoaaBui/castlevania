@@ -453,7 +453,9 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		if(marioo->isSit == true) return;
+		if(marioo->isSit == true 
+		  || marioo->isUsedSubWeapon == true
+		  || marioo->isTakeWeapon == true) return;
 		if(marioo->isJumped == false){
 			marioo->SetState(MARIO_STATE_JUMP);
 		}
@@ -462,7 +464,9 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 
 		if(marioo->isUsedWhip == true || marioo->isAttack == true
 		   || marioo->state == MARIO_STATE_ATTACK_STAND_RIGHT
-		   || marioo->isWalking == true){
+		   || marioo->isWalking == true
+		   || marioo->isUsedSubWeapon == true
+		   || marioo->isTakeWeapon == true){
 			break;
 			DebugOut(L"[INFO] Phim attack bi can lien tuc \n");
 		}else{
@@ -476,8 +480,8 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 		break;
 	case DIK_S:
 		if(marioo->isUsedSubWeapon == true
-		  || marioo->isUsedSubWeapon == true
-		  || marioo->canUseKnife == false) break;
+		  || marioo->canUseKnife == false
+		  || marioo->isTakeWeapon == true) break;
 		  
 		marioo->isUsedSubWeapon = true;
 		if (marioo->nx > 0){
@@ -487,7 +491,10 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 		}
 		break;
 	case DIK_D:
-		if(marioo->isUsedSubWeaponBoomerang) return;
+		if(marioo->isUsedSubWeaponBoomerang == true
+		||  marioo->isUsedSubWeapon == true
+		|| marioo->isTakeWeapon == true) return;
+
 		marioo->isUsedSubWeaponBoomerang = true;
 		if (marioo->nx > 0){
 			marioo->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);

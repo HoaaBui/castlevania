@@ -173,5 +173,8 @@
     <ClInclude Include="KnifeIcon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DefineNumber.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
