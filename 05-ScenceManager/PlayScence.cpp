@@ -197,18 +197,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	switch (object_type)
 	{
-	case OBJECT_TYPE_MARIO:
-		// if (mario!=NULL) 
-		// {
-		// 	DebugOut(L"[ERROR] MARIO object was created before! ");
-		// 	return;
-		// }
-		// obj = new CMario(); 
-		// mario = (CMario*)obj;  
-		break;
+	case OBJECT_TYPE_MARIO: break;
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
-	// case OBJECT_TYPE_BRICK_SCENE2: obj = new CBrickScene2(); break;
 	case OBJECT_TYPE_WHIP_ICON: obj = new CWhipIcon(); break;
 	case OBJECT_TYPE_KNIFE_ICON: obj = new CKnifeIcon(); break;
 	case OBJECT_TYPE_LIGHT: obj = new CLight(); break;
@@ -279,19 +270,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 void CPlayScene::Load(){
 	// khoi tao gia tri cho SIMON
 	this->mario = CMario::GetInstance();
-	// map1 = new CTileMap(L"textures\\map1_tiled.PNG", 64, 64, 14, 8);
-	// //map1 = new CTileMap(L"textures\\map1_tiled.PNG", 64, 64, 16, 2);
-	// map1->initMap("map1.txt", MAP1_LENGTH);
-	
-	// map2 = new CTileMap(L"textures\\map2_tiled.PNG", 64, 64, 16, 2);
-	// map2->initMap("map2.txt", MAP2_LENGTH);
-	
-	// map3 = new CTileMap(L"textures\\map3_tiled.PNG", 64, 64, 10, 5);
-	// map3->initMap("map3.txt", MAP3_LENGTH);
-
-	// map4 = new CTileMap(L"textures\\map4_tiled.PNG", 64, 64, 17, 5);
-	// map4->initMap("map4.txt", MAP4_LENGTH);
-	// DebugOut(L"[INFO] This is your happy command: \n");
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
 
 	ifstream f;
@@ -381,17 +359,17 @@ void CPlayScene::Update(DWORD dt)
 		}
 		cx=255;
 	}else if(a==1){
-		if(cx<=0){
-			mario->SetPosition(0,cy);
-		}else if(cx>=1369){
-			mario->SetPosition(1369,cy);
-		}
+		// if(cx<=0){
+		// 	mario->SetPosition(0,cy);
+		// }else if(cx>=1369){
+		// 	mario->SetPosition(1369,cy);
+		// }
 		//Update camera position
-		if( cx<0 || (cx>=0 && cx<=255) ){
-			cx=255;
-		}else if(cx>=1259){
-			cx=1259;
-		}
+		// if( cx<0 || (cx>=0 && cx<=255) ){
+		// 	cx=255;
+		// }else if(cx>=1259){
+		// 	cx=1259;
+		// }
 	}else if(a==4){ // scene 2.2
 		if(cx<=0){
 			mario->SetPosition(0,cy);

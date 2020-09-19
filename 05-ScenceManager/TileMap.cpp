@@ -83,12 +83,7 @@ void CTileMap::renderMap(){
 
 				CSprite *tile = sprites->Get(map[i]);
 				float x = (c - startCol) * tileWidth + offsetX;
-				float y;
-				if(CGame::GetInstance()->current_scene == 1){
-					y = (r - startRow) * tileHeight + offsetY;
-				}else{
-					y = (r - startRow) * tileHeight + offsetY + 32;
-				}
+				float y = (r - startRow) * tileHeight + offsetY;
 
 				if (tile != NULL){
 					tile->Draw(x + game->GetInstance()->cam_x, y + game->GetInstance()->cam_y);

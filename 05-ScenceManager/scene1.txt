@@ -373,5 +373,5 @@
 
 # --- SCENE PORTAL ----
 # type	l	t	ani_set_id	r	b	scene_id
-#50	1369	316	0	1450	350	2
+50	1369	316	0	1450	350	2
 
