@@ -364,7 +364,7 @@ void CPlayScene::Update(DWORD dt)
 		}else if(cx>=1369){
 			mario->SetPosition(1369,cy);
 		}
-		Update camera position
+	//	Update camera position
 		if( cx<0 || (cx>=0 && cx<=255) ){
 			cx=255;
 		}else if(cx>=1259){

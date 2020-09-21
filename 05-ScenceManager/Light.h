@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 
 #define LIGHT_BBOX_WIDTH  32
@@ -11,9 +11,9 @@
 #define ANIMATION_LIGHT_ALIVE 	0
 #define ANIMATION_LIGHT_DEAD 	1
 
-class CLight : public CGameObject{
+class CLight : public CGameObject {
 public:
-	DWORD lifeTime;
+	DWORD lifeTime; /// dung để làm gì ??
 public:
 	CLight();
 	~CLight();
