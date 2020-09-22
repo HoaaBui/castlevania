@@ -1,6 +1,6 @@
 #include "Boomerang.h"
 #include "Light.h"
-#include "Mario.h"
+#include "simon.h"
 
 CBoomerang::CBoomerang(){
 	this->simonCurrentFrame = -1;
@@ -66,14 +66,14 @@ void CBoomerang::SetState(int state){
 }
 
 void CBoomerang::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
-	CMario *mario = CMario::GetInstance();
+	CSimon *simon = CSimon::GetInstance();
 	if(simonCurrentFrame == 2){
 		if(nx>0){
-			this->x = mario->x + 10;
-			this->y = mario->y;
+			this->x = simon->x + 10;
+			this->y = simon->y;
 		}else{
-			this->x = mario->x - 10;
-			this->y = mario->y;
+			this->x = simon->x - 10;
+			this->y = simon->y;
 		}
 	}
 
@@ -107,17 +107,17 @@ void CBoomerang::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 				CLight *light = dynamic_cast<CLight *>(e->obj);
 				light->SetState(LIGHT_STATE_DEAD);
 				this->state = BOOMERANG_STATE_DISAPPEAR;
-				CMario *mario = CMario::GetInstance();
+				CSimon *simon = CSimon::GetInstance();
 				this->x = 10000;
 				this->y = 10000;
-				mario->isUsedSubWeaponBoomerang = false;
+				simon->isUsedSubWeaponBoomerang = false;
 			}
 		}
 	}else{
-		CMario *mario = CMario::GetInstance();
-		if(abs(mario->x - this->x) > BOOMERANG_ATTACK_RANGE 
-		  && mario->isUsedSubWeaponBoomerang && this->isComingBack == false){
-		 	mario->isUsedSubWeaponBoomerang = false;
+		CSimon *simon = CSimon::GetInstance();
+		if(abs(simon->x - this->x) > BOOMERANG_ATTACK_RANGE 
+		  && simon->isUsedSubWeaponBoomerang){
+		 	simon->isUsedSubWeaponBoomerang = false;
 		 	this->state = BOOMERANG_STATE_DISAPPEAR;
 		 	this->x = 10000;
 		 	this->y = 10000;

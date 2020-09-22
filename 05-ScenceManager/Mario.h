@@ -4,7 +4,7 @@
 #include "Knife.h"
 #include "Boomerang.h"
 
-#define MARIO_WALKING_SPEED					0.1f 
+#define MARIO_WALKING_SPEED					0.5f 
 //0.1f
 #define MARIO_JUMP_SPEED_Y					0.65f
 #define MARIO_JUMP_DEFLECT_SPEED 			0.2f

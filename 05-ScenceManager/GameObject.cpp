@@ -28,7 +28,11 @@ void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects){
 }
 
 void CGameObject::filterUnwantedColliableObject(
-	vector<LPGAMEOBJECT> *coObjects, vector<LPGAMEOBJECT> &result){
+	vector<LPGAMEOBJECT> *coObjects, 
+	vector<LPGAMEOBJECT> &result
+
+)
+	{
 	vector<LPGAMEOBJECT> filter;
 
 	for (UINT i = 0; i < coObjects->size(); i++){
@@ -67,7 +71,7 @@ void CGameObject::CalcPotentialCollisions(
 		}else if(this->tag == 3 // Xet truong hop cho cay roi
 		&&( (abs(l - l1) < abs(l - r)) && ( abs(t-b1) < (abs(t1-b1) + abs(t-b)) ) )){
 			// DebugOut(L"[INFO] Ham co chay dieu kien cay roi vao");
-			e->t = 0.3;
+			e->t = 0.3f;
 			coEvents.push_back(e);
 		}else{delete e;}
 	}
@@ -138,7 +142,7 @@ void CGameObject::FilterCollision(
 		}
 		else if (c->t < min_tx && c->nx == 0){
 			min_ix = i;
-			// DebugOut(L"[INFO] Ham co chay dieu kien cay roi vao");
+		// DebugOut(L"[INFO] Ham co chay dieu kien cay roi vao");
 		}// xet va cham tu ben trong
 
 		if (min_ix>=0){

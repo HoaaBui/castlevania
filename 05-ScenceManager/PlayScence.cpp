@@ -10,10 +10,8 @@
 #include "Whip.h"
 #include "Light.h"
 #include "Knife.h"
-#include "Knight.h"
 #include "SmallCandle.h"
-#include "Knight.h"
-#include "Mario.h"
+#include "Simon.h"
 #include "Boomerang.h"
 #include "Heart.h"
 #include "BrickScene2.h"
@@ -44,7 +42,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define SCENE_SECTION_TILEMAP_IMAGE		7
 #define SCENE_SECTION_TILEMAP_MAPTXT	8
 
-#define OBJECT_TYPE_MARIO	0
+#define OBJECT_TYPE_SIMON	0
 #define OBJECT_TYPE_WHIP	4
 #define OBJECT_TYPE_LIGHT	5
 #define OBJECT_TYPE_KNIFE	6
@@ -197,7 +195,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	switch (object_type)
 	{
-	case OBJECT_TYPE_MARIO: break;
+	case OBJECT_TYPE_SIMON: break;
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
 	case OBJECT_TYPE_WHIP_ICON: obj = new CWhipIcon(); break;
@@ -205,7 +203,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_LIGHT: obj = new CLight(); break;
 	case OBJECT_TYPE_WHIP:  obj = new CWhip(); break;
 	case OBJECT_TYPE_KNIFE:  obj = new CKnife(); break;
-	case OBJECT_TYPE_KNIGHT:  obj = new CKnight(); break;
 	case OBJECT_TYPE_SMALL_CANDLE:	obj = new CSmallCandle(); break;
 	case OBJECT_TYPE_BOOMERANG:  obj = new CBoomerang(); break;
 	case OBJECT_TYPE_HEART:  obj = new CHeart(); break;
@@ -232,25 +229,25 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		return;
 	}
 
-	if(object_type == OBJECT_TYPE_MARIO){
-		mario->SetPosition(x, y);
+	if(object_type == OBJECT_TYPE_SIMON){
+		Simon->SetPosition(x, y);
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
-		mario->SetAnimationSet(ani_set);
+		Simon->SetAnimationSet(ani_set);
 	}else if(object_type == OBJECT_TYPE_WHIP){
 		obj->SetPosition(x, y);
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 		obj->SetAnimationSet(ani_set);
-		mario->whip = (CWhip*)obj;
+		Simon->whip = (CWhip*)obj;
 	}else if(object_type == OBJECT_TYPE_KNIFE){
 		obj->SetPosition(x, y);
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 		obj->SetAnimationSet(ani_set);
-		mario->knife = (CKnife*)obj; 
+		Simon->knife = (CKnife*)obj; 
 	}else if(object_type == OBJECT_TYPE_BOOMERANG){
 		obj->SetPosition(x, y);
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 		obj->SetAnimationSet(ani_set);
-		mario->boomerang = (CBoomerang*)obj; 
+		Simon->boomerang = (CBoomerang*)obj; 
 	}else if(object_type == OBJECT_TYPE_WHIP){
 		// DebugOut(L"[INFO] This is your happy commandabc: \n"); 
 
@@ -269,7 +266,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 void CPlayScene::Load(){
 	// khoi tao gia tri cho SIMON
-	this->mario = CMario::GetInstance();
+	this->Simon = CSimon::GetInstance();
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
 
 	ifstream f;
@@ -340,11 +337,11 @@ void CPlayScene::Update(DWORD dt)
 		objects[i]->Update(dt, &coObjects);
 	}
 
-	mario->Update(dt,&coObjects);
+	Simon->Update(dt,&coObjects);
 	
 	// Update camera to follow mario
 	float cx, cy;
-	mario->GetPosition(cx, cy);
+	Simon->GetPosition(cx, cy);
 	//Update Simon position
 
 	int a = CGame::GetInstance()->current_scene;
@@ -360,9 +357,9 @@ void CPlayScene::Update(DWORD dt)
 		// cx=255;
 	}else if(a==1){
 		if(cx<=0){
-			mario->SetPosition(0,cy);
+			Simon->SetPosition(0,cy);
 		}else if(cx>=1369){
-			mario->SetPosition(1369,cy);
+			Simon->SetPosition(1369,cy);
 		}
 	//	Update camera position
 		if( cx<0 || (cx>=0 && cx<=255) ){
@@ -372,9 +369,9 @@ void CPlayScene::Update(DWORD dt)
 		}
 	}else if(a==4){ // scene 2.2
 		if(cx<=0){
-			mario->SetPosition(0,cy);
+			Simon->SetPosition(0,cy);
 		}else if(cx>=920){
-			mario->SetPosition(920,cy);
+			Simon->SetPosition(920,cy);
 		}
 		//Update camera position
 		if( cx<0 || (cx>=0 && cx<=255) ){
@@ -384,9 +381,9 @@ void CPlayScene::Update(DWORD dt)
 		}
 	}else if(a==5){ // scene 3.1
 		if(cx<=0){
-			mario->SetPosition(0,cy);
+			Simon->SetPosition(0,cy);
 		}else if(cx>=1430){
-			mario->SetPosition(1430,cy);
+			Simon->SetPosition(1430,cy);
 		}
 		//Update camera position
 		if( cx<0 || (cx>=0 && cx<=250) ){
@@ -410,7 +407,7 @@ void CPlayScene::Render(){
 	for (int i = 0; i < objects.size(); i++){
 		objects[i]->Render();
 	}
-	mario->Render();
+	Simon->Render();
 }
 
 /*
@@ -422,62 +419,64 @@ void CPlayScene::Unload()
 		delete objects[i];
 
 	objects.clear();
-	mario = NULL;
+	Simon = NULL;
 }
 
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-	CMario *marioo = CMario::GetInstance();
+	CSimon *simon = CSimon::GetInstance();
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		if(marioo->isSit == true 
-		  || marioo->isUsedSubWeapon == true
-		  || marioo->isTakeWeapon == true) return;
-		if(marioo->isJumped == false){
-			marioo->SetState(MARIO_STATE_JUMP);
+		if(simon->isSit == true 
+		  || simon->isUsedSubWeaponKnife == true
+		  || simon->isTakeWeapon == true) 
+			return;
+		if(simon->isJumped == false){
+			simon->SetState(MARIO_STATE_JUMP);
 		}
 		break;
 	case DIK_A: // reset
-
-		if(marioo->isUsedWhip == true || marioo->isAttack == true
-		   || marioo->state == MARIO_STATE_ATTACK_STAND_RIGHT
-		   || marioo->isWalking == true
-		   || marioo->isUsedSubWeapon == true
-		   || marioo->isTakeWeapon == true){
+		if(simon->isUsedWhip == true 
+		   || simon->isAttack == true
+		   || simon->state == SIMON_STATE_ATTACK_STAND_RIGHT
+		   || simon->isWalking == true
+		   || simon->isUsedSubWeaponKnife == true
+		   || simon->isTakeWeapon == true){
 			break;
 			DebugOut(L"[INFO] Phim attack bi can lien tuc \n");
 		}else{
-			marioo->isUsedWhip = true;
-			if (marioo->nx > 0){
-				marioo->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);
+			simon->isUsedWhip = true;
+
+			if (simon->nx > 0){
+				simon->SetState(SIMON_STATE_ATTACK_STAND_RIGHT);
 			}else{
-				marioo->SetState(MARIO_STATE_ATTACK_STAND_LEFT);
+				simon->SetState(SIMON_STATE_ATTACK_STAND_LEFT);
 			}
 		}
 		break;
 	case DIK_S:
-		if(marioo->isUsedSubWeapon == true
-		  || marioo->canUseKnife == false
-		  || marioo->isTakeWeapon == true) break;
+		if(simon->isUsedSubWeaponKnife == true
+		  || simon->canUseKnife == false
+		  || simon->isTakeWeapon == true) break;
 		  
-		marioo->isUsedSubWeapon = true;
-		if (marioo->nx > 0){
-			marioo->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);
+		simon->isUsedSubWeaponKnife = true;
+		if (simon->nx > 0){
+			simon->SetState(SIMON_STATE_ATTACK_STAND_RIGHT);
 		}else{
-			marioo->SetState(MARIO_STATE_ATTACK_STAND_LEFT);
+			simon->SetState(SIMON_STATE_ATTACK_STAND_LEFT);
 		}
 		break;
 	case DIK_D:
-		if(marioo->isUsedSubWeaponBoomerang == true
-		||  marioo->isUsedSubWeapon == true
-		|| marioo->isTakeWeapon == true) return;
+		if(simon->isUsedSubWeaponBoomerang == true
+		||  simon->isUsedSubWeaponKnife== true
+		||	simon->isTakeWeapon == true) return;
 
-		marioo->isUsedSubWeaponBoomerang = true;
-		if (marioo->nx > 0){
-			marioo->SetState(MARIO_STATE_ATTACK_STAND_RIGHT);
+		simon->isUsedSubWeaponBoomerang = true;
+		if (simon->nx > 0){
+			simon ->SetState(SIMON_STATE_ATTACK_STAND_RIGHT);
 		}else{
-			marioo->SetState(MARIO_STATE_ATTACK_STAND_LEFT);
+			simon->SetState(SIMON_STATE_ATTACK_STAND_LEFT);
 		}
 		break;
 	}
@@ -485,18 +484,18 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode){
 
 void CPlayScenceKeyHandler::OnKeyUp(int KeyCode){
 	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
-	CMario *marioo = CMario::GetInstance();
-	switch (KeyCode){
+	CSimon *simon = CSimon::GetInstance();
+	switch (KeyCode) {
 		case DIK_DOWN:
 			
-			if (marioo->isAttack == true && marioo->isUsedWhip == true){
-				marioo->animation_set->at(MARIO_ANI_BIG_ATTACK_STAND_RIGHT)->SetCurrentFrame(-1);
-				marioo->animation_set->at(MARIO_ANI_BIG_ATTACK_STAND_LEFT)->SetCurrentFrame(-1);
-				marioo->whip->animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(-1);
-				marioo->whip->animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(-1);
-				marioo->attackTime = 0.0f;
+			if (simon->isAttack && simon->isUsedWhip){
+				simon->animation_set->at(SIMON_ANI_ATTACK_STAND_RIGHT)->SetCurrentFrame(-1);
+				simon->animation_set->at(SIMON_ANI_ATTACK_STAND_LEFT)->SetCurrentFrame(-1);
+				simon->whip->animation_set->at(ANIMATION_ATTACK_WHIP_RIGHT_ZERO)->SetCurrentFrame(-1);
+				simon->whip->animation_set->at(ANIMATION_ATTACK_WHIP_LEFT_ZERO)->SetCurrentFrame(-1);
+				simon->attackTime = 0.0f;
 			}else{
-				marioo->isSit = false;
+				simon->isSit = !simon->isSit;
 			}
 			
 			// marioo->isSit = false;
@@ -508,20 +507,23 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode){
 
 void CPlayScenceKeyHandler::KeyState(BYTE *states){
 	CGame *game = CGame::GetInstance();
-	CMario *marioo = CMario::GetInstance();
-	// disable control key when Mario die 
-	if (marioo->GetState() == MARIO_STATE_DIE 
-	|| marioo->isUsedSubWeapon == true
-	|| marioo->isTakeWeapon == true) return;
-	
-	if(game->IsKeyDown(DIK_RIGHT) && marioo->isSit == false && !marioo->isAttack){
-		marioo->SetState(MARIO_STATE_WALKING_RIGHT);
-	}else if (game->IsKeyDown(DIK_LEFT) && marioo->isSit == false && !marioo->isAttack){
-		marioo->SetState(MARIO_STATE_WALKING_LEFT);
-	}else if(game->IsKeyDown(DIK_DOWN) && !marioo->isAttack && !marioo->isJumped){
+	CSimon *simon = CSimon::GetInstance();
+
+	// disable control key when simon  die 
+	if (simon->GetState() == SIMON_STATE_DIE
+		|| simon->isUsedSubWeaponKnife == true
+		|| simon->isTakeWeapon == true)
+	{
+		return;
+	}
+	if(game->IsKeyDown(DIK_RIGHT) && !simon->isSit  && !simon->isAttack && !game->IsKeyDown(DIK_A)){
+		simon->SetState(SIMON_STATE_WALKING_RIGHT);
+	}else if (game->IsKeyDown(DIK_LEFT) && !simon->isSit && !simon->isAttack && !game->IsKeyDown(DIK_A)){
+		simon->SetState(SIMON_STATE_WALKING_LEFT);
+	}else if(game->IsKeyDown(DIK_DOWN) && !simon->isAttack && !simon->isJumped){
 		// marioo->isSit = true;
-		marioo->SetState(MARIO_STATE_SIT_RIGHT);
+		simon->SetState(SIMON_STATE_SIT_RIGHT);
 	}else{
-		marioo->SetState(MARIO_STATE_IDLE);
+		simon->SetState(SIMON_STATE_IDLE);
 	}
 }

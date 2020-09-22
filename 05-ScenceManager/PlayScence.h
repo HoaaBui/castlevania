@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Game.h"
 #include "Textures.h"
 #include "Scence.h"
@@ -6,6 +6,7 @@
 #include "Brick.h"
 #include "BrickScene2.h"
 #include "Mario.h"
+#include "Simon.h"
 #include "Goomba.h"
 #include "Koopas.h"
 #include "TileMap.h"
@@ -13,11 +14,12 @@
 #include "Light.h"
 #include "Knife.h"
 
+
+// Khơi tạo màn chơi cho game
 class CPlayScene: public CScene
 {
-public: 
-	CMario *player;					// A play scene has to have player, right?
-	CMario *mario;		 
+public: 				// A play scene has to have player, right?
+	CSimon *Simon ;		 
 	CTileMap *map1;
 	CTileMap *map2;
 	CTileMap *map3;
@@ -42,7 +44,7 @@ public:
 	virtual void Render();
 	virtual void Unload();
 
-	void initPlayer() { mario = CMario::GetInstance(); };
+	void initPlayer() {Simon = CSimon::GetInstance(); };
 
 	friend class CPlayScenceKeyHandler;
 };

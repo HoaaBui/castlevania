@@ -136,6 +136,7 @@
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Portal.cpp" />
+    <ClCompile Include="Simon.cpp" />
     <ClCompile Include="SmallCandle.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Utils.cpp" />
@@ -143,7 +144,6 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Mario.cpp" />
     <ClCompile Include="PlayScence.cpp" />
     <ClCompile Include="Scence.cpp" />
     <ClCompile Include="Sprites.cpp" />
@@ -165,6 +165,7 @@
     <ClInclude Include="Koopas.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Portal.h" />
+    <ClInclude Include="Simon.h" />
     <ClInclude Include="SmallCandle.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Utils.h" />
@@ -172,7 +173,6 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="KeyEventHandler.h" />
-    <ClInclude Include="Mario.h" />
     <ClInclude Include="PlayScence.h" />
     <ClInclude Include="Scence.h" />
     <ClInclude Include="Sprites.h" />

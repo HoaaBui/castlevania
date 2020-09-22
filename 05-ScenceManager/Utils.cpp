@@ -2,6 +2,8 @@
 
 #include "Utils.h"
 
+using namespace std;
+
 void DebugOut(wchar_t *fmt, ...)
 {
 	va_list argp;

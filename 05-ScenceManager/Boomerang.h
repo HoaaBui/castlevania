@@ -3,6 +3,7 @@
 #include "Light.h"
 // #include "Mario.h"
 
+using namespace std;
 #define BOOMERANG_BBOX_WIDTH  28
 #define BOOMERANG_BBOX_HEIGHT 28
 
@@ -29,9 +30,9 @@ public:
     CBoomerang();
 	~CBoomerang();
 
-	virtual void Render();
-	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
+	void Render();
+	void GetBoundingBox(float &l, float &t, float &r, float &b);
 
     void SetState(int state);
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
+	void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 };

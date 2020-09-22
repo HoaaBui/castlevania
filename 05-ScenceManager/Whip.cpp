@@ -2,7 +2,6 @@
 #include "Utils.h"
 #include "light.h"
 #include "Heart.h"
-#include "Knight.h"
 #include "SmallCandle.h"
 #include "Utils.h"
 #include "WhipIcon.h"
@@ -300,10 +299,10 @@ void CWhip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 				CHeart *heart = dynamic_cast<CHeart *>(e->obj);
 				heart->isCollision = true;
 			}
-			if (dynamic_cast<CKnight *>(e->obj)){
-				CKnight *knight = dynamic_cast<CKnight *>(e->obj);
-				knight->state = KNIGHT_STATE_DEAD;
-			}
+		//	if (dynamic_cast<CKnight *>(e->obj)){
+			//	CKnight *knight = dynamic_cast<CKnight *>(e->obj);
+		//		knight->state = KNIGHT_STATE_DEAD;
+		//	}
 			if (dynamic_cast<CSmallCandle *>(e->obj)){
 				CSmallCandle *smallCandle = dynamic_cast<CSmallCandle *>(e->obj);
 				smallCandle->state = SMALL_CANDLE_STATE_DEAD;

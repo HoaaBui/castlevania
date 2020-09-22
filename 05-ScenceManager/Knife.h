@@ -1,7 +1,6 @@
 #pragma once
 #include "GameObject.h"
 #include "Light.h"
-// #include "Mario.h"
 
 #define KNIFE_BBOX_WIDTH  32
 #define KNIFE_BBOX_HEIGHT 16

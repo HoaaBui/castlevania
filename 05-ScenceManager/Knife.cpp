@@ -1,6 +1,6 @@
 #include "Knife.h"
 #include "Light.h"
-#include "Mario.h"
+#include "simon.h"
 #include "Heart.h"
 #include "WhipIcon.h"
 
@@ -77,23 +77,23 @@ void CKnife::SetState(int state){
 }
 
 void CKnife::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
-	CMario *mario2 = CMario::GetInstance();
+	CSimon *simon2 = CSimon::GetInstance();
 
-	if(mario2->simonCurrentFrame == 3 && this->count == 0){
+	if(simon2->simonCurrentFrame == 3 && this->count == 0){
 		this->count = 1;
 		DebugOut(L"[INFO] Code co chay vao lay lai vi tri: \n");
 		if(nx>0){
-			this->x = mario2->x;
-			this->y = mario2->y;
+			this->x = simon2->x;
+			this->y = simon2->y;
 		}else{
-			this->x = mario2->x;
-			this->y = mario2->y;
+			this->x = simon2->x;
+			this->y = simon2->y;
 		}
 	}
 
-	if(mario2->isUsedSubWeapon == false){
-		this->x = mario2->x;
-		this->y = mario2->y;
+	if(simon2->isUsedSubWeaponKnife == false){
+		this->x = simon2->x;
+		this->y = simon2->y;
 	}
 
 	CGameObject::Update(dt);
@@ -105,7 +105,7 @@ void CKnife::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 	filterUnwantedColliableObjectForKnife(coObjects,filterCoObjs);
 	CalcPotentialCollisions(&filterCoObjs, coEvents);
 
-	CMario *mario = CMario::GetInstance();
+	CSimon *simon = CSimon::GetInstance();
 	if (coEvents.size()!=0){
 		float min_tx, min_ty, nx = 0, ny;
 		float rdx = 0; 
@@ -128,10 +128,10 @@ void CKnife::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 				// if (e->nx == 0){
 					light->SetState(LIGHT_STATE_DEAD);
 					this->state = KNIFE_STATE_DISAPPEAR;
-					mario->isUsedSubWeapon = false;
-					mario->simonCurrentFrame = -1;
-					this->x = mario->x;
-					this->y = mario->y;
+					simon->isUsedSubWeaponKnife = false;
+					simon->simonCurrentFrame = -1;
+					this->x = simon->x;
+					this->y = simon->y;
 					this->count = 0;
 				// }
 			}
@@ -139,10 +139,10 @@ void CKnife::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 			if (dynamic_cast<CHeart *>(e->obj)){
 				CHeart *heart = dynamic_cast<CHeart *>(e->obj);
 				heart->isCollision = false;
-				mario->isUsedSubWeapon = false;
-				mario->simonCurrentFrame = -1;
-				this->x = mario->x;
-				this->y = mario->y;
+				simon->isUsedSubWeaponKnife = false;
+				simon->simonCurrentFrame = -1;
+				this->x = simon->x;
+				this->y = simon->y;
 				this->count = 0;
 			}
 
@@ -150,21 +150,21 @@ void CKnife::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects){
 				// DebugOut(L"[INFO] Co chay vao cai icon: \n");
 				CWhipIcon *wIcon = dynamic_cast<CWhipIcon *>(e->obj);
 				wIcon->isCollision = false;
-				mario->isUsedSubWeapon = false;
-				mario->simonCurrentFrame = -1;
-				this->x = mario->x;
-				this->y = mario->y;
+				simon->isUsedSubWeaponKnife = false;
+				simon->simonCurrentFrame = -1;
+				this->x = simon->x;
+				this->y = simon->y;
 				this->count = 0;
 			}
 		}
 	}else if(this->count == 1){
-		CMario *mario5 = CMario::GetInstance();
-		if (abs(mario5->x - this->x) > KNIFE_ATTACK_RANGE 
-		 	&& mario5->isUsedSubWeapon == true){
-		 	mario5->isUsedSubWeapon = false;
+		CSimon *simon5 = CSimon::GetInstance();
+		if (abs(simon5->x - this->x) > KNIFE_ATTACK_RANGE 
+		 	&& simon5->isUsedSubWeaponKnife == true){
+		 	simon5->isUsedSubWeaponKnife = false;
 		 	this->state = KNIFE_STATE_DISAPPEAR;
-		 	this->x = mario5->x;
-		 	this->y = mario5->y;
+		 	this->x = simon5->x;
+		 	this->y = simon5->y;
 			this->count = 0;
 		}
 		x += dx;
