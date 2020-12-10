@@ -1,19 +1,31 @@
-#pragma once
+﻿#pragma once
 #include "Game.h"
 #include "Textures.h"
 #include "Scence.h"
 #include "GameObject.h"
 #include "Brick.h"
+#include "BrickScene2.h"
 #include "Mario.h"
+#include "Simon.h"
 #include "Goomba.h"
 #include "Koopas.h"
+#include "TileMap.h"
+#include "Whip.h"
+#include "Light.h"
+#include "Knife.h"
 
 
+// Khơi tạo màn chơi cho game
 class CPlayScene: public CScene
 {
-protected: 
-	CMario *player;					// A play scene has to have player, right? 
+public: 				// A play scene has to have player, right?
+	CSimon *Simon ;		 
+	CTileMap *map1;
+	CTileMap *map2;
+	CTileMap *map3;
+	CTileMap *map4;
 
+	CTileMap *map;
 	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_TEXTURES(string line);
@@ -21,6 +33,9 @@ protected:
 	void _ParseSection_ANIMATIONS(string line);
 	void _ParseSection_ANIMATION_SETS(string line);
 	void _ParseSection_OBJECTS(string line);
+
+	void _ParseSection_TILEMAP_IMAGE(string line);
+	void _ParseSection_TILEMAP_MAPTXT(string line);
 public: 
 	CPlayScene(int id, LPCWSTR filePath);
 
@@ -28,6 +43,8 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
+
+	void initPlayer() {Simon = CSimon::GetInstance(); };
 
 	friend class CPlayScenceKeyHandler;
 };

@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\SourceGame_LV1">
+      <UniqueIdentifier>{1e84e90e-576e-4e0a-9b9d-4f8b22b27fed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Intro">
+      <UniqueIdentifier>{f542e867-c4e3-40ba-b75f-12d78089ea91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\headerGame_LV1">
+      <UniqueIdentifier>{2d5672ed-a18f-4fb3-b966-e715fc8f19ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\headerIntro">
+      <UniqueIdentifier>{2358f81e-d727-4ea0-a81e-a58e2fec3306}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Brick.cpp">
@@ -28,9 +40,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Mario.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Sprites.cpp">
@@ -57,6 +66,45 @@
     <ClCompile Include="Portal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Whip.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Knife.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Boomerang.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Heart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BrickScene2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Knight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SmallCandle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BrickStair.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WhipIcon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KnifeIcon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Simon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Brick.h">
@@ -69,9 +117,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Goomba.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mario.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Sprites.h">
@@ -99,6 +144,48 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Portal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Whip.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Knife.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Boomerang.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Heart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BrickScene2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Knight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SmallCandle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BrickStair.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WhipIcon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KnifeIcon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DefineNumber.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Simon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

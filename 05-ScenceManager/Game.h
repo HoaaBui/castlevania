@@ -16,8 +16,8 @@ using namespace std;
 
 #define KEYBOARD_BUFFER_SIZE 1024
 
-class CGame
-{
+class CGame{
+public:
 	static CGame * __instance;
 	HWND hWnd;									// Window handle
 
@@ -46,6 +46,7 @@ class CGame
 
 	void _ParseSection_SETTINGS(string line);
 	void _ParseSection_SCENES(string line);
+
 
 public:
 	void InitKeyboard();
